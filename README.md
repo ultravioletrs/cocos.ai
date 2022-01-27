@@ -1,2 +1,2 @@
 # cocos.ai
-CoCoS-AI website
+Cocos AI Website

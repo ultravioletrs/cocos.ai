@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+    <head>
+        <title>CoCoS</title>
+        <link rel="shortcut icon" type="images/favicon1" href="images/favicon1.png"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="main.css">
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+      <nav class="navbar py-3 py-lg-5">
+          <a class="navbar-brand" href="index.html"><img src="images/istockphoto-697845156-612x612.jpg" alt="Logo" style="width: 150px;"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"></button>
+          <ul class="nav justify-content-center">
+              <li class="nav-item"><a class="nav-link" href="Solutions.html" style="color: black;"><p class="fs-3">Solutions</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="Use-Cases.html" style="color: black;"><p class="fs-3">Use-Cases</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="about.html" style="color: black;"><p class="fs-3">About</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="resources.html" style="color: black;"><p class="fs-3">Resources</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="contact.html" style="color: black;"><p class="fs-3">Contact</p></a></li>
+          </ul>
+      </nav>
+      <div class="container">
+        <div class="row descriptionrow">
+          <div class="col-12">
+              <h1 style="text-align: center;">Solutions</h1>
+              <p class="lead">CoCoS.ai is a distributed, microservice based solution in the cloud that enables confidential and privacy-preserving AI/ML, i.e. execution of model training and algorithm inference on confidential data sets. Privacy-preservation is considered as a “holy grail” of AI. It opens many possibilities, among which a collaborative trustworthy AI.Final product enables Data Scientists to train AI/ML models on confidential data that is never revealed, and can be used for Secure Multi-Party Computation (SMPC). AI/ML on combined data sets that come from different sources will unlock huge value.</p>
+          </div>
+        </div>
+        <div class="col-md-7">
+            <p class="lead">
+                CoCoS.ai is enabling following features:
+            </p>
+            <br>
+            <ul class="lead" style="padding-left: 5%;">
+                <li>Data Scientist pipelines with UI</a></li>
+            </ul>
+            <ul class="lead" style="padding-left: 5%;">
+                <li>User and key management</a></li>
+            </ul>
+            <ul class="lead" style="padding-left: 5%;">
+                <li>Distributed computation orchestration over TEE-enabled machines</a></li>
+            </ul>
+            <ul class="lead" style="padding-left: 5%;">
+                <li>Programmable  TEE environments (novel protocols)</a></li>
+            </ul>
+            <ul class="lead" style="padding-left: 5%;">
+                <li>Result brokering while adhering to most recent IETF Open Trust Protocol standards</a></li>
+            </ul>
+            <ul class="lead" style="padding-left: 5%;">
+                <li>Providing API for programmable manipulation with the platform</a></li>
+            </ul>
+        </div>
+        <div class="col-12" style="text-align: center;">
+            <img src="images/Screenshot from 2022-01-27 13-05-23.png" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-12">
+              <p class="lead">Final product enables Data Scientists to train AI/ML models on confidential data that is never revealed, and can be used for Secure Multi-party Computation (SMPC).</p>
+              <br>
+              <p class="lead">Secure Multi-party Computation (SMPC) allows two or more parties to collectively perform some computation and receive the resulting output without ever exposing any party’s sensitive input. With the advances in the use of machine learning those parties can be for example the owners of some sensitive data on one side and the providers of machine learning models and code on the other in a way in which the sensitive data is not exposed to the data processors and vice versa, while the useful result of data processing is still obtained. The traditional enabler of SMPC is cryptography. One branch of research in the last decade is towards the use of cryptographic algorithms for SMPC (e.g. homomorphic encryption) but the significant number of cryptographic operations required makes these techniques still not entirely practical for most real-time, online computations. Recent emergence of Trusted Execution Environments (TEEs) which provide hardware-enforced isolation of code and data in use, enables making SMPC more tractable. The two most prominent technologies are Intel’s SGX (Software Guard Extensions) and AMD SEV (Secure Encrypted Virtualization). Both technologies allow the secure isolation of the code and the data by using real time encryption of either trusted parts of the applications (enclaves) in former or whole virtual machines in latter technology respectively. The cryptographic keys that are used for the code and data isolation are randomly generated and stored on the processors and are not exposed neither to the hypervisor, nor to the operating system, allowing data processing organized in such a way in which server owner/cloud provider is not able to see the user’s data or code.</p>
+          </div>
+          <div class="col-12" style="text-align: center;">
+            <img src="images/Screenshot from 2022-01-27 14-05-46.png" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-12">
+            <p class="lead">Leveraging TEE technologies it is possible to create a system which can enable SMC. The system has to consist of multiple TEEs, at least one per each party (e.g. TEE for the code, for the data), and one for the central Security Policy Engine (SPE) which distributes the cryptographic keys to the other TEEs and enables their secure communication (Figure 2). Data in transit between the parties and the TEEs has to be encrypted at all times, while the encryption in the TEE is assumed. All the involved parties have to be able to verify that their sensitive information is uploaded to the appropriate TEEs by using the attestation process provided by these technologies.</p>
+            <br>
+            <p class="lead" style="padding-bottom: 5%;">Central component of the system is the SPE which manages the other TEEs, provides TEEs with the cryptographic material that allows their secure communication and finally enables the SMPC. It defines the data and code distribution policy in an assumed semi-honest environment (parties are interested in faithful execution of the SMPC protocol to ensure proper operation but may otherwise act arbitrarily to reveal the secret input of cooperating parties). The design and operation of the SPE is the same in case of both TEE technologies. What is going to differ is the communication between the TEEs, depending on the technology. In order to avoid the pitfall of moving the trust of this SMPC model into the arms of the SMPC service provider, all the software components of the system will be fully auditable at any moment, and the system will have monitoring capabilities that will allow each party to verify that the other parties are not attempting to access the assets they are not allowed to access.</p>
+        </div>
+      </div>
+      <footer id="footer" class="w-100 py-4 flex-shrink-0">
+        <div class="footer-newsletter">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-6">
+                      <h4>Our Newsletter</h4>
+                      <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                  </div>
+                  <div class="col-lg-6">
+                      <form action="" method="post"> <input type="email" name="email"><input type="submit" value="Subscribe"> </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+          <div class="container py-4">
+              <div class="row gy-4 gx-5">
+                  <div class="col-lg-3 col-md-6">
+                      <h5 class="h1">About CoCoS</h5>
+                      <p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="Solutions.html">Solutions</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="Use-Cases.html">Use-Cases</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="about.html">About</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="resources.html">Resources</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="contact.html">Contact</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                    <h4>Features</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy-preserving AI/ML</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Federated AI/ML</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Easy deployment</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Secure multi-party computation</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Public and private cloud (on-prem)</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-3 col-md-6 footer-contact">
+                    <h4>Contact Us</h4>
+                    <p>Peđe Milosavljevića 70A/12 <br>11000 Belgrade<br>Serbia<br><br><strong>Email:</strong> info@ultraviolet.rs<br></p>
+                </div>
+              </div>
+          </div>
+      </footer>
+  </div>
+    </html>
