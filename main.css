@@ -1,29 +1,22 @@
-.navbar {
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
+.navbar .nav-item .nav-link{
+    color: black;
+    background-color: white;
+    text-align: center;
+    line-height: 100px;
+    width: 100%;
     justify-content: center;
 }
-.navbar .nav-item .nav-link:hover{ 
-    color: rgb(255, 72, 0)
-}
-  
+.navbar .nav-item:hover .nav-link{ 
+        color: #e96b56
+    }
   html,
   body {
-    width: 100%;
-    height: 100%;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(255, 255, 255);
-    color :rgb(0, 0, 0);
-    text-align: left;
-    padding-left: 15%;
-    padding-right: 15%;
+        flex-direction: column;
+        font-family: 'Kanit', sans-serif;
+        overflow-x: hidden;
+        text-align: left;
+        padding-left: 10%;
+        padding-right: 10%;
   }
   
   h1 {
@@ -32,14 +25,15 @@
     color: #000;
     padding-top: 10%;
   }
-  
-  p {
-      padding-top: 3%;
-    margin: 0;
-  }
+
   
   .headerrow {
-    padding-top: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    color: black;
+    position: relative;
+    text-align: left;
+    align-items: center;
   }
 
   .descriptionrow {
@@ -59,7 +53,7 @@
     font-size: 2rem;
     color: #fff;
     border-radius: 0.75rem;
-}
+  }
   .vertical-align {
     position: absolute;
     top: 50%;
@@ -71,9 +65,18 @@
       text-align: left;
   }
 
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .feature-icon{
-      background-color: rgb(0, 0, 0);
-      color: #e96b56;
+      background-color: rgb(255, 255, 255);
+      color: #000000;
+      display: inline-block;
+      width: 100%;
+      text-align: center;
   }
   #footer {
     background: #ffffff;
@@ -81,38 +84,38 @@
     color: rgb(0, 0, 0);
     font-size: 15px;
     padding-top: 5%;
-}
+  }
 
-#footer .footer-newsletter {
+  #footer .footer-newsletter {
     border-top: 1px solid #474747;
     padding: 50px 0;
     background: #ffffff;
     border-bottom: 1px solid #474747;
-}
+  }
 
-#footer .footer-newsletter h4 {
+  #footer .footer-newsletter h4 {
     font-size: 24px;
     margin: 0 0 20px 0;
     padding: 0;
     line-height: 1;
     font-weight: 600
-}
+  }
 
-#footer .footer-newsletter form {
+  #footer .footer-newsletter form {
     margin-top: 30px;
     background: #fff;
     padding: 6px 10px;
     position: relative;
     border-radius: 50px
-}
+  }
 
-#footer .footer-newsletter form input[type="email"] {
+  #footer .footer-newsletter form input[type="email"] {
     border: 1;
     padding: 8px;
     width: calc(100% - 140px)
-}
+  }
 
-#footer .footer-newsletter form input[type="submit"] {
+  #footer .footer-newsletter form input[type="submit"] {
     position: absolute;
     top: 0;
     right: 0;
@@ -126,23 +129,13 @@
     color: rgb(0, 0, 0);
     transition: 0.3s;
     border-radius: 50px
-}
+  }
 
-#footer .footer-newsletter form input[type="submit"]:hover {
+  #footer .footer-newsletter form input[type="submit"]:hover {
     background: #e6573f
-}
-
-
-  a {
-    color: black;
-    text-decoration: none;
-    transition: all 0.3s;
   }
-  
-  a:hover, a:focus {
-    text-decoration: none;
-    color: black;
-  }
+  .footer .nav-item:hover .nav-link {color: #e6573f;}
+  .footer .nav-item .nav-link{color:rgb(0, 0, 0);}
   
   .form-control {
     background: #ffffff;
@@ -160,46 +153,3 @@
     color: black;
     border-bottom: 1px solid #474747;
   }
-.card1 {
-    width: 45%;
-    border-radius: 5px;
-    margin: 15px;
-    text-align: center;
-    height: calc(100vh /1.9);
-    background-color: rgb(247, 247, 255);
-    color: rgb(0, 0, 0);
-}
-.card1{
-    border-radius: 4px;
-    background: #fff;
-    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
-      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
-  padding: 14px 80px 18px 36px;
-  cursor: pointer;
-}
-
-.card1:hover{
-     transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-  background-color: #d3d2d2;
-}
-
-
-/* .card img{
-  position: absolute;
-  top: 20px;
-  right: 15px;
-  max-height: 120px;
-} */
-
-.card1{
-      background-repeat: no-repeat;
-    background-position: right;
-    background-size: 80px;
-}
-
-@media(max-width: 990px){
-  .card{
-    margin: 20px;
-  }
-} 
