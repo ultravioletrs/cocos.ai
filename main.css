@@ -18,7 +18,7 @@
         padding-left: 10%;
         padding-right: 10%;
   }
-  
+
   h1 {
     margin: 0;
     line-height: 1.25em;
@@ -36,6 +36,10 @@
     align-items: center;
   }
 
+.borderrow {
+  border-spacing: revert;
+}
+
   .descriptionrow {
       padding-bottom: 5%;
   }
@@ -43,23 +47,16 @@
       padding-top: 5%;
   }
 
-  .feature-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
+  .featurerow .feature .feature-icon {
+    text-align: center;
     height: 4rem;
     margin-bottom: 1rem;
-    font-size: 2rem;
-    color: #fff;
-    border-radius: 0.75rem;
+    font-size:3rem;
+    color: #0a0a0a;
+    align-items: center;
+    justify-content: center;
   }
-  .vertical-align {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-  }
+
   .row{
       color: black;
       text-align: left;
@@ -69,14 +66,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .feature-icon{
-      background-color: rgb(255, 255, 255);
-      color: #000000;
-      display: inline-block;
-      width: 100%;
-      text-align: center;
   }
   #footer {
     background: #ffffff;
@@ -134,8 +123,8 @@
   #footer .footer-newsletter form input[type="submit"]:hover {
     background: #e6573f
   }
-  .footer .nav-item:hover .nav-link {color: #e6573f;}
-  .footer .nav-item .nav-link{color:rgb(0, 0, 0);}
+  #footer .nav-item:hover .nav-link {color: #e6573f;}
+  #footer .nav-item .nav-link{color:rgb(0, 0, 0);}
   
   .form-control {
     background: #ffffff;

@@ -9,172 +9,138 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="main.css">
         <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://kit.fontawesome.com/36c7e64820.js" crossorigin="anonymous"></script>
     </head>
     <body>
       <nav class="navbar navbar-expand-lg navbar-light py-5 py-lg-5 justify-content-center">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html"><img src="images/jonathan-borba-t-LKJDTUFXo-unsplash.jpg" alt="Logo" style="width: 150px;"></a>
+          <a class="navbar-brand" href="#" style="padding-right: 7%;"><img src="images/jonathan-borba-t-LKJDTUFXo-unsplash.jpg" alt="Logo" id="Logo" style="width: 150px;"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"><span class="navbar-toggler-icon"></span></button>
               <div class="collapse navbar-collapse" id="main_nav">
             <ul class="nav">
-              <li class="nav-item"><a class="nav-link" href="solution.html"><p class="fs-1">Solution</p></a></li>
-              <li class="nav-item active"><a class="nav-link" style="color: #e96b56;" href="usecases.html"><p class="fs-1">Use-Cases</p></a></li>
-              <li class="nav-item"><a class="nav-link" href="about.html"><p class="fs-1">About</p></a></li>
-              <li class="nav-item"><a class="nav-link" href="resources.html"><p class="fs-1">Resources</p></a></li>
-              <li class="nav-item"><a class="nav-link" href="contact.html"><p class="fs-1">Contact</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="index.html"><p class="fs-3">Home</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="solution.html"><p class="fs-3">Solution</p></a></li>
+              <li class="nav-item active"><a class="nav-link" style="color: #e96b56;" href="usecases.html"><p class="fs-3">Use-Cases</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="about.html"><p class="fs-3">About</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="resources.html"><p class="fs-3">Resources</p></a></li>
+              <li class="nav-item"><a class="nav-link" href="contact.html"><p class="fs-3">Contact</p></a></li>
             </ul>
           </div>
         </div>
       </nav>
-        <body>
-        <h1 style="text-align: center;">Use-Cases</h1>
-        <div class="card-group" style="padding-top: 10%;">
-            <div class="card mb-3 border-0"">
-              <div class="row g-0">
-                <div class="col-md-3">
-                  <img src="images/med.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-9">
-                  <div class="card-body">
-                    <h5 class="card-title">Medical / Pharma</h5>
-                    <p class="card-text">
-                      Medical trials - encrypted patient data exchange for identifying new treatments and drugs
-                      <br>Drug distribution, serialization, and tracking
-                      </p>
-                  </div>
-                </div>
+        <h1 style="text-align: center; padding-bottom: 5%;">Use-Cases</h1>
+        <div class="container-fluid px-4 py-5" id="featured-3">
+          <div class="row featurerow g-4 py-5 row-cols-1 row-cols-lg-2">
+            <div class="feature col-lg-6">
+              <div class="feature-icon">
+                <i class="fas fa-hospital-alt fa-lg"></i>
               </div>
+              <h2 style="text-align: center;">Medical / Pharma</h2>
+              <ul>
+              <li><p class="lead">
+                Medical trials - encrypted patient data exchange for identifying new treatments and drugs</p></li>
+                <li><p class="lead">Drug distribution, serialization, and tracking</p></li>
+              </ul>
             </div>
-            <div class="card mb-3 border-0"">
-              <div class="row g-0">
-                <div class="col-md-3">
-                  <img src="images/gov.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-9">
-                  <div class="card-body">
-                    <h5 class="card-title">Public / Government</h5>
-                    <p class="card-text">
-                      Analytics on citizen data, or AI/ML on the top of confidential data coming from different agencies
-                      </p>
-                  </div>
-                </div>
+            <div class="feature col-lg-6">
+              <div class="feature-icon">
+                <i class="fas fa-landmark fa-lg"></i>
               </div>
+              <h2 style="text-align: center;">Public / Government</h2>
+              <ul>
+                <li><p class="lead">Analytics on citizen data, or AI/ML on the top of confidential data
+                              coming from different agencies.</p>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="card-group">
-            <div class="card mb-3 border-0"">
-              <div class="row g-0">
-                <div class="col-md-3">
-                  <img src="images/bank.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-9">
-                  <div class="card-body">
-                    <h5 class="card-title">Banking / Finance</h5>
-                    <p class="card-text">
-                      Private client payment data exchange for payment fraud detection and anti-money-laundering
-                      <br>Credit approval process handling in a secure manner
-                      <br>Transaction handling between two parties
-                      </p>
-                  </div>
-                </div>
+          <div class="row featurerow g-4 py-5 row-cols-1 row-cols-lg-2">
+            <div class="feature col-lg-6">
+              <div class="feature-icon">
+                <i class="fas fa-money-check-alt fa-lg"></i>
               </div>
+              <h2 style="text-align: center;">Banking / Finance</h2>
+              <ul>
+                <li><p class="lead">Private client payment data exchange for payment fraud detection and anti-money-laundering</p></li>
+                <li><p class="lead">Credit approval process handling in a secure manner<br>Transaction handling between two parties</p></li>
+              </ul>
             </div>
-            <div class="card mb-3 border-0"">
-              <div class="row g-0">
-                <div class="col-md-3">
-                  <img src="images/log.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-9">
-                  <div class="card-body">
-                    <h5 class="card-title">Transportation / Logistics</h5>
-                    <p class="card-text">
-                      Support for autonomous driving (routing, AI/ML…)
-                      <br>Logistics Data Analytics
-                      </p>
-                  </div>
-                </div>
+            <div class="feature col-lg-6">
+              <div class="feature-icon">
+                <i class="fas fa-truck fa-lg"></i>
               </div>
+              <h2 style="text-align: center;">Transportation / Logistics</h2>
+              <ul>
+                <li><p class="lead">Support for autonomous driving (routing, AI/ML…)</p></li>
+                <li><p class="lead">Logistics Data Analytics</p></li>
+              </ul>
             </div>
           </div>
-          <div class="card-group">
-            <div class="card mb-3 border-0">
-              <div class="row g-0">
-                <div class="col-md-3">
-                  <img src="images/indust.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-9">
-                  <div class="card-body">
-                    <h5 class="card-title">Industry</h5>
-                    <p class="card-text">
-                      Multi-party computation on data from competing and/or cooperating companies
-                      <br>AI/ML for predictive maintenance
-                      <br>Quality Assurance and Data exchange 
-                      <br>Production Data Exchange (Industry 4.0)
-                    </p>
-                  </div>
-                </div>
+          <div class="row featurerow g-4 py-5 row-cols-1 row-cols-lg-2">
+            <div class="feature col-lg-6">
+              <div class="feature-icon">
+                <i class="fas fa-industry fa-lg"></i>
               </div>
+              <h2 style="text-align: center;">Industry</h2>
+              <ul>
+                <li><p class="lead">Multi-party computation on data from competing and/or cooperating companies</p></li>
+                <li><p class="lead">AI/ML for predictive maintenance</p></li>
+                <li><p class="lead">Quality Assurance and Data exchange</p></li>
+                <li><p class="lead">Production Data Exchange (Industry 4.0)</p></li>
+                </ul> 
             </div>
-            <div class="card mb-3 border-0">
-              <div class="row g-0">
-                <div class="col-md-3">
-                  <img src="images/softdev.png" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-9  ">
-                  <div class="card-body">
-                    <h5 class="card-title">Software Development</h5>
-                    <p class="card-text">
-                      Intellectual property protection (algorithms protected from cloud provider)
-                      <br>Insider threats (employees within a company)
-                    </p>
-                  </div>
-                </div>
+            <div class="feature col-lg-6">
+              <div class="feature-icon">
+                <i class="fab fa-connectdevelop fa-lg"></i>
               </div>
+              <h2 style="text-align: center;">Software Development</h2>
+              <ul>
+                <li><p class="lead">Intellectual property protection (algorithms protected from cloud provider)</p></li>
+                <li><p class="lead">Insider threats (employees within a company)</p></li>
+              </ul>
             </div>
           </div>
+          </div>
+        </div>
     </body>
     <footer id="footer" class="w-100 py-4 flex-shrink-0">
       <div class="footer-newsletter">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
-                    <h4>Our Newsletter</h4>
-                </div>
-                <div class="col-lg-6">
-                    <form action="" method="post"> <input type="email" name="email"><input type="submit" value="Subscribe"> </form>
-                </div>
+                <div class="col-lg-6"><h4>Our Newsletter</h4></div>
+                <div class="col-lg-6"><form action="" method="post"> <input type="email" name="email"><input type="submit" value="Subscribe"> </form></div>
             </div>
         </div>
-    </div>
+      </div>
         <div class="container py-4">
             <div class="row gy-4 gx-5">
-                <div class="col-lg-4 col-md-6">
-                  <h4>Useful Links</h4>
-                  <ul>
-                      <li><i class="bx bx-chevron-right"></i> <a href="index.html">Home</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="solution.html">Solution</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="usecases.html">Use-Cases</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="about.html">About</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="resources.html">Resources</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="contact.html">Contact</a></li>
-                  </ul>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <h4>Features</h4>
-                  <ul>
-                      <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy-preserving AI/ML</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="#">Federated AI/ML</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="#">Easy deployment</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="#">Secure multi-party computation</a></li>
-                      <li><i class="bx bx-chevron-right"></i> <a href="#">Public and private cloud (on-prem)</a></li>
-                  </ul>
-                </div>
-                <div class="col-lg-4 col-md-6 footer-contact">
-                  <h4>Contact Us</h4>
-                  <p>Peđe Milosavljevića 70A/12 <br>11000 Belgrade<br>Serbia<br><br><strong>Email:</strong><a href="mailto:info@ultraviolet.rs" style="color: #e96b56; text-decoration: none;"> info@ultraviolet.rs</a><br></p>
+              <div class="col-lg-4 col-md-6">
+                <h4>Useful Links</h4>
+                <ul class="navbar-nav">
+                  <ul><li class="nav-item"><a class="nav-link" href="index.html">Home</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="solution.html">Solution</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="usecases.html">Use-Cases</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="about.html">About</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li></ul>
+                </ul>
               </div>
-            </div>
+              <div class="col-lg-4 col-md-6">
+                <h4>Features</h4>
+                <ul class="navbar-nav">
+                  <ul><li class="nav-item"><a class="nav-link" href="#">Privacy-preserving AI/ML</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="#">Federated AI/ML</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="#">Easy deployment</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="#">Secure multi-party computation</a></li></ul>
+                  <ul><li class="nav-item"><a class="nav-link" href="#">Public and private cloud (on-prem)</a></li></ul>
+                </ul>
+              </div>
+              <div class="col-lg-4 col-md-6 footer-contact">
+                <h4>Contact Us</h4>
+                <p>Peđe Milosavljevića 70A/12 <br>11000 Belgrade<br>Serbia<br><br><strong>Email:</strong><a href="mailto:info@ultraviolet.rs" style="color: #e96b56; text-decoration: none;"> info@ultraviolet.rs</a><br></p>
+              </div>
+          </div>
         </div>
-    </footer>
-</div>
+      </footer>
+    </div>
   </html>
