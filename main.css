@@ -74,39 +74,53 @@
     font-size: 15px;
     padding-top: 5%;
   }
-
-  #footer .footer-newsletter {
-    border-top: 1px solid #474747;
-    padding: 50px 0;
-    background: #ffffff;
-    border-bottom: 1px solid #474747;
+  .form-inline {  
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   }
 
-  #footer .footer-newsletter form {
-    background: #fff;
-    position: relative;
-    border-radius: 50px
+  .form-inline label {
+    margin: 5px 10px 5px 0;
   }
 
-  #footer .footer-newsletter form input[type="email"] {
-    padding: 8px;
-    width: calc(100% - 140px)
+  .form-inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
   }
 
-  #footer .footer-newsletter form input[type="submit"] {
+  .form-inline button {
     top: 0;
     right: 0;
     bottom: 0;
     border: 0;
     background: none;
-    font-size: 18px;
-    padding: 0 30px;
+    font-size: 14px;
     margin: 10px;
+    margin-top: 10px;
     background: #000000;
     color: rgb(255, 255, 255);
     transition: 0.3s;
-    border-radius: 20px;
-    padding: 12px 28px;
+    border-radius: 15px;
+    padding: 6px 28px;
+  }
+
+  .form-inline button:hover {
+    background-color: #e6573f;
+  }
+
+  @media (max-width: 800px) {
+    .form-inline input {
+      margin: 10px 0;
+    }
+    
+    .form-inline {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
   #footer .nav-item:hover .nav-link {color: #e6573f;}
   #footer .nav-item .nav-link{color:rgb(0, 0, 0);}
