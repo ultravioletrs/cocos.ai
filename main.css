@@ -7,16 +7,18 @@
     justify-content: center;
 }
 .navbar .nav-item:hover .nav-link{ 
-        color: #e96b56
+  text-decoration: underline;
+  text-decoration-thickness: 7px;
+  text-underline-offset: 0.3em;
     }
   html,
   body {
         flex-direction: column;
         font-family: 'Kanit', sans-serif;
         overflow-x: hidden;
-        text-align: left;
         padding-left: 10%;
         padding-right: 10%;
+        text-align: justify;
   }
 
   h1 {
@@ -31,9 +33,7 @@
     padding-top: 5%;
     padding-bottom: 5%;
     color: black;
-    position: relative;
-    text-align: left;
-    align-items: center;
+    text-align: justify;
   }
 
 .borderrow {
@@ -42,9 +42,11 @@
 
   .descriptionrow {
       padding-bottom: 5%;
+      text-align: justify;
   }
   .howitworksrow{
       padding-top: 5%;
+      padding-bottom: 5%;
   }
 
   .featurerow .feature .feature-icon {
@@ -123,7 +125,7 @@
       align-items: stretch;
     }
   }
-  #footer .nav-item:hover .nav-link {color: #e6573f;}
+  #footer .nav-item:hover .nav-link {text-decoration: underline; text-decoration-thickness: 3px;text-underline-offset: 0.2em;}
   #footer .nav-item .nav-link{color:rgb(0, 0, 0);}
   
   .form-control {

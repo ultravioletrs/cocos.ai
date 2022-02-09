@@ -17,7 +17,7 @@
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"><span class="navbar-toggler-icon"></span></button>
                   <div class="collapse navbar-collapse" id="main_nav">
                 <ul class="nav">
-                    <li class="nav-item active"><a class="nav-link" style="color: #e96b56;" href="solution.html"><p class="fs-3">Solution</p></a></li>
+                    <li class="nav-item active"><a class="nav-link" style="text-decoration: underline; text-decoration-thickness: 7px; text-underline-offset: 0.3em;" href="solution.html"><p class="fs-3">Solution</p></a></li>
                     <li class="nav-item"><a class="nav-link" href="usecases.html"><p class="fs-3">Use-Cases</p></a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html"><p class="fs-3">About</p></a></li>
                     <li class="nav-item"><a class="nav-link" href="resources.html"><p class="fs-3">Resources</p></a></li>
@@ -29,49 +29,49 @@
       <div class="container">
         <div class="row descriptionrow">
           <div class="col-12">
-              <h1 style="text-align: center; padding-bottom: 5%;">Solution</h1>
-              <p class="lead">CoCoS.ai is a distributed, microservice based solution in the cloud that enables confidential and privacy-preserving AI/ML, i.e. execution of model training and algorithm inference on confidential data sets. Privacy-preservation is considered as a “holy grail” of AI. It opens many possibilities, among which a collaborative trustworthy AI.Final product enables Data Scientists to train AI/ML models on confidential data that is never revealed, and can be used for Secure Multi-Party Computation (SMPC). AI/ML on combined data sets that come from different sources will unlock huge value.</p>
+              <h1 style="text-align: center; padding-bottom: 5%;"><b>Solution</b></h1>
+              <p>CoCoS.ai is a distributed, microservice-based solution in the cloud that enables confidential and privacy-preserving AI/ML, i.e. execution of model training and algorithm inference on confidential data sets. Privacy-preservation is considered a “holy grail” of AI. It opens many possibilities, among which is a collaborative, trustworthy AI.Final product enables data scientists to train AI and ML models on confidential data that is never revealed, and can be used for Secure Multi-Party Computation (SMPC). AI/ML on combined data sets that come from different sources will unlock huge value.</p>
           </div>
         </div>
         <div class="col-md-7">
-            <p class="lead">
-                CoCoS.ai is enabling following features:
+            <p>
+                CoCoS.ai is enabling the following features:
             </p>
             <br>
-            <ul class="lead" style="padding-left: 5%;">
+            <ul style="padding-left: 5%;">
                 <li>Data Scientist pipelines with UI</a></li>
             </ul>
-            <ul class="lead" style="padding-left: 5%;">
+            <ul style="padding-left: 5%;">
                 <li>User and key management</a></li>
             </ul>
-            <ul class="lead" style="padding-left: 5%;">
+            <ul style="padding-left: 5%;">
                 <li>Distributed computation orchestration over TEE-enabled machines</a></li>
             </ul>
-            <ul class="lead" style="padding-left: 5%;">
+            <ul style="padding-left: 5%;">
                 <li>Programmable  TEE environments (novel protocols)</a></li>
             </ul>
-            <ul class="lead" style="padding-left: 5%;">
-                <li>Result brokering while adhering to most recent IETF Open Trust Protocol standards</a></li>
+            <ul style="padding-left: 5%;">
+                <li>Result brokering while adhering to the most recent IETF Open Trust Protocol standards</a></li>
             </ul>
-            <ul class="lead" style="padding-left: 5%;">
-                <li>Providing API for programmable manipulation with the platform</a></li>
+            <ul style="padding-left: 5%;">
+                <li>Providing an API for programmable platform manipulation</a></li>
             </ul>
         </div>
         <div class="col-12" style="text-align: center; padding-top: 5%; padding-bottom: 5%;">
             <img src="images/Screenshot from 2022-01-27 13-05-23.png" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-12">
-              <p class="lead">Final product enables Data Scientists to train AI/ML models on confidential data that is never revealed, and can be used for Secure Multi-party Computation (SMPC).</p>
+              <p>The Final product enables data scientists to train AI and ML models on confidential data that is never revealed, and can be used for Secure Multi-party Computation (SMPC).</p>
               <br>
-              <p class="lead">Secure Multi-party Computation (SMPC) allows two or more parties to collectively perform some computation and receive the resulting output without ever exposing any party’s sensitive input. With the advances in the use of machine learning those parties can be for example the owners of some sensitive data on one side and the providers of machine learning models and code on the other in a way in which the sensitive data is not exposed to the data processors and vice versa, while the useful result of data processing is still obtained. The traditional enabler of SMPC is cryptography. One branch of research in the last decade is towards the use of cryptographic algorithms for SMPC (e.g. homomorphic encryption) but the significant number of cryptographic operations required makes these techniques still not entirely practical for most real-time, online computations. Recent emergence of Trusted Execution Environments (TEEs) which provide hardware-enforced isolation of code and data in use, enables making SMPC more tractable. The two most prominent technologies are Intel’s SGX (Software Guard Extensions) and AMD SEV (Secure Encrypted Virtualization). Both technologies allow the secure isolation of the code and the data by using real time encryption of either trusted parts of the applications (enclaves) in former or whole virtual machines in latter technology respectively. The cryptographic keys that are used for the code and data isolation are randomly generated and stored on the processors and are not exposed neither to the hypervisor, nor to the operating system, allowing data processing organized in such a way in which server owner/cloud provider is not able to see the user’s data or code.</p>
+              <p>Secure Multi-party Computation (SMPC) allows two or more parties to collectively perform some computation and receive the resulting output without ever exposing any party’s sensitive input. With the advances in the use of machine learning, those parties can be, for example, the owners of some sensitive data on one hand and the providers of machine learning models and code on the other, in a way in which the sensitive data is not exposed to the data processors and vice versa, while the useful result of data processing is still obtained. The traditional enabler of SMPC is cryptography. One branch of research in the last decade has been towards the use of cryptographic algorithms for SMPC (e.g. homomorphic encryption), but the significant number of cryptographic operations required makes these techniques not entirely practical for most real-time online computations. The recent emergence of Trusted Execution Environments (TEEs), which provide hardware-enforced isolation of in-use code and data, allows for more tractable SMPC. The two most prominent technologies are Intel’s SGX (Software Guard Extensions) and AMD SEV (Secure Encrypted Virtualization). Both technologies allow the secure isolation of the code and the data by using real-time encryption of either trusted parts of the applications (enclaves) in the former or whole virtual machines in the latter technology. The cryptographic keys that are used for code and data isolation are randomly generated and stored on the processors and are not exposed to the hypervisor nor to the operating system, allowing data processing to be organized in such a way that the server owner or cloud provider is not able to see the user’s data or code.</p>
           </div>
           <div class="col-12" style="text-align: center; padding-top: 5%; padding-bottom: 5%;">
             <img src="images/Screenshot from 2022-01-27 14-05-46.png" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-12">
-            <p class="lead">Leveraging TEE technologies it is possible to create a system which can enable SMC. The system has to consist of multiple TEEs, at least one per each party (e.g. TEE for the code, for the data), and one for the central Security Policy Engine (SPE) which distributes the cryptographic keys to the other TEEs and enables their secure communication (Figure 2). Data in transit between the parties and the TEEs has to be encrypted at all times, while the encryption in the TEE is assumed. All the involved parties have to be able to verify that their sensitive information is uploaded to the appropriate TEEs by using the attestation process provided by these technologies.</p>
+            <p>Leveraging TEE technologies, it is possible to create a system which can enable SMC. The system has to consist of multiple TEEs, at least one per each party (e.g. TEE for the code, for the data), and one for the central Security Policy Engine (SPE), which distributes the cryptographic keys to the other TEEs and enables their secure communication (Figure 2). Data in transit between the parties and the TEEs has to be encrypted at all times, while the encryption in the TEE is assumed. All the involved parties have to be able to verify that their sensitive information is uploaded to the appropriate TEEs by using the attestation process provided by these technologies.</p>
             <br>
-            <p class="lead" style="padding-bottom: 5%;">Central component of the system is the SPE which manages the other TEEs, provides TEEs with the cryptographic material that allows their secure communication and finally enables the SMPC. It defines the data and code distribution policy in an assumed semi-honest environment (parties are interested in faithful execution of the SMPC protocol to ensure proper operation but may otherwise act arbitrarily to reveal the secret input of cooperating parties). The design and operation of the SPE is the same in case of both TEE technologies. What is going to differ is the communication between the TEEs, depending on the technology. In order to avoid the pitfall of moving the trust of this SMPC model into the arms of the SMPC service provider, all the software components of the system will be fully auditable at any moment, and the system will have monitoring capabilities that will allow each party to verify that the other parties are not attempting to access the assets they are not allowed to access.</p>
+            <p style="padding-bottom: 5%;">Central component of the system is the SPE, which manages the other TEEs, provides TEEs with the cryptographic material that allows their secure communication, and finally enables the SMPC. It defines the data and code distribution policy in an assumed semi-honest environment (parties are interested in faithful execution of the SMPC protocol to ensure proper operation but may otherwise act arbitrarily to reveal the secret input of cooperating parties). The design and operation of the SPE are the same in the case of both TEE technologies. What is going to differ is the communication between the TEEs, depending on the technology. In order to avoid the pitfall of moving the trust of this SMPC model into the arms of the SMPC service provider, all the software components of the system will be fully auditable at any moment, and the system will have monitoring capabilities that will allow each party to verify that the other parties are not attempting to access the assets they are not allowed to access.</p>
         </div>
       </div>
       <footer id="footer" class="w-100 py-4 flex-shrink-0">
@@ -108,35 +108,35 @@
             </div>
         </div>
       </div>
-          <div class="container-fluid py-4">
-              <div class="row gy-4 gx-5">
-                <div class="col-lg-4 col-md-6">
-                  <h4>Useful Links</h4>
-                  <ul class="navbar-nav">
-                    <ul><li class="nav-item"><a class="nav-link" href="index.html">Home</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="solution.html">Solution</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="usecases.html">Use-Cases</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="about.html">About</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li></ul>
-                  </ul>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <h4>Features</h4>
-                  <ul class="navbar-nav">
-                    <ul><li class="nav-item"><a class="nav-link" href="#">Privacy-preserving AI/ML</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="#">Federated AI/ML</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="#">Easy deployment</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="#">Secure multi-party computation</a></li></ul>
-                    <ul><li class="nav-item"><a class="nav-link" href="#">Public and private cloud (on-prem)</a></li></ul>
-                  </ul>
-                </div>
-                <div class="col-lg-4 col-md-6 footer-contact">
-                  <h4>Contact Us</h4>
-                  <p>Peđe Milosavljevića 70A/12 <br>11000 Belgrade<br>Serbia<br><br><strong>Email:</strong><a href="mailto:info@ultraviolet.rs" style="color: #e96b56; text-decoration: none;"> info@ultraviolet.rs</a><br></p>
-                </div>
-            </div>
+      <div class="container-fluid py-4">
+        <div class="row gy-4 gx-5">
+          <div class="col-lg-4 col-md-6">
+            <h4>Useful Links</h4>
+            <ul class="navbar-nav">
+              <ul><li class="nav-item"><a class="nav-link" href="index.html">Home</a></li></ul>
+              <ul><li class="nav-item"><a class="nav-link" href="solution.html">Solution</a></li></ul>
+              <ul><li class="nav-item"><a class="nav-link" href="usecases.html">Use-Cases</a></li></ul>
+              <ul><li class="nav-item"><a class="nav-link" href="about.html">About</a></li></ul>
+              <ul><li class="nav-item"><a class="nav-link" href="resources.html">Resources</a></li></ul>
+              <ul><li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li></ul>
+            </ul>
           </div>
-        </footer>
+          <div class="col-lg-4 col-md-6">
+            <h4>Features</h4>
+            <ul class="navbar-nav">
+              <ul><li class="nav-item" style="padding-bottom: 3%;padding-top: 2%;">Privacy-preserving AI/ML</li></ul>
+              <ul><li class="nav-item" style="padding-top: 3%;">Federated AI/ML</a></li></ul>
+              <ul><li class="nav-item" style="padding-top: 5%;">Easy deployment</a></li></ul>
+              <ul><li class="nav-item" style="padding-top: 5%;">Secure multi-party computation</a></li></ul>
+              <ul><li class="nav-item" style="padding-top: 6%;">Public and private cloud (on-prem)</a></li></ul>
+            </ul>
+          </div>
+          <div class="col-lg-4 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>Peđe Milosavljevića 70A/12 <br>11000 Belgrade<br>Serbia<br><br><strong>Email:</strong><a href="mailto:info@ultraviolet.rs" style="color: #e96b56; text-decoration: none;"> info@ultraviolet.rs</a><br></p>
+          </div>
       </div>
-    </html>
+    </div>
+  </footer>
+</div>
+</html>
