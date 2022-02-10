@@ -144,3 +144,9 @@
     color: black;
     border-bottom: 1px solid #474747;
   }
+
+  img.UltraViolet_logo-02.png{
+    max-width: 100%;
+    min-width: 300px;
+    height: auto;
+}
