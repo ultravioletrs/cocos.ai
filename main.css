@@ -5,11 +5,17 @@
     line-height: 100px;
     width: 100%;
     justify-content: center;
+    white-space: normal;
+    display: inline-block;
+    overflow: hidden;
 }
 .navbar .nav-item:hover .nav-link{ 
   text-decoration: underline;
   text-decoration-thickness: 7px;
   text-underline-offset: 0.3em;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
     }
   html,
   body {
@@ -74,9 +80,11 @@
   }
 
   img {
-    display: block;
+    /* display: block; */
     margin-left: auto;
     margin-right: auto;
+    /* width: auto;
+    height: 100%; */
   }
   #footer {
     background: #ffffff;
