@@ -1,16 +1,13 @@
 .navbar .nav-item .nav-link{
-    font-family: 'Montserrat', sans-serif;
+    font-size:1.7rem;
     color: black;
-    background-color: white;
-    text-align: center;
-    line-height: 100px;
     width: 100%;
     justify-content: center;
     white-space: normal;
     display: inline-block;
     overflow: hidden;
-    font-size: 100%;
 }
+
 .navbar .nav-item:hover .nav-link{ 
   text-decoration: underline;
   text-decoration-thickness: 7px;
@@ -47,26 +44,15 @@
     padding-left: 5%;
     padding-right: 5%;
     border: 2px solid black;
-    /* margin-bottom: 5%; */
+    margin-bottom: 5%;
     margin-top: 5%;
   }
-
-  header {
-    /* position: absolute; */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 5;
-    padding: 0px 0;
-    display: block;
-    font-size: large;
-}
-
-  /* .headerrow {
+  
+  .headerrow {
     padding-top: 5%;
     color: black;
     text-align: justify;
-  } */
+  }
 
 .borderrow {
   border-spacing: revert;
@@ -96,11 +82,11 @@
   }
 
   img {
-    /* display: block; */
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    /* width: auto;
-    height: 100%; */
+    width: auto;
+    height: 100%;
   }
   #footer {
     background: #ffffff;
@@ -178,9 +164,3 @@
     color: black;
     border-bottom: 1px solid #474747;
   }
-
-  img.UltraViolet_logo-02.png{
-    max-width: 100%;
-    min-width: 300px;
-    height: auto;
-}
