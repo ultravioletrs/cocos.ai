@@ -163,16 +163,18 @@
     border-bottom: 1px solid #474747;
   }
   
-  @media screen and (max-width:415px) {
+  @media screen and (max-width:1224px) {
     .container ,.p{
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: left;
+      background-color: aqua;
     }
     .container-fluid {
       align-items: center;
       text-align: left;
+      background-color: aqua;
     }
     html,
     body {
@@ -184,7 +186,18 @@
     }
 }
 
-  @media screen and (min-width:416px) {
+.circle {
+  border-radius: 100%;
+  width: 34px;
+  height: 34px;
+  /* padding: 10px; */
+  background: #fff;
+  border: 1px solid #000;
+  color: #000;
+  text-align: center;
+  font: 32px Arial, sans-serif;
+}
+  @media screen and (min-width:1224px) {
     .container {
       display: flex;
       flex-direction: column;
