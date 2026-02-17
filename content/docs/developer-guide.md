@@ -1,4 +1,6 @@
-# Developer Guide
+---
+title: Developer Guide
+---
 
 ## Getting CoCos
 

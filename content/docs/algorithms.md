@@ -1,4 +1,6 @@
-# Algorithm Tutorials
+---
+title: Algorithm Tutorials
+---
 
 Cocos supports running various types of algorithms within a secure enclave environment. This document provides streamlined tutorials for setting up and executing binary algorithms, Python scripts, Docker images, and WebAssembly (Wasm) modules.
 

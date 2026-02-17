@@ -1,4 +1,6 @@
-# Agent
+---
+title: Agent
+---
 
 The Agent serves as the core execution and lifecycle management component within a Trusted Execution Environment (TEE), specifically designed for secure computation workloads. The Agent is located inside the Confidential Virtual Machine (CVM), and each computation instance within a TEE is managed by its dedicated Agent. It orchestrates the computation's execution and reports its status to a central computation management server. The Manager provisions a CVM where the Agent is found. Upon receiving a computation manifest from the cloud management server agent starts its service awaiting upload of computation assets.
 

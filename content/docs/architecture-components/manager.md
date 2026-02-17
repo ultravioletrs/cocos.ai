@@ -1,4 +1,6 @@
-# Manager
+---
+title: Manager
+---
 
 ## Overview
 

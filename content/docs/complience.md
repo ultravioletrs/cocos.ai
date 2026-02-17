@@ -1,4 +1,6 @@
-# Compliance & Audit Considerations
+---
+title: Compliance & Audit Considerations
+---
 
 ## Executive Summary
 

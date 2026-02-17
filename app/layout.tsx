@@ -1,4 +1,5 @@
 import './globals.css';
+import 'katex/dist/katex.css';
 import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 

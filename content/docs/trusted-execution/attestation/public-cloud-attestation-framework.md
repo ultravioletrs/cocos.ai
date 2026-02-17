@@ -1,4 +1,6 @@
-# Public Cloud Attestation
+---
+title: Public Cloud Attestation
+---
 
 ## Introduction
 

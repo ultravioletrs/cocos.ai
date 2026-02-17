@@ -1,4 +1,6 @@
-# Computation
+---
+title: Computation
+---
 
 In CocosAI, a Computation is defined as the secure execution of an `Algorithm` on one or more `Datasets`. This framework is designed for multi-party scenarios where participants may wish to maintain the confidentiality of their intellectual property (algorithms) or sensitive information (data) from other parties involved in the computation.
 

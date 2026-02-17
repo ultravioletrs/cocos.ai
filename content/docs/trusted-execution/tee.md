@@ -1,4 +1,6 @@
-# Trusted Execution Environments(TEEs)
+---
+title: Trusted Execution Environments(TEEs)
+---
 
 In the context of computing security, "trust" refers to the set of components that must behave correctly to enforce a system’s security guarantees. Traditionally, this trust has centered around the Trusted Computing Base (TCB)—the set of all hardware, software, and firmware components that are critical to a system's security. The smaller and simpler the TCB, the easier it is to reason about, verify, and secure. However, conventional systems have large TCBs that include the OS, hypervisor, and platform firmware, making it difficult to establish strong guarantees. This challenge has motivated the development of Trusted Execution Environments (TEEs), which reduce the TCB to only the code and data necessary for a specific secure workload.
 

@@ -1,4 +1,6 @@
-# Attested TLS
+---
+title: Attested TLS
+---
 
 For the relying party to send confidential data or code to the Agent, a secure channel must be established between them. The secure channel is established using attested TLS, which is a TLS connection enriched with the attestation report of the Agent.
 

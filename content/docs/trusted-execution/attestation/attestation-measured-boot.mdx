@@ -1,5 +1,8 @@
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+---
+title: Attestation Measured Boot
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 # Measured boot
 
@@ -41,25 +44,25 @@ This process involves Event Log Verification, which ensures that recorded system
 
 To enable vTPM follow instructions in the table below.
 
-<Tabs>
-  <TabItem value="private_cloud" label="Private cloud">
+<Tabs items={['Private cloud', 'GCP', 'Azure']}>
+  <Tab value="private_cloud">
     Private cloud should include AMD SEV-SNP CPUs. 
     To enable vTPM on these CPUs use the firmware from [COCONUT Secure VM Service Module](https://github.com/coconut-svsm/svsm).
-  </TabItem>
+  </Tab>
 
-  <TabItem value="gcp" label="GCP">
+  <Tab value="gcp">
     Cocos uses the vTPM feature of CVMs on GCP for runtime measurements. 
     Note that this [vTPM](https://docs.edgeless.systems/constellation/architecture/attestation#trusted-platform-module-tpm) doesn't run inside the hardware-protected CVM context, but is emulated by the hypervisor.
 
     The vTPM adheres to the [TPM 2.0](https://trustedcomputinggroup.org/resource/tpm-library-specification/) specification.
     It provides a [launch attestation report](https://cloud.google.com/confidential-computing/confidential-vm/docs/monitor-integrity#about_launch_attestation_report_events) that's based on the measured boot feature of [Shielded VMs](https://cloud.google.com/compute/shielded-vm/docs/shielded-vm#measured-boot).
-  </TabItem>
+  </Tab>
 
-  <TabItem value="azure" label="Azure">
+  <Tab value="azure">
     Cocos uses the [vTPM](https://learn.microsoft.com/en-us/azure/virtual-machines/trusted-launch#vtpm) feature of Azure CVMs for runtime measurements.
     This vTPM adheres to the [TPM 2.0](https://trustedcomputinggroup.org/resource/tpm-library-specification/) specification.
     It provides a [measured boot](https://learn.microsoft.com/en-us/azure/security/fundamentals/measured-boot-host-attestation#measured-boot) verification that's based on the trusted launch feature of [Trusted Launch VMs](https://learn.microsoft.com/en-us/azure/virtual-machines/trusted-launch).
-  </TabItem>
+  </Tab>
 
 </Tabs>
 
@@ -119,8 +122,8 @@ The specific content verified in each PCR depends on the platform and implementa
 
 The table below shows the PCRs used in CocosAI and what is verified in each of them for a different platform.
 
-<Tabs>
-  <TabItem value="private_cloud" label="Private cloud">
+<Tabs items={['Private cloud', 'Azure', 'GCP']}>
+  <Tab value="private_cloud">
     | PCR Index | What is Stored?                                                                                           | What We Verify?                                                                                                     | Why It Is Important for Integrity?                                                                                                |
     | --------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
     | PCR\[0]   | Firmware measurements: CRTM version and EFI platform firmware blobs                                       | Ensures the measured firmware components (CRTM, UEFI firmware) match expected hashes.                               | Prevents unauthorized or tampered firmware from running, which could compromise the entire boot chain.                            |
@@ -129,9 +132,9 @@ The table below shows the PCRs used in CocosAI and what is verified in each of t
     | PCR\[5]   | EFI Actions around Exit Boot Services (e.g., “Exit BootServices Invocation/Return”)                       | Ensures that the transition from firmware to OS (via Exit Boot Services) is unmodified.                             | Guards the handoff phase so that no unauthorized hooks or code injections occur just before OS runtime.                           |
     | PCR\[7]   | EFI variable configurations related to Secure Boot: SecureBoot flag, PK, KEK, db, dbx, and authority data | Verifies that Secure Boot keys and policy databases are exactly as expected (no rogue keys or removed revocations). | Crucial for ensuring only signed, authorized binaries can load; prevents boot-time attacks via unauthorized keys or certificates. |
     | PCR\[9]   | Event tags for loaded images and initramfs options (e.g., “LOADED\_IMAGE::loadOptions”, “Linux initrd”)   | Ensures that the load options or initrd identifiers provided to the OS are as intended.                             | Protects early user-space setup by detecting tampering in initramfs or kernel command-line inputs.                                |
-  </TabItem>
+  </Tab>
 
-  <TabItem value="azure" label="Azure">
+  <Tab value="azure">
     | PCR Index | What is Stored?                                                                                                                    | What We Verify?                                                                                                             | Why It Is Important for Integrity?                                                                                                      |
     | --------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
     | PCR\[0]   | Firmware measurements: S-CRTM version and EFI platform firmware blobs (hashed with sha1/sha256/sha384)                             | Ensures measured firmware components (CRTM, UEFI firmware regions) match expected values across all hash algorithms.        | Prevents tampering of the foundational firmware layers that could subvert the entire boot chain.                                        |
@@ -143,9 +146,9 @@ The table below shows the PCRs used in CocosAI and what is verified in each of t
     | PCR\[9]   | Event tags for loaded images or initrd flags (e.g., “LOADED\_IMAGE::loadOptions”, “Linux initrd”, “linux initrd”, “uname”, “sbat”) | Ensures load options and initial RAM filesystem identifiers passed to the OS match intended values.                         | Protects early user-space setup by detecting tampering in initramfs, kernel command-line, or load options that could subvert OS.        |
     | PCR\[11]  | IPL events: measurements of bootloader command-line components (e.g., filenames, loader options, initrd names)                     | Verifies that the exact bootloader path, command-line entries, and initramfs filenames are unchanged.                       | Detects unauthorized changes to the bootloader invocation, kernel parameters, or initramfs, which could alter system behavior at boot.  |
     | PCR\[14]  | EV\_IPL strings (e.g., MokList, MokListX, MokListTrusted)                                                                          | Verifies the integrity of secure boot MokList entries and other early boot integrity policy strings.                        | Ensures the platform’s trust management lists (MOK) and related policy strings are intact, guarding against unauthorized trust changes. |
-  </TabItem>
+  </Tab>
 
-  <TabItem value="gcp" label="GCP">
+  <Tab value="gcp">
     | PCR Index | What is Stored?                                                                                                                                                         | What We Verify?                                                                                                                       | Why It Is Important for Integrity?                                                                                                            |
     | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
     | PCR\[0]   | **CRTM & early firmware**: the Virtual Firmware (UEFI/BIOS) code version (EV\_S\_CRTM\_VERSION) plus ancillary “GC E NonHostInfo” records.                              | That the Core Root of Trust for Measurement (CRTM) and the platform firmware hashes are exactly what your golden-measure set expects. | Any alteration of the very first instructions the CPU executes would let an attacker subvert every later stage of the boot chain.             |
@@ -157,7 +160,7 @@ The table below shows the PCRs used in CocosAI and what is verified in each of t
     | PCR\[8]   | **GRUB command-line & shim “grub\_cmd” strings**: dozens of EV\_IPL events recording each parameter passed to GRUB/shim (e.g., `set default=0`, `save_env recordfail`). | That kernel command-line options and GRUB environment are untouched.                                                                  | Early-userspace settings here influence root FS, initrd, and security modules; tampering could disable protections or load alternate kernels. |
     | PCR\[9]   | **Kernel/initramfs load options**: final GRUB path of the Linux kernel (`(hd0,gpt15)/EFI/…`) captured as EV\_IPL.                                                       | That the kernel and initramfs referenced on disk are the ones whose hashes you expect.                                                | Prevents attackers from substituting an unsigned or outdated kernel/initrd after GRUB starts.                                                 |
     | PCR\[14]  | **Shim/Mok measurements & SBAT**: `MokList`, `MokListTrusted`, `SbatLevel`, etc.—all user-managed trust anchors measured by shim.                                       | That the machine-owner keys (MOK) and SBAT vulnerability revocation list are unmodified.                                              | Protects against local administrators (or malware) installing untrusted keys or rolling back SBAT to re-enable vulnerable shims/kernels.      |
-  </TabItem>
+  </Tab>
 </Tabs>
 
 By leveraging PCR measurements, systems maintain **trusted execution environments**, ensuring the integrity of Confidential Virtual Machines (CVMs) and other secure workloads.
@@ -196,7 +199,7 @@ To record a measurement you compute a SHA-384 digest of the component, then call
 The call takes the RTMR index in RDX and the guest-physical address of a 48-byte buffer holding the digest in RCX; the TDX Module then automatically performs 
 
 $$
-RTMR[i] = \text{SHA}_{\text{384}}( RTMR[i] \, ‖ \, \text{digest} )
+RTMR[i] = \text{SHA}_{\text{384}}( RTMR[i] \, \| \, \text{digest} )
 $$
 
 Because the ABI insists on 64-byte alignment and rejects invalid indices, an unprivileged TD process cannot corrupt the chain, and the host cannot interfere because only TDX non-root mode may issue the leaf.

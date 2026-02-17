@@ -1,4 +1,6 @@
-# COCOS CLI Documentation
+---
+title: COCOS CLI Documentation
+---
 
 The COCOS CLI (`cocos-cli`) is a comprehensive command-line interface that allows you to perform various tasks related to the computation and management of algorithms, datasets, and Trusted Execution Environments (TEE).
 

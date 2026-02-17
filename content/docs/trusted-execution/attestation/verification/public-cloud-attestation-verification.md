@@ -1,4 +1,6 @@
-# Public Cloud
+---
+title: Public Cloud
+---
 
 ## Overview
 

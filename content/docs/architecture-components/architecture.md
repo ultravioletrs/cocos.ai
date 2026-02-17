@@ -1,4 +1,6 @@
-# Architecture
+---
+title: Architecture
+---
 
 CocosAI system is running on the host, and its main goal is to enable:
 
