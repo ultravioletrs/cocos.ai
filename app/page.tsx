@@ -4,8 +4,11 @@ import { Partners } from '@/components/landing/Partners';
 import { UseCases } from '@/components/landing/UseCases';
 import { About } from '@/components/landing/About';
 import { Resources } from '@/components/landing/Resources';
-import { ModeToggle } from '@/components/ModeToggle';
+import { Contact } from '@/components/landing/Contact';
 import { createMetadata } from '@/lib/metadata';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { ArrowRight, Shield, Cpu, Lock } from 'lucide-react';
 
 export const metadata = createMetadata({
     title: 'Cocos AI - Open Source Confidential Computing System',
@@ -15,31 +18,7 @@ export const metadata = createMetadata({
 export default function Home() {
     return (
         <div className="flex flex-col min-h-screen bg-background text-foreground">
-            {/* Navbar */}
-            <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-                <div className="container mx-auto px-4 md:px-6 flex h-16 items-center justify-between">
-                    <Link href="/" className="flex items-center space-x-2">
-                        <Image
-                            src="/images/Cocos_logo-01.png"
-                            alt="Cocos AI Logo"
-                            width={120}
-                            height={40}
-                            className="h-10 w-auto dark:invert"
-                        />
-                    </Link>
-                    <div className="flex items-center gap-6">
-                        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-                            <Link href="#solution" className="transition-colors hover:text-primary">Solution</Link>
-                            <Link href="#usecases" className="transition-colors hover:text-primary">Use Cases</Link>
-                            <Link href="#about" className="transition-colors hover:text-primary">About</Link>
-                            <Link href="#resources" className="transition-colors hover:text-primary">Resources</Link>
-                            <Link href="/docs" className="transition-colors hover:text-primary">Documentation</Link>
-                            <Link href="#contact" className="transition-colors hover:text-primary">Contact</Link>
-                        </nav>
-                        <ModeToggle />
-                    </div>
-                </div>
-            </header>
+            <Navbar />
 
             <main className="flex-1">
                 {/* Hero Section */}
@@ -90,17 +69,71 @@ export default function Home() {
                 {/* Partners Section */}
                 <Partners />
 
-                {/* Confidential Computing Section */}
-                <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden" id="solution">
+                {/* How It Works Section */}
+                <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
+                    <div className="container mx-auto px-4 md:px-6">
+                        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                            <div className="space-y-2">
+                                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-blue-400">
+                                    How It Works
+                                </h2>
+                                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                    Secure Multi-Party Computation made simple and scalable.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="mx-auto grid max-w-5xl items-start gap-6 py-12 lg:grid-cols-3 lg:gap-12">
+                            <div className="flex flex-col items-center space-y-4 text-center">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                    <Shield className="h-8 w-8 text-primary" />
+                                </div>
+                                <h3 className="text-xl font-bold">1. Secure Enclaves</h3>
+                                <p className="text-muted-foreground">
+                                    Data and code are isolated in hardware-encrypted Trusted Execution Environments (TEEs) like AMD SEV.
+                                </p>
+                            </div>
+                            <div className="flex flex-col items-center space-y-4 text-center">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                    <Cpu className="h-8 w-8 text-primary" />
+                                </div>
+                                <h3 className="text-xl font-bold">2. Remote Attestation</h3>
+                                <p className="text-muted-foreground">
+                                    Cryptographic proof ensures that the workload is running on genuine hardware and hasn't been tampered with.
+                                </p>
+                            </div>
+                            <div className="flex flex-col items-center space-y-4 text-center">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                                    <Lock className="h-8 w-8 text-primary" />
+                                </div>
+                                <h3 className="text-xl font-bold">3. Confidential Computing</h3>
+                                <p className="text-muted-foreground">
+                                    Compute on encrypted data without ever exposing it to the cloud provider or infrastructure owner.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex justify-center">
+                            <Link
+                                href="/solution"
+                                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 group"
+                            >
+                                Learn More About The Solution
+                                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Confidential Computing Section (Consortium) */}
+                <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-tr from-indigo-50/30 to-transparent dark:from-indigo-950/10 pointer-events-none" />
                     <div className="container mx-auto px-4 md:px-6 relative">
                         <div className="flex flex-col items-center justify-center space-y-4 text-center">
                             <div className="space-y-2">
                                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600 dark:to-blue-400">
-                                    Confidential Computing
+                                    Confidential Computing Consortium
                                 </h2>
                                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                                    Cocos AI ensures the privacy of sensitive data through secure multi-party computation (SMPC) and trusted execution environments.
+                                    Cocos AI is an innovative project funded by the Serbian government’s Innovation Fund, developed by:
                                 </p>
                             </div>
                         </div>
@@ -192,18 +225,13 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
+
+                {/* Contact Section */}
+                <Contact />
             </main>
 
-            <footer className="w-full border-t py-6 bg-muted/10" id="contact">
-                <div className="container mx-auto px-4 flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
-                    <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-                        © {new Date().getFullYear()} Cocos AI. All rights reserved.
-                    </p>
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                        <Link href="mailto:info@ultraviolet.rs" className="hover:text-primary hover:underline">info@ultraviolet.rs</Link>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }
+
