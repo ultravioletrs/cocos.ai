@@ -10,13 +10,10 @@ export default async function Page(props: {
 
     if (!page) notFound();
 
-    const { body: Body, ...data } = page.data;
-
     return (
         <DocsPage>
             <DocsBody>
-                <h1>{data.title}</h1>
-                <Body />
+                <h1>{page.data.title}</h1>
             </DocsBody>
         </DocsPage>
     );
