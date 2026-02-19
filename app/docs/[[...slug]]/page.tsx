@@ -10,13 +10,13 @@ export default async function Page(props: {
 
     if (!page) notFound();
 
-    const MDX = page.data.body;
+    const { body: Body, ...data } = page.data;
 
     return (
-        <DocsPage toc={page.data.toc} full={page.data.full}>
+        <DocsPage>
             <DocsBody>
-                <h1>{page.data.title}</h1>
-                <MDX />
+                <h1>{data.title}</h1>
+                <Body />
             </DocsBody>
         </DocsPage>
     );
