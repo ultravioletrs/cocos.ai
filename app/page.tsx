@@ -98,7 +98,7 @@ export default function Home() {
                                 </div>
                                 <h3 className="text-xl font-bold">2. Remote Attestation</h3>
                                 <p className="text-muted-foreground">
-                                    Cryptographic proof ensures that the workload is running on genuine hardware and hasn't been tampered with.
+                                    Cryptographic proof ensures that the workload is running on genuine hardware and hasn&apos;t been tampered with.
                                 </p>
                             </div>
                             <div className="flex flex-col items-center space-y-4 text-center">

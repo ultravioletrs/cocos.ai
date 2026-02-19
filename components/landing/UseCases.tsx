@@ -62,7 +62,7 @@ export function UseCases() {
                     <div className="space-y-2">
                         <h2 className="text-3xl font-bold tracking-tighter md:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-blue-400">Use Cases</h2>
                         <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                            Real-world applications of Cocos AI's confidential computing capabilities.
+                            Real-world applications of Cocos AI&apos;s confidential computing capabilities.
                         </p>
                     </div>
                 </div>

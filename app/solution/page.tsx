@@ -95,7 +95,7 @@ export default function SolutionPage() {
                                 <p className="text-muted-foreground">
                                     Cryptographic keys used for code and data isolation are randomly generated and stored on the
                                     processors, never exposed to the hypervisor or operating system. This ensures that even the
-                                    cloud provider cannot access the user's data or code.
+                                    cloud provider cannot access the user&apos;s data or code.
                                 </p>
                             </div>
                             <div className="lg:col-start-1 relative aspect-video rounded-xl overflow-hidden border shadow-xl bg-background">

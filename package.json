@@ -3,11 +3,12 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"build": "next build",
+		"build": "fumadocs-mdx && node scripts/generate-search-index.js && next build",
 		"dev": "next dev",
 		"start": "next start",
-		"lint": "next lint .",
-		"types:check": "tsc --noEmit",
+		"lint": "eslint",
+		"lint:md": "markdownlint --disable MD013 MD033 MD007 MD029 MD059 MD024 MD025 -- content/docs",
+		"types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
 		"postinstall": "fumadocs-mdx"
 	},
 	"dependencies": {
@@ -34,6 +35,7 @@
 		"@types/react-dom": "^19.0.0",
 		"eslint": "^9.0.0",
 		"eslint-config-next": "16.1.6",
+		"markdownlint-cli": "^0.44.0",
 		"mdast-util-mdx": "^3.0.0",
 		"postcss": "^8.0.0",
 		"rehype-katex": "^7.0.1",

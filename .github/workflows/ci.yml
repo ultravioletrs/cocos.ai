@@ -1,9 +1,10 @@
-name: PR Workflow
+name: CI
 
 on:
+  push:
+    branches: ["main"]
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -19,9 +20,11 @@ jobs:
           node-version: 20
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Lint
         run: pnpm run lint
+      - name: Lint Markdown
+        run: pnpm run lint:md
       - name: Type Check
         run: pnpm run types:check
       - name: Build

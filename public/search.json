@@ -1,0 +1,116 @@
+[
+  {
+    "title": "Core Concepts & Initial Setup",
+    "content": "Core Concepts & Initial Setup",
+    "url": "/docs/algorithms",
+    "id": "/algorithms"
+  },
+  {
+    "title": "StateMachine",
+    "content": "StateMachine",
+    "url": "/docs/architecture-components/agent",
+    "id": "/architecture-components/agent"
+  },
+  {
+    "title": "Overall System Architecture and Component Relationships",
+    "content": "Overall System Architecture and Component Relationships",
+    "url": "/docs/architecture-components/architecture",
+    "id": "/architecture-components/architecture"
+  },
+  {
+    "title": "Overview",
+    "content": "Overview",
+    "url": "/docs/architecture-components/cli",
+    "id": "/architecture-components/cli"
+  },
+  {
+    "title": "Computation Roles",
+    "content": "Computation Roles",
+    "url": "/docs/architecture-components/computation",
+    "id": "/architecture-components/computation"
+  },
+  {
+    "title": "Overview",
+    "content": "Overview",
+    "url": "/docs/architecture-components/hal/cloud",
+    "id": "/architecture-components/hal/cloud"
+  },
+  {
+    "title": "Overview",
+    "content": "Overview",
+    "url": "/docs/architecture-components/hal/hal",
+    "id": "/architecture-components/hal/hal"
+  },
+  {
+    "title": "Overview",
+    "content": "Overview",
+    "url": "/docs/architecture-components/manager",
+    "id": "/architecture-components/manager"
+  },
+  {
+    "title": "Executive Summary",
+    "content": "Executive Summary",
+    "url": "/docs/complience",
+    "id": "/complience"
+  },
+  {
+    "title": "Getting CoCos",
+    "content": "Getting CoCos",
+    "url": "/docs/developer-guide",
+    "id": "/developer-guide"
+  },
+  {
+    "title": "Prerequisites",
+    "content": "Prerequisites",
+    "url": "/docs/getting-started",
+    "id": "/getting-started"
+  },
+  {
+    "title": "Attested TLS",
+    "content": "Attested TLS",
+    "url": "/docs/trusted-execution/attestation/atls",
+    "id": "/trusted-execution/attestation/atls"
+  },
+  {
+    "title": "Attestation Report",
+    "content": "Attestation Report",
+    "url": "/docs/trusted-execution/attestation/attestation-attestation-report",
+    "id": "/trusted-execution/attestation/attestation-attestation-report"
+  },
+  {
+    "title": "Introduction",
+    "content": "Introduction",
+    "url": "/docs/trusted-execution/attestation/attestation-introduction",
+    "id": "/trusted-execution/attestation/attestation-introduction"
+  },
+  {
+    "title": "Measured boot",
+    "content": "Measured boot",
+    "url": "/docs/trusted-execution/attestation/attestation-measured-boot",
+    "id": "/trusted-execution/attestation/attestation-measured-boot"
+  },
+  {
+    "title": "Introduction",
+    "content": "Introduction",
+    "url": "/docs/trusted-execution/attestation/public-cloud-attestation-framework",
+    "id": "/trusted-execution/attestation/public-cloud-attestation-framework"
+  },
+  {
+    "title": "Introduction",
+    "content": "Introduction",
+    "url": "/docs/trusted-execution/attestation/verification/on-premises-attestation-verification",
+    "id": "/trusted-execution/attestation/verification/on-premises-attestation-verification"
+  },
+  {
+    "title": "Overview",
+    "content": "Overview",
+    "url": "/docs/trusted-execution/attestation/verification/public-cloud-attestation-verification",
+    "id": "/trusted-execution/attestation/verification/public-cloud-attestation-verification"
+  },
+  {
+    "title": "AMD SEV-SNP",
+    "content": "AMD SEV-SNP",
+    "url": "/docs/trusted-execution/tee",
+    "id": "/trusted-execution/tee"
+  }
+]
