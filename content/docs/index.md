@@ -11,7 +11,7 @@ At its core, Cocos AI is built on Confidential Computing—an emerging paradigm 
 
 The result is a platform that empowers data scientists to train AI/ML models on private data—without ever seeing or exposing that data. It also supports Secure Multi-Party Computation (SMPC), enabling joint analysis and model training across datasets from different sources. This capability unlocks significant value while maintaining strict privacy guarantees.
 
-![Collaborative AI drawio](https://user-images.githubusercontent.com/23095882/183417817-a5013c43-637e-488b-9e06-ee6fe8e588b0.svg)
+![Collaborative AI drawio](/img/collaborative-ai.svg)
 
 ## Features
 

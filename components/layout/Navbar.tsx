@@ -20,7 +20,6 @@ export function Navbar() {
                         <Link href="/solution" className="transition-colors hover:text-primary">Solution</Link>
                         <Link href="/#usecases" className="transition-colors hover:text-primary">Use Cases</Link>
                         <Link href="/#about" className="transition-colors hover:text-primary">About</Link>
-                        <Link href="/#resources" className="transition-colors hover:text-primary">Resources</Link>
                         <Link href="/docs" className="transition-colors hover:text-primary">Documentation</Link>
                         <Link href="/#contact" className="transition-colors hover:text-primary">Contact</Link>
                     </nav>

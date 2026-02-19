@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Partners } from '@/components/landing/Partners';
 import { UseCases } from '@/components/landing/UseCases';
 import { About } from '@/components/landing/About';
-import { Resources } from '@/components/landing/Resources';
 import { Contact } from '@/components/landing/Contact';
 import { createMetadata } from '@/lib/metadata';
 import { Navbar } from '@/components/layout/Navbar';
@@ -27,11 +26,11 @@ export default function Home() {
                         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px] items-center">
                             <div className="flex flex-col justify-center space-y-4">
                                 <div className="space-y-2">
-                                    <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-400 dark:to-blue-400">
-                                        Introducing Cocos AI
+                                    <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/tight pb-1 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-400 dark:to-blue-400">
+                                        Unlock Collaborative AI with Hardware-Level Privacy
                                     </h1>
                                     <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                                        An open-source system designed for running confidential workloads. Features a CVM manager, in-enclave Agent, and secure remote attestation.
+                                        The open-source foundation for confidential computing. Train and run AI models on sensitive data within secure enclaves, ensuring complete data sovereignty and trust.
                                     </p>
                                 </div>
                                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -51,13 +50,12 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="flex items-center justify-center">
-                                {/* Using Collaborative AI.drawio.svg */}
-                                <div className="relative w-full aspect-video">
+                                <div className="relative w-full aspect-square max-w-[600px]">
                                     <Image
-                                        src="/images/Collaborative AI.drawio.svg"
-                                        alt="Cocos AI Architecture"
+                                        src="/images/hero-technical.png"
+                                        alt="Cocos AI Collaborative Secure Computing Architecture"
                                         fill
-                                        className="object-contain drop-shadow-xl"
+                                        className="object-contain drop-shadow-2xl"
                                         priority
                                     />
                                 </div>
@@ -197,9 +195,6 @@ export default function Home() {
 
                 {/* About Section */}
                 <About />
-
-                {/* Resources Section */}
-                <Resources />
 
                 {/* Architecture Section */}
                 <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden">

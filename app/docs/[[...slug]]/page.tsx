@@ -1,6 +1,7 @@
 import { DocsPage, DocsBody } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
 import { source } from '@/app/source';
+import defaultComponents from 'fumadocs-ui/mdx';
 
 export default async function Page(props: {
     params: Promise<{ slug?: string[] }>;
@@ -13,10 +14,10 @@ export default async function Page(props: {
     const MDX = page.data.body;
 
     return (
-        <DocsPage>
+        <DocsPage toc={page.data.toc} full={page.data.full}>
             <DocsBody>
                 <h1>{page.data.title}</h1>
-                <MDX />
+                <MDX components={{ ...defaultComponents }} />
             </DocsBody>
         </DocsPage>
     );
