@@ -1,6 +1,6 @@
 # CoCos.ai
 
-A comprehensive product documentation and information site for CoCos (Confidential Computing on Cosmos).
+A comprehensive product documentation and information site for CoCos (Confidential Computing).
 
 ## Overview
 
