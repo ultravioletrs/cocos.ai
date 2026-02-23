@@ -10,9 +10,9 @@ export function Navbar() {
                     <Image
                         src="/images/Cocos_logo-01.png"
                         alt="Cocos AI Logo"
-                        width={120}
-                        height={40}
-                        className="h-10 w-auto dark:invert"
+                        width={150}
+                        height={50}
+                        className="h-12 w-auto dark:invert"
                     />
                 </Link>
                 <div className="flex items-center gap-6">

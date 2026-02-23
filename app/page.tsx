@@ -21,7 +21,7 @@ export default function Home() {
 
             <main className="flex-1">
                 {/* Hero Section */}
-                <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-br from-indigo-50/50 via-background to-blue-50/50 dark:from-indigo-950/20 dark:via-background dark:to-blue-950/20">
+                <section className="w-full min-h-[calc(100vh-64px)] flex items-center py-12 md:py-16 lg:py-20 xl:py-24 bg-gradient-to-br from-indigo-50/50 via-background to-blue-50/50 dark:from-indigo-950/20 dark:via-background dark:to-blue-950/20">
                     <div className="container mx-auto px-4 md:px-6">
                         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px] items-center">
                             <div className="flex flex-col justify-center space-y-4">
@@ -216,6 +216,15 @@ export default function Home() {
                                         className="object-contain bg-white"
                                     />
                                 </div>
+                            </div>
+                            <div className="flex justify-center">
+                                <Link
+                                    href="/docs/architecture-components/architecture"
+                                    className="inline-flex h-11 items-center justify-center rounded-md border border-primary/50 bg-background px-6 text-sm font-semibold text-primary shadow-sm transition-colors hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 group"
+                                >
+                                    Learn More About The Architecture
+                                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                </Link>
                             </div>
                         </div>
                     </div>
