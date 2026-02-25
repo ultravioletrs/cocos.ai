@@ -7,8 +7,8 @@ export function Footer() {
     return (
         <footer className="bg-muted/50 border-t py-12 text-sm">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div className="md:col-span-1">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    <div className="md:col-span-4">
                         <Link href="/" className="inline-block mb-4">
                             <Image
                                 src="/img/ultraviolet-logo.svg"
@@ -23,7 +23,7 @@ export function Footer() {
                         </p>
                     </div>
 
-                    <div>
+                    <div className="md:col-span-2">
                         <h3 className="font-bold text-lg mb-4">Product</h3>
                         <ul className="space-y-2">
                             <li><Link href="/#features" className="text-muted-foreground hover:text-primary">Features</Link></li>
@@ -33,7 +33,7 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div>
+                    <div className="md:col-span-2">
                         <h3 className="font-bold text-lg mb-4">Connect</h3>
                         <ul className="space-y-2">
                             <li><Link href="https://twitter.com/ultravioletrs" target="_blank" className="text-muted-foreground hover:text-primary">Twitter</Link></li>
@@ -43,21 +43,21 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div>
-                        <h3 className="font-bold text-lg mb-4">Newsletter</h3>
+                    <div className="md:col-span-4 bg-card rounded-xl p-6 shadow-sm">
+                        <h3 className="font-bold text-lg mb-2">Newsletter</h3>
                         <p className="text-muted-foreground mb-4">
-                            Stay updated with our latest developments.
+                            Stay updated with our latest developments and releases.
                         </p>
-                        <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                        <form className="flex flex-col sm:flex-row gap-2" onSubmit={(e) => e.preventDefault()}>
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className="bg-background border rounded-md px-3 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-primary w-full"
+                                className="bg-background border rounded-md px-3 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
                                 required
                             />
                             <button
                                 type="submit"
-                                className="bg-primary text-primary-foreground rounded-md px-4 py-2 font-medium hover:opacity-90 transition-opacity"
+                                className="bg-primary text-primary-foreground rounded-md px-4 py-2 font-medium hover:bg-primary/90 transition-colors whitespace-nowrap"
                             >
                                 Subscribe
                             </button>
