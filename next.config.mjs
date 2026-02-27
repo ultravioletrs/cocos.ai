@@ -13,6 +13,7 @@ const withMDX = createMDX({
 const config = {
   reactStrictMode: true,
   output: 'export',
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
