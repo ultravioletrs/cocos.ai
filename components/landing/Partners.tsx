@@ -1,8 +1,6 @@
 import Image from 'next/image';
 
 const partners = [
-    { name: 'IF', logo: '/images/logos/if.png' },
-    { name: 'ETF', logo: '/images/logos/etf.png' },
     { name: 'European Commission', logo: '/images/logos/eu.png' },
     { name: 'Telefónica', logo: '/images/logos/telefonica.png' },
     { name: 'VTT', logo: '/images/logos/vtt.png' },
@@ -15,6 +13,8 @@ const partners = [
     { name: 'TU Eindhoven', logo: '/images/logos/tue.png' },
     { name: 'Thales', logo: '/images/logos/thales.png' },
     { name: 'Imdea', logo: '/images/logos/imdea.svg' },
+    { name: 'IF', logo: '/images/logos/if.png' },
+    { name: 'ETF', logo: '/images/logos/etf.png' },
 ];
 
 const memberships = [

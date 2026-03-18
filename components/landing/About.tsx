@@ -3,8 +3,9 @@ import Image from 'next/image';
 
 export function About() {
     return (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-background" id="about">
-            <div className="container mx-auto px-4 md:px-6">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden" id="about">
+            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-50/30 to-transparent dark:from-indigo-950/10 pointer-events-none" />
+            <div className="container mx-auto px-4 md:px-6 relative">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
                     <div className="space-y-2">
                         <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">About Us</h2>
@@ -14,42 +15,50 @@ export function About() {
                     </div>
                 </div>
 
-                <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start max-w-5xl mx-auto">
-                    {/* Ultraviolet */}
-                    <div className="flex flex-col items-center text-center space-y-4 p-8 rounded-2xl bg-muted/20 border border-transparent hover:border-border/50 transition-colors">
-                        <div className="relative h-16 w-48 mb-4">
-                            <Image
-                                src="/images/UltraViolet_logo-04.png"
-                                alt="Ultraviolet Logo"
-                                fill
-                                className="object-contain dark:invert"
-                            />
+                <div className="mx-auto grid max-w-6xl items-stretch gap-6 lg:grid-cols-2">
+                    {/* Lead Developer */}
+                    <div className="flex flex-col justify-center space-y-4 border p-8 rounded-3xl bg-card shadow-sm hover:shadow-md transition-shadow">
+                        <div className="relative h-14 w-auto min-w-[120px]">
+                            <Image src="/images/UltraViolet_logo-01.png" alt="Ultraviolet" fill className="object-contain object-left dark:invert" />
                         </div>
-                        <h3 className="text-xl font-bold">Ultraviolet</h3>
-                        <p className="text-muted-foreground">
-                            A company with a reputation in the security domain, coordinating the project and building the user experience and SaaS offering. Ultraviolet ensures a high-quality product for the market.
+                        <h3 className="text-2xl font-bold">Ultraviolet</h3>
+                        <p className="text-muted-foreground text-lg">
+                            A specialized technology company with a strong reputation in the security domain. Ultraviolet coordinates the project, builds the user experience, and manages the SaaS offering, leading the development and commercialization of the Cocos AI platform.
                         </p>
-                        <Link href="https://ultraviolet.rs/" target="_blank" className="text-primary hover:underline font-medium inline-flex items-center">
+                        <Link href="https://ultraviolet.rs/" target="_blank" className="text-primary hover:underline font-semibold inline-flex items-center text-lg mt-2">
                             Visit Website
                         </Link>
                     </div>
 
-                    {/* ETF */}
-                    <div className="flex flex-col items-center text-center space-y-4 p-8 rounded-2xl bg-muted/20 border border-transparent hover:border-border/50 transition-colors">
-                        <div className="relative h-16 w-48 mb-4">
-                            <Image
-                                src="/images/etf.png"
-                                alt="ETF Logo"
-                                fill
-                                className="object-contain dark:invert"
-                            />
+                    {/* Research & Funding Partners Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="flex flex-col justify-center space-y-3 border p-6 rounded-2xl bg-muted/20 opacity-90 hover:opacity-100 transition-opacity">
+                            <div className="relative h-10 w-auto min-w-[80px]">
+                                <Image src="/images/etf.png" alt="University of Belgrade" fill className="object-contain object-left dark:invert" />
+                            </div>
+                            <h4 className="text-lg font-bold">ETF Belgrade</h4>
+                            <p className="text-xs text-muted-foreground">Original research partner and expertise provider for TEE and cryptographic protocols.</p>
                         </div>
-                        <h3 className="text-xl font-bold">ETF University of Belgrade</h3>
-                        <p className="text-muted-foreground">
-                            The top academic institution in the country. Experts in data security and protection bring novel research and IP into the product, focusing on TEEs and secure multi-party computation protocols.
-                        </p>
-                        <Link href="https://www.etf.bg.ac.rs/" target="_blank" className="text-primary hover:underline font-medium inline-flex items-center">
-                            Visit Website
+                        <Link href="https://www.ultraviolet.rs/projects/confidential6g/" target="_blank" className="flex flex-col justify-center space-y-3 border p-6 rounded-2xl bg-muted/20 opacity-90 hover:opacity-100 transition-opacity">
+                            <div className="relative h-10 w-auto min-w-[80px]">
+                                <Image src="/images/logos/confidential6g.png" alt="CONFIDENTIAL6G" fill className="object-contain object-left" />
+                            </div>
+                            <h4 className="text-lg font-bold">CONFIDENTIAL6G</h4>
+                            <p className="text-xs text-muted-foreground">Quantum-resistant cryptographic protocols and security frameworks for 6G confidential computing.</p>
+                        </Link>
+                        <Link href="https://www.ultraviolet.rs/projects/elastic/" target="_blank" className="flex flex-col justify-center space-y-3 border p-6 rounded-2xl bg-muted/20 opacity-90 hover:opacity-100 transition-opacity">
+                            <div className="relative h-10 w-auto min-w-[80px]">
+                                <Image src="/images/logos/elastic.webp" alt="ELASTIC" fill className="object-contain object-left" />
+                            </div>
+                            <h4 className="text-lg font-bold">ELASTIC</h4>
+                            <p className="text-xs text-muted-foreground">Next-gen network orchestration using WebAssembly and Confidential Computing for 6G.</p>
+                        </Link>
+                        <Link href="https://www.ultraviolet.rs/projects/titan/" target="_blank" className="flex flex-col justify-center space-y-3 border p-6 rounded-2xl bg-muted/20 opacity-90 hover:opacity-100 transition-opacity">
+                            <div className="relative h-10 w-auto min-w-[80px]">
+                                <Image src="/images/logos/titan.svg" alt="TITAN" fill className="object-contain object-left" />
+                            </div>
+                            <h4 className="text-lg font-bold">TITAN</h4>
+                            <p className="text-xs text-muted-foreground">Trusted AI & Privacy-Preserving Technologies building secure AI systems via TEEs.</p>
                         </Link>
                     </div>
                 </div>
