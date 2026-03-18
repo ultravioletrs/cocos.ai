@@ -131,7 +131,7 @@ export default function Home() {
                                     Confidential Computing Consortium
                                 </h2>
                                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                                    Cocos AI is an innovative project funded by the Serbian government’s Innovation Fund, developed by:
+                                    Cocos AI is an ambitious project that started with the support of the School of Electrical Engineering (ETF), University of Belgrade, and the Serbian government&apos;s Innovation Fund, and further developed through EU research projects such as CONFIDENTIAL6G, TITAN, and ELASTIC. Developed by:
                                 </p>
                             </div>
                         </div>

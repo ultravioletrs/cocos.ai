@@ -9,7 +9,7 @@ export function About() {
                     <div className="space-y-2">
                         <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">About Us</h2>
                         <p className="max-w-[800px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                            Cocos AI is an innovative project funded by the Serbian government’s Innovation Fund.
+                            Cocos AI is an ambitious project that started with the support of the School of Electrical Engineering (ETF), University of Belgrade, and the Serbian government&apos;s Innovation Fund. It has since evolved through several major European Union research initiatives, including CONFIDENTIAL6G, TITAN, and ELASTIC.
                         </p>
                     </div>
                 </div>
@@ -56,17 +56,23 @@ export function About() {
 
                 <div className="mt-16 border-t pt-12">
                     <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left">
-                        <div className="max-w-xl">
+                        <div className="max-w-2xl">
+                            <p className="text-sm text-muted-foreground mb-4">
+                                The project was initiated with the support of the School of Electrical Engineering (ETF), University of Belgrade, and funded by the Innovation Fund from the budget of the Republic of Serbia from the division of the Ministry of Education, Science and Technological Development (Project ID 50314).
+                            </p>
                             <p className="text-sm text-muted-foreground">
-                                The project is funded by the Innovation Fund from the budget of the Republic of Serbia from the division of the Ministry of Education, Science and Technological Development (Project ID 50314).
+                                Further developed through groundbreaking research in EU-funded projects: <Link href="https://www.ultraviolet.rs/projects/confidential6g/" target="_blank" className="text-primary hover:underline">CONFIDENTIAL6G</Link>, <Link href="https://www.ultraviolet.rs/projects/titan/" target="_blank" className="text-primary hover:underline">TITAN</Link>, and <Link href="https://www.ultraviolet.rs/projects/elastic/" target="_blank" className="text-primary hover:underline">ELASTIC</Link>.
                             </p>
                         </div>
-                        <div className="flex gap-6 items-center">
+                        <div className="flex gap-6 items-center flex-wrap justify-center md:justify-start">
                             <div className="relative h-16 w-16">
                                 <Image src="/images/fid-logo-rs-cir.svg" alt="Innovation Fund" fill className="object-contain" />
                             </div>
                             <div className="relative h-12 w-20">
                                 <Image src="/images/zastava_srbije.jpg" alt="Republic of Serbia" fill className="object-contain rounded-sm" />
+                            </div>
+                            <div className="relative h-12 w-12">
+                                <Image src="/images/eu.png" alt="European Union" fill className="object-contain" />
                             </div>
                         </div>
 
