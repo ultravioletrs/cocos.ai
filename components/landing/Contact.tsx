@@ -15,64 +15,29 @@ export function Contact() {
                     </div>
                 </div>
 
-                <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start max-w-6xl mx-auto">
+                <div className="max-w-3xl mx-auto">
                     {/* Ultraviolet Contact */}
-                    <div className="flex flex-col space-y-6">
-                        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                            <div className="relative h-12 w-48">
+                    <div className="flex flex-col space-y-8 items-center">
+                        <div className="flex flex-col items-center text-center space-y-4">
+                            <div className="relative h-16 w-64">
                                 <Image
                                     src="/images/UltraViolet_logo-04.png"
                                     alt="Ultraviolet Logo"
                                     fill
-                                    className="object-contain object-left dark:invert"
+                                    className="object-contain dark:invert"
                                 />
                             </div>
-                            <h3 className="text-2xl font-bold hidden">Ultraviolet</h3>
-                            <div className="space-y-1 text-muted-foreground">
+                            <div className="space-y-1 text-muted-foreground text-lg">
                                 <p>Bulevar Arsenija Čarnojevića 103/4</p>
-                                <p>11000 Belgrade</p>
-                                <p>Serbia</p>
-                                <Link href="mailto:info@ultraviolet.rs" className="text-primary hover:underline font-medium block mt-2">
+                                <p>11000 Belgrade, Serbia</p>
+                                <Link href="mailto:info@ultraviolet.rs" className="text-primary hover:underline font-semibold block mt-4 text-xl">
                                     info@ultraviolet.rs
                                 </Link>
                             </div>
                         </div>
-                        <div className="w-full aspect-video rounded-xl overflow-hidden border shadow-sm">
+                        <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden border shadow-lg">
                             <iframe
                                 src="https://maps.google.com/maps?q=Bulevar%20Arsenija%20%C4%8Carnojevica%20103/4,%20Beograd,%20Serbia&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0 }}
-                                allowFullScreen
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                            />
-                        </div>
-                    </div>
-
-                    {/* ETF Contact */}
-                    <div className="flex flex-col space-y-6">
-                        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-                            <div className="relative h-12 w-48">
-                                <Image
-                                    src="/images/etf.png"
-                                    alt="ETF Logo"
-                                    fill
-                                    className="object-contain object-left dark:invert"
-                                />
-                            </div>
-                            <h3 className="text-2xl font-bold hidden">ETF University of Belgrade</h3>
-                            <div className="space-y-1 text-muted-foreground">
-                                <p>Bulevar Kralja Aleksandra 73</p>
-                                <p>11120 Belgrade</p>
-                                <p>Serbia</p>
-                                {/* Spacer to align with Ultraviolet email link if needed, or just leave empty */}
-                                <div className="h-[24px] mt-2"></div>
-                            </div>
-                        </div>
-                        <div className="w-full aspect-video rounded-xl overflow-hidden border shadow-sm">
-                            <iframe
-                                src="https://maps.google.com/maps?q=elektrotehnicki%20fakultet&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}

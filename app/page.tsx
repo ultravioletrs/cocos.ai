@@ -121,42 +121,8 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Confidential Computing Section (Consortium) */}
-                <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-indigo-50/30 to-transparent dark:from-indigo-950/10 pointer-events-none" />
-                    <div className="container mx-auto px-4 md:px-6 relative">
-                        <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                            <div className="space-y-2">
-                                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600 dark:to-blue-400">
-                                    Confidential Computing Consortium
-                                </h2>
-                                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                                    Cocos AI is an ambitious project that started with the support of the School of Electrical Engineering (ETF), University of Belgrade, and the Serbian government&apos;s Innovation Fund, and further developed through EU research projects such as CONFIDENTIAL6G, TITAN, and ELASTIC. Developed by:
-                                </p>
-                            </div>
-                        </div>
-                        <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-                            <div className="flex flex-col justify-center space-y-4 border p-6 rounded-xl bg-card shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex items-center space-x-4 mb-2">
-                                    <div className="relative h-12 w-auto min-w-[100px]">
-                                        <Image src="/images/UltraViolet_logo-01.png" alt="Ultraviolet" fill className="object-contain object-left" />
-                                    </div>
-                                </div>
-                                <h3 className="text-xl font-bold">Ultraviolet</h3>
-                                <p className="text-muted-foreground">Specialized high-tech services in cybersecurity, focusing on confidential computing in cloud, telecom, and AI/ML.</p>
-                            </div>
-                            <div className="flex flex-col justify-center space-y-4 border p-6 rounded-xl bg-card shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex items-center space-x-4 mb-2">
-                                    <div className="relative h-12 w-auto min-w-[100px]">
-                                        <Image src="/images/etf.png" alt="University of Belgrade" fill className="object-contain object-left" />
-                                    </div>
-                                </div>
-                                <h3 className="text-xl font-bold">University of Belgrade</h3>
-                                <p className="text-muted-foreground">School of Electrical Engineering, a leading academic institution in the region.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {/* About Section */}
+                <About />
 
                 {/* Use Cases Section */}
                 <UseCases />
@@ -193,8 +159,6 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* About Section */}
-                <About />
 
                 {/* Architecture Section */}
                 <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden">
