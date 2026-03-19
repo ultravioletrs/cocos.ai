@@ -34,7 +34,7 @@ export function About() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="flex flex-col justify-center space-y-3 border p-6 rounded-2xl bg-muted/20 opacity-90 hover:opacity-100 transition-opacity">
                             <div className="relative h-10 w-auto min-w-[80px]">
-                                <Image src="/images/etf.png" alt="University of Belgrade" fill className="object-contain object-left dark:invert" />
+                                <Image src="/images/etf.png" alt="University of Belgrade" fill className="object-contain object-left" />
                             </div>
                             <h4 className="text-lg font-bold">ETF Belgrade</h4>
                             <p className="text-xs text-muted-foreground">Original research partner and expertise provider for TEE and cryptographic protocols.</p>
@@ -48,14 +48,14 @@ export function About() {
                         </Link>
                         <Link href="https://www.ultraviolet.rs/projects/elastic/" target="_blank" className="flex flex-col justify-center space-y-3 border p-6 rounded-2xl bg-muted/20 opacity-90 hover:opacity-100 transition-opacity">
                             <div className="relative h-10 w-auto min-w-[80px]">
-                                <Image src="/images/logos/elastic.webp" alt="ELASTIC" fill className="object-contain object-left" />
+                                <Image src="/images/logos/elastic.webp" alt="ELASTIC" fill className="object-contain object-left invert hue-rotate-180 dark:invert-0 dark:hue-rotate-0" />
                             </div>
                             <h4 className="text-lg font-bold">ELASTIC</h4>
                             <p className="text-xs text-muted-foreground">Next-gen network orchestration using WebAssembly and Confidential Computing for 6G.</p>
                         </Link>
                         <Link href="https://www.ultraviolet.rs/projects/titan/" target="_blank" className="flex flex-col justify-center space-y-3 border p-6 rounded-2xl bg-muted/20 opacity-90 hover:opacity-100 transition-opacity">
                             <div className="relative h-10 w-auto min-w-[80px]">
-                                <Image src="/images/logos/titan.svg" alt="TITAN" fill className="object-contain object-left" />
+                                <Image src="/images/logos/titan.svg" alt="TITAN" fill className="object-contain object-left dark:invert dark:hue-rotate-180" />
                             </div>
                             <h4 className="text-lg font-bold">TITAN</h4>
                             <p className="text-xs text-muted-foreground">Trusted AI & Privacy-Preserving Technologies building secure AI systems via TEEs.</p>

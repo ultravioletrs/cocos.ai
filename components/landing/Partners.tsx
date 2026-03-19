@@ -37,14 +37,13 @@ export function Partners() {
 
                     <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80 hover:opacity-100 transition-opacity duration-300">
                         {partners.map((partner) => (
-                            <div key={partner.name} className="flex items-center justify-center p-4 h-20 w-32 md:w-40 grayscale hover:grayscale-0 transition-all duration-300">
+                            <div key={partner.name} className="flex items-center justify-center p-4 h-20 w-32 md:w-40 transition-all duration-300 dark:bg-white/90 dark:rounded-2xl dark:shadow-lg dark:m-1">
                                 <Image
                                     src={partner.logo}
                                     alt={`${partner.name} logo`}
                                     width={160}
                                     height={80}
-                                    className={`object-contain max-h-12 w-auto ${partner.name !== 'VTT' && partner.name !== 'TU Eindhoven' && partner.name !== 'European Commission' ? "dark:invert" : ""
-                                        }`}
+                                    className="object-contain max-h-12 w-auto"
                                 />
                             </div>
                         ))}
@@ -63,14 +62,13 @@ export function Partners() {
 
                     <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80 hover:opacity-100 transition-opacity duration-300">
                         {memberships.map((member) => (
-                            <div key={member.name} className="flex items-center justify-center p-4 h-24 w-40 md:w-48 grayscale hover:grayscale-0 transition-all duration-300">
+                            <div key={member.name} className="flex items-center justify-center p-4 h-24 w-40 md:w-48 transition-all duration-300 dark:bg-white/90 dark:rounded-2xl dark:shadow-lg dark:m-1">
                                 <Image
                                     src={member.logo}
                                     alt={`${member.name} logo`}
                                     width={200}
                                     height={100}
-                                    className={`object-contain max-h-16 w-auto ${member.name === 'Linux Foundation' ? "dark:invert" : ""
-                                        }`}
+                                    className="object-contain max-h-16 w-auto"
                                 />
                             </div>
                         ))}
