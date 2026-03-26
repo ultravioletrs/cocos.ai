@@ -105,7 +105,7 @@ In addition, this run requests also contains some adittional information based o
 If TLS (or any variety of TLS is used) the manifest also containes certificate and key files the Agent needs to use for communicating with CLI.
 These files are different from ones used for server communication.
 If mTLS is used for communication with the CLI, the run request will contain the root certificate of the CA used for issuing CLI certificates.
-If aTLS is used for communication with the CLI, the run request will contain a flag which will indicate that the certificate needs to be extended with the attestation report.
+If aTLS is used for communication with the CLI, the Agent will perform a post-handshake Exported Authenticator exchange upon request. This involves deriving a unique session binding from TLS 1.3 exporters and fetching TEE evidence that is cryptographically tied to the live connection.
 Upon receiveng all the assets from CLI (code and datasets) the computation is run and the results can be fetched afterwards through CLI.
 
 ## Certificates
@@ -116,7 +116,7 @@ If the CA URL and CVM ID are not specified, the agent will generate a self-signe
 If the CA URL and CVM ID are specified, the agent generate a CSR and use a CA to issue a certificate which will be used for aTLS communication.
 The URL of CA is configured through environment varibles (`AGENT_CVM_CA_URL`).
 By default the agent uses [Abstract Machine Certificate service](https://github.com/absmach/certs) as its CA. An access token provisioned on the CA is required for certificate generation and is configured through the `AGENT_CERTS_TOKEN` environment variable.
-In both cases, the generated certificate will then be extended with the attestation report.
+In both cases, the Agent uses the certificate as part of the Exported Authenticator (EA) handshake. For aTLS, the attestation evidence is embedded as a custom CMW extension (type `0xFF00`) within the EA's certificate chain, proving the TEE's identity and its binding to the active TLS session.
 
 ## Attestation
 

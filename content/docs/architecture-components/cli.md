@@ -109,15 +109,16 @@ export AGENT_GRPC_CLIENT_KEY=<path_to_CLI_key_file>
 
 #### Set Attestation Options for aTLS (optional)
 
-If the CLI is intended to use aTLS (Attested TLS), it is necessary to specify
-the path to Agents CA root certificate file, the attestation boolean flag as
-well as provide the path to the attestation policy JSON file.
+If the CLI is intended to use aTLS (Attested TLS), it performs a post-handshake **Exported Authenticator** exchange. This process uses TLS 1.3 Exporters to cryptographically bind the attestation evidence to the specific TLS session (**Level 2 Binding**). It is necessary to specify the path to Agent's CA root certificate file (if not self-signed), the attestation boolean flag, and the path to the attestation policy JSON file.
 
 ```shell
 export AGENT_GRPC_SERVER_CA_CERTS=<path_to_Agents_CA_root_certificate>
 export AGENT_GRPC_ATTESTED_TLS=true
 export AGENT_GRPC_ATTESTATION_POLICY=<path_to_attestation_policy_json_file>
 ```
+
+> [!NOTE]
+> By using TLS 1.3 Exporters with the "Attestation" label, Cocos ensures that the attestation is fresh and tied uniquely to the live connection, mitigating attestation relay attacks (CVE GHSA-vfgg-mvxx-mgg7).
 
 If the Agent is configured to use a self-signed certificate (default), the
 path to Agents CA root certificate file can be
