@@ -2,6 +2,7 @@ import { DocsPage, DocsBody } from 'fumadocs-ui/page';
 import { notFound } from 'next/navigation';
 import { source } from '@/app/source';
 import defaultComponents from 'fumadocs-ui/mdx';
+import { Mermaid } from '@/components/Mermaid';
 
 export default async function Page(props: {
     params: Promise<{ slug?: string[] }>;
@@ -17,7 +18,7 @@ export default async function Page(props: {
         <DocsPage toc={page.data.toc} full={page.data.full}>
             <DocsBody>
                 <h1>{page.data.title}</h1>
-                <MDX components={{ ...defaultComponents }} />
+                <MDX components={{ ...defaultComponents, Mermaid }} />
             </DocsBody>
         </DocsPage>
     );
