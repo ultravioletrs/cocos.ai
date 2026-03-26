@@ -697,19 +697,24 @@ Remote resources allow for secure, scalable execution by packaging algorithms an
 ### Prerequisites & Setup
 
 #### 1. Install Skopeo
+
 Required for image manipulation and encryption.
+
 ```bash
 sudo apt-get install skopeo  # Ubuntu/Debian
 brew install skopeo          # macOS
 ```
 
 #### 2. Start a local OCI Registry (Optional)
+
 For testing purposes, you can run a local registry:
+
 ```bash
 docker run -d -p 5000:5000 --name registry registry:2
 ```
 
 #### 3. Setup the Key Broker Service (KBS)
+
 The KBS stores your decryption keys. For testing, you can use the [Trustee (KBS)](https://github.com/confidential-containers/trustee) project.
 
 ```bash
@@ -721,13 +726,16 @@ sudo ./kbs --config-file kbs-config.toml
 ### 1. Create and Encrypt an Algorithm
 
 #### Build the Image
+
 Create a Python script `algorithm.py` and a `Dockerfile`, then build and push to your registry:
+
 ```bash
 docker build -t localhost:5000/my-algo:v1.0 .
 docker push localhost:5000/my-algo:v1.0
 ```
 
 #### Encrypt and Store Keys
+
 Generate a key, store it in the KBS, and use `skopeo` with `ocicrypt` to encrypt the OCI image:
 
 ```bash
@@ -746,6 +754,7 @@ skopeo copy \
 ### 2. Create and Encrypt a Dataset
 
 Follow a similar process for your datasets:
+
 ```bash
 # Package dataset into an image
 docker build -f Dockerfile.dataset -t localhost:5000/my-dataset:v1.0 .
@@ -765,6 +774,7 @@ skopeo copy \
 ### 3. Start CVMS and Execute
 
 #### Start CVMS with Remote Flags
+
 ```bash
 HOST=$HOST_IP PORT=7001 go run ./test/cvms/main.go \
   -public-key-path ./public.pem \
@@ -778,11 +788,13 @@ HOST=$HOST_IP PORT=7001 go run ./test/cvms/main.go \
 ```
 
 #### Create the VM
+
 ```bash
 ./build/cocos-cli create-vm --server-url $HOST_IP:7001
 ```
 
 Once the VM is created, the Agent will automatically:
+
 1. Contact the KBS and provide TEE evidence.
 2. Receive the decryption keys.
 3. Download and decrypt the OCI images.

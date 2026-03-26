@@ -8,20 +8,20 @@ Remote resources allow Cocos to securely download and execute algorithms and dat
 
 The remote resource handling in Cocos leverages several standard components:
 
-1.  **Skopeo**: Used to download and manage OCI images.
-2.  **ocicrypt**: Provides the encryption/decryption layer for OCI images.
-3.  **CoCo Key Provider**: A gRPC service that acts as a bridge between `ocicrypt` and the Attestation Agent.
-4.  **Attestation Agent**: Generates TEE evidence (attestation) required to fetch decryption keys.
-5.  **Key Broker Service (KBS)**: Stores decryption keys and only releases them upon successful verification of TEE evidence.
+1. **Skopeo**: Used to download and manage OCI images.
+2. **ocicrypt**: Provides the encryption/decryption layer for OCI images.
+3. **CoCo Key Provider**: A gRPC service that acts as a bridge between `ocicrypt` and the Attestation Agent.
+4. **Attestation Agent**: Generates TEE evidence (attestation) required to fetch decryption keys.
+5. **Key Broker Service (KBS)**: Stores decryption keys and only releases them upon successful verification of TEE evidence.
 
 ### Workflow
 
-1.  **Encryption**: Algorithms and datasets are packaged as OCI images and encrypted using `skopeo` and `ocicrypt`. The encryption keys are stored in a KBS.
-2.  **Manifest**: A computation manifest is sent to the Cocos Agent, specifying the URIs of the encrypted OCI images and their corresponding KBS resource paths.
-3.  **Download**: The Agent invokes `skopeo` to download the encrypted layers.
-4.  **Decryption**: `skopeo` (via `ocicrypt`) requests the decryption key from the `coco-keyprovider`.
-5.  **Attestation**: The `coco-keyprovider` works with the `attestation-agent` to provide evidence to the KBS.
-6.  **Execution**: Once decrypted, the algorithm and datasets are extracted and executed within the secure enclave.
+1. **Encryption**: Algorithms and datasets are packaged as OCI images and encrypted using `skopeo` and `ocicrypt`. The encryption keys are stored in a KBS.
+2. **Manifest**: A computation manifest is sent to the Cocos Agent, specifying the URIs of the encrypted OCI images and their corresponding KBS resource paths.
+3. **Download**: The Agent invokes `skopeo` to download the encrypted layers.
+4. **Decryption**: `skopeo` (via `ocicrypt`) requests the decryption key from the `coco-keyprovider`.
+5. **Attestation**: The `coco-keyprovider` works with the `attestation-agent` to provide evidence to the KBS.
+6. **Execution**: Once decrypted, the algorithm and datasets are extracted and executed within the secure enclave.
 
 ## Computation Manifest Format
 
