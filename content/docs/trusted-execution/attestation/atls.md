@@ -63,9 +63,11 @@ sequenceDiagram
 ```
 
 ### 1. TLS 1.3 Handshake
+
 The CLI and Agent first establish a standard TLS 1.3 channel. The Agent acts as the server. This channel provides encryption and ensures that subsequent messages are protected.
 
 ### 2. Authenticator Request
+
 Once the TLS session is established, the CLI sends an `AuthenticatorRequest`. This request includes a **Context** (derived from a nonce) that ensures the absolute freshness of the attestation response. This replaces the older SNI-based nonce mechanism.
 
 ```go
@@ -80,9 +82,11 @@ return &ea.AuthenticatorRequest{
 ```
 
 ### 3. Session Binding (Level 2)
+
 Cocos uses **TLS 1.3 Exporters** to cryptographically bind the attestation statement to the connection. Using the `ExportKeyingMaterial` function with the label `"Attestation"`, both parties derive a session-unique value.
 
 The binding is computed using:
+
 - The **TLS Exporter output** (unique to the session).
 - The **Leaf Public Key** of the Agent.
 - The **Certificate Request Context** (ensuring freshness).
@@ -95,9 +99,11 @@ binding = BindingValue(h, leafPubKey, exportedValue)
 ```
 
 ### 4. Evidence Generation and Verification
+
 The Agent passes the derived **Binding** value as the `REPORT_DATA` (or equivalent) to the TEE hardware. The hardware generates a signed evidence report containing this binding.
 
 The CLI receives the `Authenticator` message, extracts the attestation payload, and:
+
 1. Recomputes the binding from its own view of the TLS session.
 2. Verifies that the hardware evidence matches the recomputed binding.
 3. Appraises the TEE claims against the configured security policy.
