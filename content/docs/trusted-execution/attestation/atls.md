@@ -16,24 +16,50 @@ The aTLS process happens in two main phases: the standard TLS handshake and the 
 
 ```mermaid
 sequenceDiagram
-    participant CLI as Cocos CLI (Client)
-    participant Agent as Agent (CVM Server)
-    participant TEE as TEE HW (vTPM/SNP/TDX)
+    autonumber
+    participant RP as Relying Party / CLI
+    participant CVM as Agent in CVM
+    participant AS as Attestation Service
+    participant TEE
 
-    Note over CLI, Agent: 1. Standard TLS 1.3 Handshake
-    CLI->>Agent: ClientHello
-    Agent->>CLI: ServerHello, EncryptedExtensions, Certificate, ...
-    CLI->>Agent: Finished
+    Note over RP,CVM: 1. Establish base TLS channel
+    RP->>CVM: TLS 1.3 ClientHello
+    CVM-->>RP: TLS 1.3 ServerHello + Certificate + Finished
+    RP-->>CVM: TLS 1.3 Finished
 
-    Note over CLI, Agent: 2. Exported Authenticator Exchange
-    CLI->>Agent: AuthenticatorRequest (Context/Nonce)
-    Note right of Agent: Derive binder from TLS Exporters
-    Agent->>TEE: Fetch Evidence (ReportData = Binding)
-    TEE-->>Agent: Attestation Evidence
-    Agent->>CLI: Authenticator (Cert + Attestation Extension)
+    Note over RP,CVM: 2. Post-handshake exported-attestation exchange
+    RP->>CVM: AuthenticatorRequest
+    Note right of RP: Includes certificate_request_context and an empty cmw_attestation extension
 
-    Note over CLI: 3. Verification
-    Note over CLI: Verify Binding & Evidence against Policy
+    Note over CVM: 3. Build attestation binder from live TLS session
+    CVM->>CVM: exported_value = TLS-Exporter("Attestation", context, 32)
+    CVM->>CVM: aik_pub_hash = Hash(leaf_public_key)
+    CVM->>CVM: binding = Hash(leaf_public_key || exported_value)
+
+    Note over CVM,AS: 4. Collect evidence bound to this session
+    CVM->>AS: GetAttestation(report_data, platform_type)
+    AS->>TEE: Request attestation evidence
+    TEE-->>AS: Raw attestation evidence
+    AS-->>CVM: EAT evidence
+
+    Note over CVM: 5. Package evidence into exported authenticator
+    CVM->>CVM: Assemble cmw_attestation payload from evidence and binder
+    CVM->>CVM: Add payload to leaf CertificateEntry cmw_attestation extension
+    CVM-->>RP: Exported Authenticator
+
+    Note over RP: 6. Verify identity, channel binding, and evidence
+    RP->>RP: Verify exported authenticator against the live TLS session
+    RP->>RP: Parse the cmw_attestation payload
+    RP->>RP: Recompute exported_value and binding
+    RP->>RP: Verify AIK public key hash and binding match
+    RP->>RP: Decode EAT evidence
+    RP->>RP: Verify evidence against the configured CoRIM policy
+
+    alt Verification succeeds
+        RP->>CVM: Send confidential data or code
+    else Verification fails
+        RP->>CVM: Abort connection
+    end
 ```
 
 ### 1. TLS 1.3 Handshake
