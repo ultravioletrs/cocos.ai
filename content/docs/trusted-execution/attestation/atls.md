@@ -2,79 +2,135 @@
 title: Attested TLS
 ---
 
-For the relying party to send confidential data or code to the Agent, a secure channel must be established between them. The secure channel is established using attested TLS, which is a TLS connection enriched with the attestation report of the Agent.
+For a relying party to send confidential data or code to the Agent, a secure channel must be established between them. In Cocos, this is achieved through **Attested TLS (aTLS)**: a standard TLS 1.3 connection combined with an **Exported Authenticator (EA)** handshake that is cryptographically bound to the specific TLS session.
 
-In Cocos, the CVM acts as the server, and the Agent extends the X.509 certificate it uses for TLS with the attestation report. When generating the report, the Agent embeds the hash of its public key into the `report_data` field of the AMD SEV-SNP report. To maintain the freshness of the attestation report, a new certificate is regenerated with every connection, along with a fresh attestation report.
+## Overview
 
-By combining the TLS certificate along with the attestation report, the relying party (the user of cocos-cli) can be assured that he is talking directly to the Agent inside the TEE, because the attestation report is bound to the certificate and the report has the guarantee of freshness, the relying party knows that the other side of the TLS connection is inside the TEE.
+Unlike traditional TLS, which typically validates the server's identity based on a certificate signed by a trusted CA, aTLS allows the client (relying party) to verify the **hardware-backed integrity** of the server (the Agent running in a TEE).
 
-The entire process is illustrated in the picture below. The green color represents the trusted part of the system, while the red represents the untrusted part.
+The core of Cocos aTLS is **Level 2 session binding**. This means the attestation evidence is not just tied to the server's long-lived or ephemeral certificate, but to the **live TLS session** itself. This prevents "attestation relay" or "man-in-the-middle" attacks where a malicious actor might try to present a valid attestation from a trusted TEE for an untrusted connection.
 
-![Attested TLS](/img/attestation/atls.png)
+## The aTLS Handshake
 
-The exact point at which the Agent certificate is sent during the TLS handshake process is shown below.
+The aTLS process happens in two main phases: the standard TLS handshake and the subsequent Exported Authenticator exchange.
 
-![TLS handshake](/img/attestation/tls.png)
+```mermaid
+sequenceDiagram
+    autonumber
+    participant RP as Relying Party / CLI
+    participant CVM as Agent in CVM
+    participant AS as Attestation Service
+    participant TEE
 
-One of the key components of the verification process is the attestation policy. The CLI uses the attestation policy to verify the fields of the attestation report (vTPM and SEV-SNP). One example of the attestation report is show below:
+    Note over RP,CVM: 1. Establish base TLS channel
+    RP->>CVM: TLS 1.3 ClientHello
+    CVM-->>RP: TLS 1.3 ServerHello + Certificate + Finished
+    RP-->>CVM: TLS 1.3 Finished
 
-```json
-{
-  "pcr_values": {
-    "sha256": {
-      "0": "71e0cc99e4609fdbc44698cceeda9e5ecb2f74fe07bd10710d5330e0eb6bd32b",
-      "1": "a40e22460c21d2450367ca70c751ec0ae5ae1072994a131287a96eadc295603b",
-      "2": "3d458cfe55cc03ea1f443f1562beec8df51c75e14a9fcf9a7234a13f198e7969",
-      "3": "3d458cfe55cc03ea1f443f1562beec8df51c75e14a9fcf9a7234a13f198e7969",
-      "4": "e16812b9181e13078b29f2e4844be7087f9e1bbffc3cb4171d2813580cafdb8d",
-      "5": "a5ceb755d043f32431d63e39f5161464620a3437280494b5850dc1b47cc074e0",
-      "6": "3d458cfe55cc03ea1f443f1562beec8df51c75e14a9fcf9a7234a13f198e7969",
-      "7": "70d12f32fdb109ba0960697b5a8d5d8d860b004a757fe2471be2c2a19ec1a765",
-      "9": "2add30b0f2b31480ee5eb802c436cfffe77ceebc6009e063e84fc6a6ef2c05ac"
-    },
-    "sha384": {
-      "0": "ff93a763afde2c4a152d4843d9fcabe73a70d4f34bf8861845f2ab08440c1f0742b5882ed7f2524e38a3a6e40fbcdfca",
-      "1": "c9b3bcc22d856cbc5be2a2bf72d81819df325db083cfea20e84d082a87f44d643e6fca98f29eb3cce4c87eed2dbca2e5",
-      "2": "518923b0f955d08da077c96aaba522b9decede61c599cea6c41889cfbea4ae4d50529d96fe4d1afdafb65e7f95bf23c4",
-      "3": "518923b0f955d08da077c96aaba522b9decede61c599cea6c41889cfbea4ae4d50529d96fe4d1afdafb65e7f95bf23c4",
-      "4": "d18d213c26e7bc309e52448bde2f0a8ef86be388223f64f85c4e0c625f1e0a7f8c901d4f7c98f8445730bc63c4dfa88d",
-      "5": "c50b529497c7f441ea47305587d6ce83e2e31f7b4fab6c13dc0b0c3c900e1d0caf0768321100927862df142bf0465ee4",
-      "6": "518923b0f955d08da077c96aaba522b9decede61c599cea6c41889cfbea4ae4d50529d96fe4d1afdafb65e7f95bf23c4",
-      "7": "ea40cbd8f51eed103d75821340e71fa3c0cfde3e75c360b4c9aca534b7fed021e12f8890acef36ccfe12b33ea4111576",
-      "9": "02556c6b494abaf21481def35b38574e80dc68f20ceb8385f78a5ad4ecfbab60f9fcfca7c69f09a081fdd4ca13f3c14d"
-    }
-  },
-  "policy": {
-    "chip_id": "GrFqtQ+lrkLsjBslu9pcC6XqkrtFWY1ArIQ+I4gugQIsvCG0qekSvEtE4P/SLSJ6mHNpOkY0MHnGpvz1OkV+kw==",
-    "family_id": "AAAAAAAAAAAAAAAAAAAAAA==",
-    "host_data": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-    "image_id": "AAAAAAAAAAAAAAAAAAAAAA==",
-    "measurement": "oDYo4e98Da2Fy73nDVZmxiWiz+5gnxae7NMRtdfnwpbBuVYZsI0mynz3fpfe+YIX",
-    "minimum_build": 8,
-    "minimum_launch_tcb": 15352208179752599555,
-    "minimum_tcb": 15352208179752599555,
-    "minimum_version": "1.55",
-    "permit_provisional_firmware": true,
-    "policy": 196608,
-    "product": {
-      "name": 1
-    },
-    "report_id_ma": "//////////////////////////////////////////8=",
-    "require_author_key": false,
-    "require_id_block": false,
-    "vmpl": 2
-  },
-  "root_of_trust": {
-    "check_crl": true,
-    "disallow_network": false,
-    "product": "Milan",
-    "product_line": "Milan"
-  }
-}
+    Note over RP,CVM: 2. Post-handshake exported-attestation exchange
+    RP->>CVM: AuthenticatorRequest
+    Note right of RP: Includes certificate_request_context and an empty cmw_attestation extension
+
+    Note over CVM: 3. Build attestation binder from live TLS session
+    CVM->>CVM: exported_value = TLS-Exporter("Attestation", context, 32)
+    CVM->>CVM: aik_pub_hash = Hash(leaf_public_key)
+    CVM->>CVM: binding = Hash(leaf_public_key || exported_value)
+
+    Note over CVM,AS: 4. Collect evidence bound to this session
+    CVM->>AS: GetAttestation(report_data, platform_type)
+    AS->>TEE: Request attestation evidence
+    TEE-->>AS: Raw attestation evidence
+    AS-->>CVM: EAT evidence
+
+    Note over CVM: 5. Package evidence into exported authenticator
+    CVM->>CVM: Assemble cmw_attestation payload from evidence and binder
+    CVM->>CVM: Add payload to leaf CertificateEntry cmw_attestation extension
+    CVM-->>RP: Exported Authenticator
+
+    Note over RP: 6. Verify identity, channel binding, and evidence
+    RP->>RP: Verify exported authenticator against the live TLS session
+    RP->>RP: Parse the cmw_attestation payload
+    RP->>RP: Recompute exported_value and binding
+    RP->>RP: Verify AIK public key hash and binding match
+    RP->>RP: Decode EAT evidence
+    RP->>RP: Verify evidence against the configured CoRIM policy
+
+    alt Verification succeeds
+        RP->>CVM: Send confidential data or code
+    else Verification fails
+        RP->>CVM: Abort connection
+    end
 ```
 
-The relying party uses the Cocos CLI to verify the self-signed (or CA-signed) certificate and the attestation report that is part of it. Successful verification proves to the relying party that the CVM is in a good state and that the relying party is indeed communicating with the Agent.
+### 1. TLS 1.3 Handshake
 
-The array `pcr_values` represents the expected (golden) PCR values that must match the PCR values in the vTPM attestation report. The `policy` and `root_of_trust` sections describe the reference values for the fields in the SEV-SNP attestation report.
+The CLI and Agent first establish a standard TLS 1.3 channel. The Agent acts as the server. This channel provides encryption and ensures that subsequent messages are protected.
 
-It is also possible to use mutual attested TLS, which is a combination of mutual TLS and attested TLS.
+### 2. Authenticator Request
+
+Once the TLS session is established, the CLI sends an `AuthenticatorRequest`. This request includes a **Context** (derived from a nonce) that ensures the absolute freshness of the attestation response. This replaces the older SNI-based nonce mechanism.
+
+```go
+return &ea.AuthenticatorRequest{
+    Type:    ea.HandshakeTypeClientCertificateRequest,
+    Context: context,
+    Extensions: []ea.Extension{
+        sigExt,
+        ea.CMWAttestationOfferExtension(),
+    },
+}, nil
+```
+
+### 3. Session Binding (Level 2)
+
+Cocos uses **TLS 1.3 Exporters** to cryptographically bind the attestation statement to the connection. Using the `ExportKeyingMaterial` function with the label `"Attestation"`, both parties derive a session-unique value.
+
+The binding is computed using:
+
+- The **TLS Exporter output** (unique to the session).
+- The **Leaf Public Key** of the Agent.
+- The **Certificate Request Context** (ensuring freshness).
+
+```go
+// Exporter and Binding derivation
+exportedValue, h, err := ExportAttestationValue(st, LabelAttestation, context)
+aikPubHash = AIKPublicKeyHash(h, leafPubKey)
+binding = BindingValue(h, leafPubKey, exportedValue)
+```
+
+### 4. Evidence Generation and Verification
+
+The Agent passes the derived **Binding** value as the `REPORT_DATA` (or equivalent) to the TEE hardware. The hardware generates a signed evidence report containing this binding.
+
+The CLI receives the `Authenticator` message, extracts the attestation payload, and:
+
+1. Recomputes the binding from its own view of the TLS session.
+2. Verifies that the hardware evidence matches the recomputed binding.
+3. Appraises the TEE claims against the configured security policy.
+
+## Security Hardening (CVE GHSA-vfgg-mvxx-mgg7)
+
+Prior to the implementation of explicit session binding, some aTLS implementations were vulnerable to **Unbound Attestation** (similar to CVE GHSA-vfgg-mvxx-mgg7). In such scenarios, if attestation was only bound to the certificate, a compromised or malicious TEE could potentially "forward" its attestation to a different TLS session.
+
+Cocos mitigates this by enforcing **Level 2 Binding**, where the attestation is verified against the unique shared master secret of the TLS 1.3 session via exporters. This ensures that the peer you are talking to in the TLS session is the *exact same* entity that the TEE hardware is attesting to.
+
+## Attestation Payload Structure
+
+The attestation evidence and binder metadata are packaged into a `cmw_attestation` extension (type `0xFF00`) within the first entry of the authenticator's certificate chain.
+
+```go
+payloadBytes, err := eaattestation.MarshalPayload(eaattestation.Payload{
+    Version:   1,
+    MediaType: "application/eat+cwt",
+    Evidence:  evidence,
+    Binder: eaattestation.AttestationBinder{
+        ExporterLabel: eaattestation.ExporterLabelAttestation, // "Attestation"
+        AIKPubHash:    aikPubHash,
+        Binding:       binding,
+    },
+})
+```
+
+If a server CA bundle is configured, the CLI also performs normal X.509 certificate validation. If no CA bundle is configured, the server identity may be self-signed or ephemeral and trust is established primarily through the attestation evidence and the TLS-session binding.
+
+In Cocos terminology, aTLS can also be combined with mutual TLS. In that configuration, the client certificate is still required and verified, while the server additionally proves its TEE state through the attestation-bound authenticator.
