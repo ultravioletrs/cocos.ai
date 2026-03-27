@@ -690,4 +690,114 @@ Use the `<CVM_ID>` obtained during CVM creation.
 ./build/cocos-cli remove-vm <CVM_ID>
 ```
 
+## Running Remote Resources (OCI Images)
+
+Remote resources allow for secure, scalable execution by packaging algorithms and datasets as OCI (Open Container Initiative) images. This section provides a complete end-to-end example of setting up your environment, encrypting your resources, and running a computation.
+
+### Prerequisites & Setup
+
+#### 1. Install Skopeo
+
+Required for image manipulation and encryption.
+
+```bash
+sudo apt-get install skopeo  # Ubuntu/Debian
+brew install skopeo          # macOS
+```
+
+#### 2. Start a local OCI Registry (Optional)
+
+For testing purposes, you can run a local registry:
+
+```bash
+docker run -d -p 5000:5000 --name registry registry:2
+```
+
+#### 3. Setup the Key Broker Service (KBS)
+
+The KBS stores your decryption keys. For testing, you can use the [Trustee (KBS)](https://github.com/confidential-containers/trustee) project.
+
+```bash
+# Start KBS (Simplified for testing)
+# Ensure you have the kbs-config.toml and necessary keys generated as per the architecture guide.
+sudo ./kbs --config-file kbs-config.toml
+```
+
+### 1. Create and Encrypt an Algorithm
+
+#### Build the Image
+
+Create a Python script `algorithm.py` and a `Dockerfile`, then build and push to your registry:
+
+```bash
+docker build -t localhost:5000/my-algo:v1.0 .
+docker push localhost:5000/my-algo:v1.0
+```
+
+#### Encrypt and Store Keys
+
+Generate a key, store it in the KBS, and use `skopeo` with `ocicrypt` to encrypt the OCI image:
+
+```bash
+# Generate and store key
+openssl rand -out algo.key 32
+kbs-client --url http://localhost:8080 config \
+  set-resource --path default/key/algo-key --resource-file algo.key
+
+# Encrypt the image
+skopeo copy \
+  --encryption-key "provider:attestation-agent:keypath=$(pwd)/algo.key::keyid=kbs:///default/key/algo-key::algorithm=A256GCM" \
+  docker://localhost:5000/my-algo:v1.0 \
+  docker://localhost:5000/encrypted-algo:v1.0
+```
+
+### 2. Create and Encrypt a Dataset
+
+Follow a similar process for your datasets:
+
+```bash
+# Package dataset into an image
+docker build -f Dockerfile.dataset -t localhost:5000/my-dataset:v1.0 .
+docker push localhost:5000/my-dataset:v1.0
+
+# Generate key and encrypt
+openssl rand -out dataset.key 32
+kbs-client --url http://localhost:8080 config \
+  set-resource --path default/key/dataset-key --resource-file dataset.key
+
+skopeo copy \
+  --encryption-key "provider:attestation-agent:keypath=$(pwd)/dataset.key::keyid=kbs:///default/key/dataset-key::algorithm=A256GCM" \
+  docker://localhost:5000/my-dataset:v1.0 \
+  docker://localhost:5000/encrypted-dataset:v1.0
+```
+
+### 3. Start CVMS and Execute
+
+#### Start CVMS with Remote Flags
+
+```bash
+HOST=$HOST_IP PORT=7001 go run ./test/cvms/main.go \
+  -public-key-path ./public.pem \
+  -attested-tls-bool false \
+  -kbs-url http://$HOST_IP:8080 \
+  -algo-type python \
+  -algo-source-url docker://$HOST_IP:5000/encrypted-algo:v1.0 \
+  -algo-kbs-path default/key/algo-key \
+  -dataset-source-urls docker://$HOST_IP:5000/encrypted-dataset:v1.0 \
+  -dataset-kbs-paths default/key/dataset-key
+```
+
+#### Create the VM
+
+```bash
+./build/cocos-cli create-vm --server-url $HOST_IP:7001
+```
+
+Once the VM is created, the Agent will automatically:
+
+1. Contact the KBS and provide TEE evidence.
+2. Receive the decryption keys.
+3. Download and decrypt the OCI images.
+4. Execute the algorithm using the decrypted dataset.
+
 For more real-world examples and algorithms, refer to the [AI repository](https://github.com/ultravioletrs/ai).
