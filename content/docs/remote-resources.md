@@ -49,14 +49,12 @@ sequenceDiagram
     end
     
     rect rgba(200, 150, 100, 0.5)
-    note over Agent, Algo: Execution with Concurrency Safety
-    Agent->>Algo: Run (mutex-protected)
-    Algo->>Algo: Lock mutex & Start process
-    Algo->>Algo: Unlock mutex
+    note over Agent, Algo: Secure Execution
+    Agent->>Algo: Run
+    Algo->>Algo: Start process
     Algo-->>Agent: Running
     Agent->>Algo: Stop (when needed)
-    Algo->>Algo: Lock mutex & Kill process
-    Algo->>Algo: Unlock mutex
+    Algo->>Algo: Kill process
     end
     
     Agent->>Agent: Cleanup (remove temp files)
