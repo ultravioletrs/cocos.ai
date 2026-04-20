@@ -18,6 +18,29 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+
+  --animate-ticker-left: ticker-left linear infinite;
+  --animate-ticker-right: ticker-right linear infinite;
+
+  @keyframes ticker-left {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes ticker-right {
+    0% {
+      transform: translateX(-50%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
 }
 
 @layer base {
