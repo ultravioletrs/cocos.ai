@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export function Footer() {
     return (
-        <footer className="bg-muted/50 border-t py-12 text-sm">
+        <footer className="bg-secondary/5 border-t border-border/40 py-12 text-sm">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                     <div className="md:col-span-4">
@@ -24,7 +24,7 @@ export function Footer() {
                     </div>
 
                     <div className="md:col-span-2">
-                        <h3 className="font-bold text-lg mb-4">Product</h3>
+                        <h3 className="font-serif font-medium text-lg mb-4 text-foreground">Product</h3>
                         <ul className="space-y-2">
                             <li><Link href="/#features" className="text-muted-foreground hover:text-primary">Features</Link></li>
                             <li><Link href="/docs" className="text-muted-foreground hover:text-primary">Documentation</Link></li>
@@ -34,7 +34,7 @@ export function Footer() {
                     </div>
 
                     <div className="md:col-span-2">
-                        <h3 className="font-bold text-lg mb-4">Connect</h3>
+                        <h3 className="font-serif font-medium text-lg mb-4 text-foreground">Connect</h3>
                         <ul className="space-y-2">
                             <li><Link href="https://twitter.com/ultravioletrs" target="_blank" className="text-muted-foreground hover:text-primary">Twitter</Link></li>
                             <li><Link href="https://linkedin.com/company/ultravioletrs" target="_blank" className="text-muted-foreground hover:text-primary">LinkedIn</Link></li>
@@ -43,8 +43,8 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div className="md:col-span-4 bg-card rounded-xl p-6 shadow-sm">
-                        <h3 className="font-bold text-lg mb-2">Newsletter</h3>
+                    <div className="md:col-span-4 bg-secondary/10 border border-border/40 rounded-xl p-6 shadow-sm">
+                        <h3 className="font-serif font-medium text-lg mb-2 text-foreground">Newsletter</h3>
                         <p className="text-muted-foreground mb-4">
                             Stay updated with our latest developments and releases.
                         </p>
