@@ -81,21 +81,21 @@ function TickerStrip({
 
 export function Partners() {
     return (
-        <section className="relative border-y bg-muted/10 overflow-hidden">
+        <section className="relative border-b border-border/40 bg-secondary/10 overflow-hidden">
             {/* Subtle background texture */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-50/20 to-transparent dark:via-indigo-950/10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent pointer-events-none" />
 
             {/* Partners */}
-            <div className="py-16 border-b relative">
+            <div className="py-16 border-b border-border/40 relative">
                 <div className="container mx-auto px-4 md:px-6 mb-10">
                     <div className="text-center">
                         <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
                             Trusted Partners
                         </p>
-                        <h2 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-blue-400">
+                        <h2 className="text-3xl font-serif font-medium tracking-tight text-foreground">
                             Collaborating with leading organizations
                         </h2>
-                        <p className="text-muted-foreground mt-2 text-sm">
+                        <p className="text-muted-foreground mt-3 font-light">
                             in confidential computing and secure AI.
                         </p>
                     </div>
@@ -113,7 +113,7 @@ export function Partners() {
                         <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
                             Memberships
                         </p>
-                        <h2 className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-blue-400">
+                        <h2 className="text-3xl font-serif font-medium tracking-tight text-foreground">
                             Proud members of key industry consortia
                         </h2>
                     </div>

@@ -21,15 +21,15 @@ export default function Home() {
 
             <main className="flex-1">
                 {/* Hero Section */}
-                <section className="w-full min-h-[calc(100vh-64px)] flex items-center py-12 md:py-16 lg:py-20 xl:py-24 bg-gradient-to-br from-indigo-50/50 via-background to-blue-50/50 dark:from-indigo-950/20 dark:via-background dark:to-blue-950/20">
+                <section className="w-full min-h-[calc(100vh-64px)] flex items-center py-12 md:py-16 lg:py-20 xl:py-24 border-b border-border/40">
                     <div className="container mx-auto px-4 md:px-6">
                         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px] items-center">
                             <div className="flex flex-col justify-center space-y-4">
-                                <div className="space-y-2">
-                                    <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/tight pb-1 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-400 dark:to-blue-400">
+                                <div className="space-y-4">
+                                    <h1 className="text-4xl font-serif font-medium tracking-tight sm:text-5xl xl:text-6xl/tight pb-2 text-foreground">
                                         Unlock Collaborative AI with Hardware-Level Privacy
                                     </h1>
-                                    <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                                    <p className="max-w-[600px] text-muted-foreground md:text-xl font-light leading-relaxed">
                                         The open-source foundation for confidential computing. Train and run AI models on sensitive data within secure enclaves, ensuring complete data sovereignty and trust.
                                     </p>
                                 </div>
@@ -50,12 +50,12 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="flex items-center justify-center">
-                                <div className="relative w-full aspect-square max-w-[600px]">
+                                <div className="relative w-full aspect-square max-w-[600px] rounded-2xl overflow-hidden border border-border/50 bg-secondary/5">
                                     <Image
                                         src="/images/hero-technical.png"
                                         alt="Cocos AI Collaborative Secure Computing Architecture"
                                         fill
-                                        className="object-contain drop-shadow-2xl"
+                                        className="object-contain p-4"
                                         priority
                                     />
                                 </div>
@@ -68,43 +68,43 @@ export default function Home() {
                 <Partners />
 
                 {/* How It Works Section */}
-                <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
+                <section className="w-full py-12 md:py-24 lg:py-32 bg-background border-b border-border/40">
                     <div className="container mx-auto px-4 md:px-6">
                         <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                            <div className="space-y-2">
-                                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-blue-400">
+                            <div className="space-y-4">
+                                <h2 className="text-3xl font-serif font-medium tracking-tight sm:text-4xl text-foreground">
                                     How It Works
                                 </h2>
-                                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-light">
                                     Secure Multi-Party Computation made simple and scalable.
                                 </p>
                             </div>
                         </div>
                         <div className="mx-auto grid max-w-5xl items-start gap-6 py-12 lg:grid-cols-3 lg:gap-12">
                             <div className="flex flex-col items-center space-y-4 text-center">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                                    <Shield className="h-8 w-8 text-primary" />
+                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary/30 border border-border/50">
+                                    <Shield className="h-8 w-8 text-primary/80" />
                                 </div>
-                                <h3 className="text-xl font-bold">1. Secure Enclaves</h3>
-                                <p className="text-muted-foreground">
+                                <h3 className="text-xl font-serif font-medium">1. Secure Enclaves</h3>
+                                <p className="text-muted-foreground font-light">
                                     Data and code are isolated in hardware-encrypted Trusted Execution Environments (TEEs) like AMD SEV.
                                 </p>
                             </div>
                             <div className="flex flex-col items-center space-y-4 text-center">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                                    <Cpu className="h-8 w-8 text-primary" />
+                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary/30 border border-border/50">
+                                    <Cpu className="h-8 w-8 text-primary/80" />
                                 </div>
-                                <h3 className="text-xl font-bold">2. Remote Attestation</h3>
-                                <p className="text-muted-foreground">
+                                <h3 className="text-xl font-serif font-medium">2. Remote Attestation</h3>
+                                <p className="text-muted-foreground font-light">
                                     Cryptographic proof ensures that the workload is running on genuine hardware and hasn&apos;t been tampered with.
                                 </p>
                             </div>
                             <div className="flex flex-col items-center space-y-4 text-center">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                                    <Lock className="h-8 w-8 text-primary" />
+                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary/30 border border-border/50">
+                                    <Lock className="h-8 w-8 text-primary/80" />
                                 </div>
-                                <h3 className="text-xl font-bold">3. Confidential Computing</h3>
-                                <p className="text-muted-foreground">
+                                <h3 className="text-xl font-serif font-medium">3. Confidential Computing</h3>
+                                <p className="text-muted-foreground font-light">
                                     Compute on encrypted data without ever exposing it to the cloud provider or infrastructure owner.
                                 </p>
                             </div>
@@ -115,7 +115,7 @@ export default function Home() {
                                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 group"
                             >
                                 Learn More About The Solution
-                                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 opacity-70" />
                             </Link>
                         </div>
                     </div>
@@ -128,12 +128,12 @@ export default function Home() {
                 <UseCases />
 
                 {/* Features Section */}
-                <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative" id="features">
+                <section className="w-full py-12 md:py-24 lg:py-32 bg-secondary/10 border-b border-border/40 relative" id="features">
                     <div className="container mx-auto px-4 md:px-6">
                         <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                            <div className="space-y-2">
-                                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-blue-400">Key Features</h2>
-                                <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                            <div className="space-y-4">
+                                <h2 className="text-3xl font-serif font-medium tracking-tight md:text-4xl text-foreground">Key Features</h2>
+                                <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-light">
                                     Powerful capabilities for secure and efficient AI workloads.
                                 </p>
                             </div>
@@ -150,9 +150,9 @@ export default function Home() {
                                 { title: "High Performance", desc: "Small memory footprint and lightning-fast execution." },
                                 { title: "Open Source", desc: "Apache 2.0 license, fostering transparency." },
                             ].map((feature, i) => (
-                                <div key={i} className="flex flex-col items-center space-y-2 border p-6 rounded-xl bg-card shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200 group">
-                                    <h3 className="text-xl font-bold text-center group-hover:text-primary transition-colors">{feature.title}</h3>
-                                    <p className="text-sm text-muted-foreground text-center">{feature.desc}</p>
+                                <div key={i} className="flex flex-col items-center space-y-3 border border-border/60 p-6 rounded-2xl bg-card hover:bg-secondary/20 transition-all duration-300 group">
+                                    <h3 className="text-xl font-serif font-medium text-center transition-colors">{feature.title}</h3>
+                                    <p className="text-sm font-light leading-relaxed text-muted-foreground text-center">{feature.desc}</p>
                                 </div>
                             ))}
                         </div>
@@ -161,23 +161,23 @@ export default function Home() {
 
 
                 {/* Architecture Section */}
-                <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-tl from-indigo-50/20 to-transparent dark:from-indigo-950/10 pointer-events-none" />
+                <section className="w-full py-12 md:py-24 lg:py-32 bg-background border-b border-border/40 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-tl from-secondary/30 to-transparent pointer-events-none" />
                     <div className="container mx-auto px-4 md:px-6 relative">
-                        <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                            <div className="space-y-2">
-                                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-indigo-600 dark:to-blue-400">Architecture</h2>
-                                <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                        <div className="flex flex-col items-center justify-center space-y-6 text-center">
+                            <div className="space-y-4">
+                                <h2 className="text-3xl font-serif font-medium tracking-tight md:text-4xl text-foreground">Architecture</h2>
+                                <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-light">
                                     A robust system designed for security and scalability.
                                 </p>
                             </div>
                             <div className="w-full max-w-4xl py-6">
-                                <div className="relative w-full aspect-[2/1] rounded-xl overflow-hidden border shadow-2xl">
+                                <div className="relative w-full aspect-[2/1] rounded-2xl overflow-hidden border border-border/50 bg-secondary/5">
                                     <Image
                                         src="/images/cocos-architecture.png"
                                         alt="Cocos AI Architecture"
                                         fill
-                                        className="object-contain bg-white"
+                                        className="object-contain p-4"
                                     />
                                 </div>
                             </div>

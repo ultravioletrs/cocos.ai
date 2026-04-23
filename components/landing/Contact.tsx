@@ -4,12 +4,12 @@ import Image from 'next/image';
 export function Contact() {
     return (
         <section className="w-full py-12 md:py-24 lg:py-32 bg-background relative overflow-hidden" id="contact">
-            <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/20 to-transparent dark:from-indigo-950/10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 to-transparent pointer-events-none" />
             <div className="container mx-auto px-4 md:px-6 relative">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-                    <div className="space-y-2">
-                        <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Contact Us</h2>
-                        <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    <div className="space-y-4">
+                        <h2 className="text-3xl font-serif font-medium tracking-tight md:text-4xl text-foreground">Contact Us</h2>
+                        <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-light">
                             Reach out to us for more information or collaboration opportunities.
                         </p>
                     </div>
