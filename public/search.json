@@ -66,8 +66,14 @@
     "id": "/getting-started"
   },
   {
-    "title": "Attested TLS",
-    "content": "Attested TLS",
+    "title": "Architecture Overview",
+    "content": "Architecture Overview",
+    "url": "/docs/remote-resources",
+    "id": "/remote-resources"
+  },
+  {
+    "title": "Overview",
+    "content": "Overview",
     "url": "/docs/trusted-execution/attestation/atls",
     "id": "/trusted-execution/attestation/atls"
   },

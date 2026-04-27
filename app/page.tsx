@@ -52,7 +52,7 @@ export default function Home() {
                             <div className="flex items-center justify-center">
                                 <div className="relative w-full aspect-square max-w-[600px] rounded-2xl overflow-hidden border border-border/50 bg-secondary/5">
                                     <Image
-                                        src="/images/hero-technical.png"
+                                        src="/images/hero-technical-new.png"
                                         alt="Cocos AI Collaborative Secure Computing Architecture"
                                         fill
                                         className="object-contain p-4"

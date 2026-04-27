@@ -87,28 +87,30 @@ export function Partners() {
 
             {/* Partners */}
             <div className="py-16 border-b border-border/40 relative">
-                <div className="container mx-auto px-4 md:px-6 mb-10">
-                    <div className="text-center">
+                <div className="container mx-auto px-4 md:px-6 mb-10 max-w-6xl">
+                    <div className="flex flex-col items-center text-center">
                         <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
                             Trusted Partners
                         </p>
-                        <h2 className="text-3xl font-serif font-medium tracking-tight text-foreground">
+                        <h2 className="text-3xl font-serif font-medium tracking-tight text-foreground md:text-4xl">
                             Collaborating with leading organizations
                         </h2>
-                        <p className="text-muted-foreground mt-3 font-light">
+                        <p className="text-muted-foreground mt-3 font-light max-w-[800px] md:text-lg">
                             in confidential computing and secure AI.
                         </p>
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-4">
-                    <TickerStrip items={partners} speed={40} direction="left" />
+                <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+                    <div className="flex flex-col gap-4">
+                        <TickerStrip items={partners} speed={40} direction="left" />
+                    </div>
                 </div>
             </div>
 
             {/* Memberships — static centered since there are only 2 */}
             <div className="py-16 relative">
-                <div className="container mx-auto px-4 md:px-6">
+                <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                     <div className="text-center mb-10">
                         <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
                             Memberships
