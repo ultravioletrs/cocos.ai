@@ -6,6 +6,8 @@ title: Manager
 
 The Manager is a critical component of the Cocos system that runs on TEE-capable hosts (AMD SEV-SNP or Intel TDX) and serves as the orchestrator for Trusted Execution Environment (TEE) deployments. It acts as the bridge between the Computation Management service and the actual TEE instances, providing secure virtualized environments for confidential computing workloads.
 
+In the current Cocos implementation, the Manager supports both the original RAM-only EOS boot path and the newer full disk encryption (FDE) workflow. In the FDE flow, the Manager still boots a kernel and initramfs directly, but it can also provision a fresh writable block device for each CVM so the early userspace code can install an encrypted root filesystem before handing control to the guest OS.
+
 ### Architecture Position
 
 The Manager sits between the Computation Management service and the TEE instances, exposing a gRPC-based API for control operations and maintaining TLS-encrypted connections with upstream services.
@@ -14,7 +16,7 @@ The Manager sits between the Computation Management service and the TEE instance
 
 ## Manager Responsibilities
 
-The Manager has two primary operational roles:
+The Manager has three primary operational roles:
 
 ### 1. TEE Deployment and Configuration
 
@@ -25,6 +27,7 @@ The Manager has two primary operational roles:
   - Runtime parameters
   - Environment variables
 - **Resource Allocation**: Manages CPU, memory, and storage resources for each TEE instance
+- **Boot Mode Selection**: Launches either the traditional in-memory EOS or an FDE-oriented initramfs and disk-backed flow, depending on the configured artifacts and disk settings
 
 ### 2. TEE Monitoring and Lifecycle Management
 
@@ -32,6 +35,13 @@ The Manager has two primary operational roles:
 - **Logging**: Provides remote logs and status updates for observability
 - **Lifecycle Management**: Handles TEE startup, runtime management, and shutdown procedures
 - **Attestation**: Performs vTPM-based attestation and IGVM validation for security assurance
+
+### 3. FDE-Oriented Disk Provisioning
+
+- **Per-VM Writable Disk Creation**: When disk support is enabled, the Manager creates a unique writable qcow2 disk for each CVM
+- **Disk Sizing**: Uses a reference qcow2 image to determine the destination disk size and adds extra capacity for LUKS metadata
+- **Device Attachment**: Attaches the writable disk to QEMU through a virtio-scsi controller
+- **Runtime Cleanup**: Removes the per-VM writable disk and temporary firmware state after the CVM stops
 
 ### Security Features
 
@@ -49,6 +59,16 @@ The Manager has two primary operational roles:
 - Ensures CVM initial state aligns with security expectations
 - Prevents unauthorized modifications and ensures secure boot
 
+#### FDE Boot Flow
+
+In the FDE workflow, the Manager participates in the boot chain as follows:
+
+1. A trusted Ubuntu source image is prepared ahead of time with the `hal/cloud-init` workflow.
+2. The source image is exported read-only over NBD for the early boot environment to consume.
+3. The Manager boots a specialized kernel and initramfs and, when enabled, attaches a fresh writable qcow2 destination disk for that VM.
+4. The FDE initramfs connects to the NBD source image, copies it into the writable destination disk, formats the destination as LUKS2, measures the copied disk, and switches root into the encrypted filesystem.
+5. When the VM is removed, the Manager cleans up the temporary writable disk it created for that CVM.
+
 ## Prerequisites and Setup
 
 ### System Requirements
@@ -57,7 +77,7 @@ Before deploying the Manager, ensure the following components are installed:
 
 #### Required Software
 
-- **Go**: Version 1.24 or later ([Installation Guide](https://go.dev/doc/install))
+- **Go**: Version 1.26 or later ([Installation Guide](https://go.dev/doc/install))
 - **QEMU-KVM**: Virtualization platform for running CVMs
 - **Hardware**: AMD SEV-SNP or Intel TDX capable processor
 
@@ -89,6 +109,12 @@ Required files:
 
 - `rootfs.cpio.gz`: Initial RAM filesystem (initramfs) for the CVM
 - `bzImage`: Linux kernel image
+
+For FDE-enabled deployments, these two boot artifacts are still used, but they typically come from the FDE-focused Buildroot workflow under `cocos/hal/cloud-init/buildroot` rather than the minimal RAM-only EOS build. In addition, the FDE flow relies on a separately prepared Ubuntu source image and an NBD export of that image during early boot.
+
+Optional FDE-related artifact:
+
+- `enc_os.qcow2`: Reference qcow2 image used to size the per-VM writable destination disk when disk support is enabled; the actual source-image copy step is performed separately by the FDE initramfs over NBD
 
 ### OVMF Configuration
 
@@ -222,10 +248,19 @@ The Manager's behavior is controlled through environment variables. Below is a c
 
 #### Disk and Storage Configuration
 
-| Variable                            | Description                     | Default Value      |
-|------------------------------------ |---------------------------------|--------------------|
-| `MANAGER_QEMU_DISK_IMG_KERNEL_FILE` | Kernel image file path          | img/bzImage        |
-| `MANAGER_QEMU_DISK_IMG_ROOTFS_FILE` | Root filesystem image file path | img/rootfs.cpio.gz |
+| Variable                            | Description                                                                                                         | Default Value      |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------|
+| `MANAGER_QEMU_DISK_IMG_KERNEL_FILE` | Kernel image file path                                                                                              | img/bzImage        |
+| `MANAGER_QEMU_DISK_IMG_ROOTFS_FILE` | Root filesystem image file path                                                                                     | img/rootfs.cpio.gz |
+| `MANAGER_QEMU_KERNEL_CMDLINE`       | Kernel command line. In FDE mode, this commonly includes `src_ip` and optional `src_port` for the NBD source image. | quiet console=null |
+| `MANAGER_QEMU_ENABLE_DISK`          | Enable creation and attachment of a writable per-VM qcow2 destination disk                                          | false              |
+| `MANAGER_QEMU_SRC_DISK_FILE`        | Reference qcow2 image whose virtual size is used when sizing the destination disk                                   | img/enc_os.qcow2   |
+| `MANAGER_QEMU_DST_DISK_FILE`        | Runtime path for the per-VM writable destination disk                                                               | (empty)            |
+| `MANAGER_QEMU_DISK_ID`              | QEMU drive identifier for the attached writable disk                                                                | disk0              |
+| `MANAGER_QEMU_DISK_FORMAT`          | Disk image format for the writable destination disk                                                                 | qcow2              |
+| `MANAGER_QEMU_DISK_SCSI_ID`         | virtio-scsi controller identifier used for the attached disk                                                        | scsi0              |
+
+`MANAGER_QEMU_DST_DISK_FILE` is usually left unset. The Manager fills it with a unique `/tmp/cvmDisk-<uuid>.qcow2` path at runtime.
 
 #### File System Mounts
 
@@ -312,6 +347,19 @@ export MANAGER_GRPC_CLIENT_KEY=/path/to/client.key
 export MANAGER_GRPC_SERVER_CA_CERTS=/path/to/ca.crt
 ```
 
+#### FDE Disk-Backed Setup
+
+```bash
+export MANAGER_GRPC_HOST=<HOST_IP>
+export MANAGER_GRPC_PORT=7001
+export MANAGER_LOG_LEVEL=info
+export MANAGER_QEMU_ENABLE_DISK=true
+export MANAGER_QEMU_SRC_DISK_FILE=/path/to/enc_os.qcow2
+export MANAGER_QEMU_DISK_IMG_KERNEL_FILE=/path/to/fde/bzImage
+export MANAGER_QEMU_DISK_IMG_ROOTFS_FILE=/path/to/fde/rootfs.cpio.gz
+export MANAGER_QEMU_KERNEL_CMDLINE="quiet console=null src_ip=<NBD_SOURCE_IP> src_port=10809"
+```
+
 ## QEMU Configuration and Management
 
 The Manager dynamically constructs QEMU command-line arguments based on environment variables and host capabilities.
@@ -335,6 +383,9 @@ The Manager dynamically constructs QEMU command-line arguments based on environm
 - **Kernel Loading**: Direct kernel loading with bzImage
 - **InitRD**: Root filesystem loading via initramfs
 - **OVMF Integration**: UEFI firmware support for secure boot
+- **Optional Writable Disk**: Can attach a per-VM qcow2 destination disk through virtio-scsi
+- **FDE Early Boot**: In FDE mode, the initramfs installs and switches into an encrypted LUKS2 root filesystem before the guest OS continues booting
+- **Runtime-Specific Sizing**: The Manager sizes each writable destination disk from a reference image and adds extra space for LUKS metadata
 
 #### Networking
 
@@ -351,6 +402,8 @@ The Manager dynamically constructs QEMU command-line arguments based on environm
 ### File System Mounts (9P)
 
 The Manager uses Plan 9 Filesystem (9P) to securely transfer data between host and CVM:
+
+9P is used for configuration handoff such as certificates and environment files. It is separate from the FDE storage path, where the writable destination disk is attached as a block device instead of being shared through 9P.
 
 #### Certificate Sharing
 
@@ -467,6 +520,22 @@ MANAGER_QEMU_CPU=host \
 MANAGER_QEMU_OVMF_FILE=/path/to/tdx/OVMF.fd \
 ./build/cocos-manager
 ```
+
+#### FDE Deployment
+
+```bash
+MANAGER_GRPC_HOST=localhost \
+MANAGER_GRPC_PORT=7002 \
+MANAGER_LOG_LEVEL=debug \
+MANAGER_QEMU_ENABLE_DISK=true \
+MANAGER_QEMU_SRC_DISK_FILE=/path/to/enc_os.qcow2 \
+MANAGER_QEMU_DISK_IMG_KERNEL_FILE=/path/to/fde/bzImage \
+MANAGER_QEMU_DISK_IMG_ROOTFS_FILE=/path/to/fde/rootfs.cpio.gz \
+MANAGER_QEMU_KERNEL_CMDLINE="quiet console=null src_ip=<NBD_SOURCE_IP> src_port=10809" \
+./build/cocos-manager
+```
+
+This FDE example can be combined with either SEV-SNP or TDX settings. The Manager is responsible for provisioning the writable destination disk, while the early FDE initramfs handles copying the trusted source image into the encrypted LUKS2 volume.
 
 #### SystemD Service Deployment
 
