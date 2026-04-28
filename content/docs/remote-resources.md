@@ -9,15 +9,18 @@ Remote resources allow Cocos to securely download and execute algorithms and dat
 The remote resource handling in Cocos uses different mechanisms depending on the source type:
 
 ### OCI Images
+
 1. **Skopeo**: Used to download and manage OCI images.
 2. **ocicrypt**: Provides the encryption/decryption layer for OCI images.
 3. **CoCo Key Provider**: A gRPC service that acts as a bridge between `ocicrypt` and the Attestation Agent.
 
 ### Non-OCI Sources (S3, GCS, HTTP/S)
+
 1. **Built-in Downloaders**: Directly fetch the encrypted payloads.
 2. **Standard AES-256-GCM**: The Agent handles decryption natively using standard AES-GCM.
 
 ### Shared Components
+
 1. **Attestation Agent**: Generates TEE evidence (attestation) required to fetch decryption keys.
 2. **Key Broker Service (KBS)**: Stores decryption keys and only releases them upon successful verification of TEE evidence.
 
@@ -78,6 +81,7 @@ sequenceDiagram
 The computation manifest specifies the source type and includes the encryption details. If `type` is omitted, it will automatically be inferred from the URL scheme.
 
 ### OCI Image Example
+
 ```json
 {
   "computation_id": "example-computation",
@@ -91,6 +95,7 @@ The computation manifest specifies the source type and includes the encryption d
 ```
 
 ### S3 / HTTP Example
+
 ```json
 {
   "computation_id": "example-computation",
@@ -102,6 +107,7 @@ The computation manifest specifies the source type and includes the encryption d
   }
 }
 ```
+
 Supported `type` values: `oci-image`, `s3`, `gcs`, `https`, `http`.
 
 ## Creating Encrypted Resources
@@ -140,6 +146,7 @@ When starting a computation through a CVMS (Computation Management Server), you 
 If you are using the `cvms-test` server for testing, you can specify remote resources using the corresponding flags.
 
 **Testing OCI Images:**
+
 ```bash
 ./build/cvms-test \
   -kbs-url http://<KBS_IP>:8080 \
@@ -149,6 +156,7 @@ If you are using the `cvms-test` server for testing, you can specify remote reso
 ```
 
 **Testing S3/HTTP Resources:**
+
 ```bash
 ./build/cvms-test \
   -kbs-url http://<KBS_IP>:8080 \
