@@ -2,27 +2,34 @@
 title: Remote Resources
 ---
 
-Remote resources allow Cocos to securely download and execute algorithms and datasets packaged as OCI (Open Container Initiative) images directly from container registries. This mechanism integrates with the Confidential Containers (CoCo) ecosystem to ensure that resources remain encrypted until they are safely inside a Trusted Execution Environment (TEE).
+Remote resources allow Cocos to securely download and execute algorithms and datasets directly from remote storage into a Trusted Execution Environment (TEE). Cocos supports standard OCI (Open Container Initiative) images from container registries, as well as generic files hosted on S3-compatible storage, Google Cloud Storage (GCS), or HTTP(S) web servers.
 
 ## Architecture Overview
 
-The remote resource handling in Cocos leverages several standard components:
+The remote resource handling in Cocos uses different mechanisms depending on the source type:
 
+### OCI Images
 1. **Skopeo**: Used to download and manage OCI images.
 2. **ocicrypt**: Provides the encryption/decryption layer for OCI images.
 3. **CoCo Key Provider**: A gRPC service that acts as a bridge between `ocicrypt` and the Attestation Agent.
-4. **Attestation Agent**: Generates TEE evidence (attestation) required to fetch decryption keys.
-5. **Key Broker Service (KBS)**: Stores decryption keys and only releases them upon successful verification of TEE evidence.
+
+### Non-OCI Sources (S3, GCS, HTTP/S)
+1. **Built-in Downloaders**: Directly fetch the encrypted payloads.
+2. **Standard AES-256-GCM**: The Agent handles decryption natively using standard AES-GCM.
+
+### Shared Components
+1. **Attestation Agent**: Generates TEE evidence (attestation) required to fetch decryption keys.
+2. **Key Broker Service (KBS)**: Stores decryption keys and only releases them upon successful verification of TEE evidence.
 
 ### Workflow
 
-The following diagram illustrates the lifecycle of a remote resource computation, including per-resource KBS resolution and secure execution.
+The following diagram illustrates the lifecycle of a remote resource computation.
 
 ```mermaid
 sequenceDiagram
     participant Client
     participant Agent as Cocos Agent
-    participant Registry as Remote Registry
+    participant Registry as Remote Source (Registry/S3/HTTP)
     participant KBS as Key Broker Service
     participant Algo as Algorithm
     
@@ -30,20 +37,20 @@ sequenceDiagram
     
     rect rgba(100, 150, 200, 0.5)
     note over Agent: Download Algorithm
-    Agent->>Registry: Pull OCI Image
-    Agent->>KBS: Request decryption key (per-resource KBS URL)
+    Agent->>Registry: Pull Resource (OCI Image or File)
+    Agent->>KBS: Request decryption key (via Attestation)
     KBS-->>Agent: Return decryption key
-    Registry-->>Agent: Encrypted image layers
-    Agent->>Agent: Decrypt & Extract algorithm
+    Registry-->>Agent: Encrypted data
+    Agent->>Agent: Decrypt & Extract
     end
     
     rect rgba(150, 100, 200, 0.5)
     note over Agent: Download Datasets
     loop Each Dataset
-        Agent->>Registry: Pull OCI Image
-        Agent->>KBS: Request decryption key (per-dataset KBS URL)
+        Agent->>Registry: Pull Resource
+        Agent->>KBS: Request decryption key
         KBS-->>Agent: Return decryption key
-        Registry-->>Agent: Encrypted image layers
+        Registry-->>Agent: Encrypted data
         Agent->>Agent: Decrypt, Decompress & Stage
     end
     end
@@ -61,17 +68,16 @@ sequenceDiagram
     Agent-->>Client: Computation Results
 ```
 
-1. **Encryption**: Algorithms and datasets are packaged as OCI images and encrypted using `skopeo` and `ocicrypt`. The encryption keys are stored in a KBS.
-2. **Manifest**: A computation manifest is sent to the Cocos Agent, specifying the URIs of the encrypted OCI images and their corresponding KBS resource paths/URLs.
-3. **Download**: The Agent invokes `skopeo` to download the encrypted layers.
-4. **Decryption**: `skopeo` (via `ocicrypt`) requests the decryption key from the `coco-keyprovider`, which fetches it from the specified KBS.
-5. **Attestation**: The `coco-keyprovider` works with the `attestation-agent` to provide evidence to the KBS for key release.
-6. **Execution**: Once decrypted, the algorithm and datasets are extracted and executed within the secure enclave.
+1. **Manifest**: A computation manifest is sent to the Cocos Agent, specifying the URIs of the encrypted resources and their corresponding KBS resource paths.
+2. **Download**: The Agent downloads the encrypted data (via `skopeo` for OCI, or internal downloaders for S3/HTTP).
+3. **Decryption**: The system requests the decryption key, which is fetched from the specified KBS after providing evidence from the `attestation-agent`.
+4. **Execution**: Once decrypted, the algorithm and datasets are extracted and executed within the secure enclave.
 
 ## Computation Manifest Format
 
-To use remote resources, the computation manifest must specify the source type as `oci-image` and include the encryption details.
+The computation manifest specifies the source type and includes the encryption details. If `type` is omitted, it will automatically be inferred from the URL scheme.
 
+### OCI Image Example
 ```json
 {
   "computation_id": "example-computation",
@@ -80,24 +86,29 @@ To use remote resources, the computation manifest must specify the source type a
     "uri": "docker://registry.example.com/encrypted-algo:latest",
     "encrypted": true,
     "kbs_resource_path": "default/key/algo-key"
-  },
-  "datasets": [
-    {
-      "type": "oci-image",
-      "uri": "docker://registry.example.com/encrypted-dataset:latest",
-      "encrypted": true,
-      "kbs_resource_path": "default/key/dataset-key"
-    }
-  ],
-  "kbs_url": "http://kbs.example.com:8080"
+  }
 }
 ```
 
+### S3 / HTTP Example
+```json
+{
+  "computation_id": "example-computation",
+  "algorithm": {
+    "type": "s3",
+    "uri": "s3://my-secure-bucket/algo.enc",
+    "encrypted": true,
+    "kbs_resource_path": "default/key/algo-key"
+  }
+}
+```
+Supported `type` values: `oci-image`, `s3`, `gcs`, `https`, `http`.
+
 ## Creating Encrypted Resources
 
-### 1. Package and Encrypt an Algorithm
+### 1a. Package and Encrypt an OCI Algorithm
 
-First, build your algorithm as a Docker image and push it to a registry. Then, use `skopeo` with a CoCo-compatible key provider to encrypt it.
+Build your algorithm as a Docker image and push it to a registry. Then, use `skopeo` with a CoCo-compatible key provider to encrypt it.
 
 ```bash
 # Encrypt an OCI image
@@ -106,6 +117,15 @@ skopeo copy \
   docker://registry.example.com/plain-algo:latest \
   docker://registry.example.com/encrypted-algo:latest
 ```
+
+### 1b. Encrypt Non-OCI Sources (S3, HTTP)
+
+Unlike OCI images where `ocicrypt` wraps the dataset, resources hosted on HTTP/S3 must be straightforwardly encrypted using **AES-256-GCM**.
+
+The expected format is exactly as produced by standard Go AES-GCM:
+`nonce (12 bytes) || ciphertext || tag`
+
+Upload the resulting encrypted file to your S3 bucket or web server.
 
 ### 2. Store the Key in KBS
 
@@ -117,21 +137,30 @@ When starting a computation through a CVMS (Computation Management Server), you 
 
 ### Using `cvms-test`
 
-If you are using the `cvms-test` server for testing, you can specify remote resources using the following flags:
+If you are using the `cvms-test` server for testing, you can specify remote resources using the corresponding flags.
 
+**Testing OCI Images:**
 ```bash
 ./build/cvms-test \
   -kbs-url http://<KBS_IP>:8080 \
   -algo-type python \
   -algo-source-url docker://<REGISTRY_IP>:5000/encrypted-algo:v1.0 \
-  -algo-kbs-path default/key/algo-key \
-  -dataset-source-urls docker://<REGISTRY_IP>:5000/encrypted-dataset:v1.0 \
-  -dataset-kbs-paths default/key/dataset-key
+  -algo-kbs-path default/key/algo-key
+```
+
+**Testing S3/HTTP Resources:**
+```bash
+./build/cvms-test \
+  -kbs-url http://<KBS_IP>:8080 \
+  -algo-type python \
+  -algo-source-url "s3://my-secure-bucket/script.enc" \
+  -algo-source-type "s3" \
+  -algo-kbs-path "default/key/script-key"
 ```
 
 ## Benefits of Remote Resources
 
+- **Flexibility**: Support for both standard OCI registries and traditional object storage/web servers.
 - **Standards-Based**: Leverages OCI and CoCo standards for container security.
 - **Enhanced Security**: Resources are never decrypted outside of the TEE.
-- **Scalability**: Works seamlessly with any OCI-compliant registry (GitHub Container Registry, Docker Hub, private registries).
 - **Interoperability**: Compatible with the broader Confidential Containers ecosystem.
