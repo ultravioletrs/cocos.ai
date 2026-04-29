@@ -21,7 +21,7 @@ export function ArchitectureDiagram() {
                     cocos · system_architecture
                 </span>
                 <span className="text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground hidden sm:inline">
-                    v0.5
+                    v0.9.0
                 </span>
             </div>
 
@@ -50,7 +50,7 @@ export function ArchitectureDiagram() {
 
                         <div className="flex items-center gap-3 text-muted-foreground">
                             <span className="font-mono text-xs uppercase tracking-[0.15em] text-primary">
-                                Attestation
+                                Attestation (gRPC)
                             </span>
                             <ArrowRight className="h-3.5 w-3.5 text-primary" />
                             <span className="hidden lg:block flex-1 border-t border-dashed border-primary/40" />
@@ -58,7 +58,7 @@ export function ArchitectureDiagram() {
 
                         <div className="flex items-center gap-3 text-muted-foreground">
                             <span className="font-mono text-xs uppercase tracking-[0.15em]">
-                                Data + algo upload (mTLS)
+                                Algo + data (gRPC · aTLS)
                             </span>
                             <ArrowLeftRight className="h-3.5 w-3.5" />
                         </div>
@@ -88,22 +88,22 @@ export function ArchitectureDiagram() {
                             accent
                         />
 
-                        {/* Vsock + Qemu connectors */}
+                        {/* Qemu launch + 9P control channel */}
                         <div className="flex flex-col items-center gap-1 text-muted-foreground">
                             <span className="font-mono text-[0.65rem] uppercase tracking-[0.15em]">
-                                Vsock · Qemu VM launch
+                                Qemu launch · 9P
                             </span>
                             <ArrowDown className="h-3.5 w-3.5" />
                         </div>
 
                         {/* TEE + Enclave layered card */}
                         <div className="grid grid-cols-1 sm:grid-cols-[1fr_1.4fr] gap-3 items-stretch">
-                            <Box label="TEE" hint="vsock i/o" accent center />
+                            <Box label="TEE" hint="9P channel" accent center />
 
                             <div className="border border-border rounded-sm overflow-hidden">
                                 <div className="flex items-center justify-between px-3 py-1.5 border-b border-border bg-background/40">
                                     <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-primary">
-                                        // In-enclave Agent
+                                        {'// In-enclave Agent'}
                                     </span>
                                     <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-muted-foreground">
                                         03 · EOS

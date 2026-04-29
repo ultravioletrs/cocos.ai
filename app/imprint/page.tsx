@@ -16,7 +16,7 @@ const monoLink = "font-mono text-primary hover:underline underline-offset-4";
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
     return (
         <section className="border-t border-border pt-8">
-            <p className="eyebrow mb-3">// {title.toUpperCase()}</p>
+            <p className="eyebrow mb-3">{'// '}{title.toUpperCase()}</p>
             <h2 className="text-xl md:text-2xl font-display font-medium tracking-tight mb-4">{title}</h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">{children}</div>
         </section>
@@ -33,7 +33,7 @@ export default function ImprintPage() {
                     <div className="absolute inset-0 grid-bg grid-bg-fade pointer-events-none opacity-50" />
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl py-16 md:py-20">
                         <div className="max-w-4xl">
-                            <p className="eyebrow-accent mb-6">// Legal</p>
+                            <p className="eyebrow-accent mb-6">{'// '}Legal</p>
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-[-0.02em]">
                                 Imprint
                             </h1>

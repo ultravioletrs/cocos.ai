@@ -28,7 +28,7 @@ const howItWorks = [
         icon: Cpu,
         title: 'Remote Attestation',
         body: 'Cryptographic proofs verify the workload is running on genuine hardware and the expected, untampered binary.',
-        meta: '// VTPM · MAA · SEV-AGENT',
+        meta: '// VTPM · SEV-SNP · TDX',
     },
     {
         n: '03',
@@ -77,7 +77,7 @@ export default function Home() {
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl py-16 md:py-24 lg:py-32">
                         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16 items-center">
                             <div className="flex flex-col gap-8">
-                                <p className="eyebrow-accent">// Confidential AI Infrastructure</p>
+                                <p className="eyebrow-accent">{'// '}Confidential AI Infrastructure</p>
                                 <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl/[1.05] font-display font-medium tracking-[-0.02em] text-foreground">
                                     Unlock collaborative AI with hardware-level privacy.
                                 </h1>
@@ -119,7 +119,7 @@ export default function Home() {
                 <section className="w-full py-16 md:py-24 lg:py-32 bg-background border-b border-border">
                     <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-12">
-                            <p className="eyebrow mb-4">// How It Works</p>
+                            <p className="eyebrow mb-4">{'// '}How It Works</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground">
                                 Secure multi-party computation, by construction
                             </h2>
@@ -165,7 +165,7 @@ export default function Home() {
                     <div className="absolute inset-0 grid-bg grid-bg-fade pointer-events-none opacity-40" />
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-12">
-                            <p className="eyebrow mb-4">// Why Cocos</p>
+                            <p className="eyebrow mb-4">{'// '}Why Cocos</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground">
                                 For decades, AI on sensitive data forced a compromise
                             </h2>
@@ -177,7 +177,7 @@ export default function Home() {
                         <div className="grid lg:grid-cols-2 gap-3">
                             {/* Traditional */}
                             <div className="border border-border rounded-sm p-8 bg-card">
-                                <p className="eyebrow mb-2">// Status Quo</p>
+                                <p className="eyebrow mb-2">{'// '}Status Quo</p>
                                 <h3 className="text-2xl md:text-3xl font-display font-medium tracking-tight mb-2">
                                     Traditional Cloud AI
                                 </h3>
@@ -197,7 +197,7 @@ export default function Home() {
                                 <div className="absolute -top-3 left-6 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-primary-foreground bg-primary px-2 py-0.5">
                                     Cocos AI
                                 </div>
-                                <p className="eyebrow-accent mb-2">// The New Default</p>
+                                <p className="eyebrow-accent mb-2">{'// '}The New Default</p>
                                 <h3 className="text-2xl md:text-3xl font-display font-medium tracking-tight mb-2">
                                     Confidential by design
                                 </h3>
@@ -225,7 +225,7 @@ export default function Home() {
                 <section className="w-full py-16 md:py-24 lg:py-32 bg-background border-b border-border" id="features">
                     <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-12">
-                            <p className="eyebrow mb-4">// Capabilities</p>
+                            <p className="eyebrow mb-4">{'// '}Capabilities</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground">
                                 One platform. Every confidential workload.
                             </h2>
@@ -258,7 +258,7 @@ export default function Home() {
                     <div className="absolute inset-0 grid-bg grid-bg-fade pointer-events-none opacity-50" />
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-12">
-                            <p className="eyebrow mb-4">// System Architecture</p>
+                            <p className="eyebrow mb-4">{'// '}System Architecture</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground">
                                 Robust by design, scalable by default
                             </h2>
@@ -283,7 +283,7 @@ export default function Home() {
                     <div className="absolute inset-0 grid-bg grid-bg-fade pointer-events-none opacity-40" />
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-10">
-                            <p className="eyebrow-accent mb-4">// Get Started</p>
+                            <p className="eyebrow-accent mb-4">{'// '}Get Started</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground mb-4">
                                 Run sensitive AI workloads — without trusting the host.
                             </h2>

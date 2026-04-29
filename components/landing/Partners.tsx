@@ -83,7 +83,7 @@ export function Partners() {
             <div className="py-16 border-b border-border">
                 <div className="container mx-auto px-4 md:px-6 max-w-6xl mb-10">
                     <div className="max-w-3xl">
-                        <p className="eyebrow mb-4">// Trusted Partners</p>
+                        <p className="eyebrow mb-4">{'// '}Trusted Partners</p>
                         <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-foreground">
                             Collaborating with leading organizations
                         </h2>
@@ -100,7 +100,7 @@ export function Partners() {
             <div className="py-16">
                 <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                     <div className="max-w-3xl mb-10">
-                        <p className="eyebrow mb-4">// Memberships</p>
+                        <p className="eyebrow mb-4">{'// '}Memberships</p>
                         <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-foreground">
                             Members of key industry consortia
                         </h2>

@@ -40,7 +40,7 @@ export function About() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-background border-b border-border" id="about">
             <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                 <div className="max-w-3xl mb-12">
-                    <p className="eyebrow mb-4">// About</p>
+                    <p className="eyebrow mb-4">{'// '}About</p>
                     <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground mb-4">
                         Built in research, hardened in production
                     </h2>
@@ -53,7 +53,7 @@ export function About() {
                     {/* Lead Developer */}
                     <div className="flex flex-col justify-between border border-border rounded-sm p-8 bg-card">
                         <div>
-                            <p className="eyebrow-accent mb-6">// Lead Developer</p>
+                            <p className="eyebrow-accent mb-6">{'// '}Lead Developer</p>
                             <div className="relative h-12 w-auto min-w-[140px] mb-6">
                                 <Image src="/images/UltraViolet_logo-01.png" alt="Ultraviolet" fill className="object-contain object-left dark:invert" />
                             </div>
@@ -111,7 +111,7 @@ export function About() {
                 <div className="mt-16 pt-12 border-t border-border">
                     <div className="flex flex-col md:flex-row items-start justify-between gap-8">
                         <div className="max-w-2xl space-y-3">
-                            <p className="eyebrow">// Funded By</p>
+                            <p className="eyebrow">{'// '}Funded By</p>
                             <p className="text-sm text-muted-foreground leading-relaxed">
                                 Initiated with support from the School of Electrical Engineering (ETF), University of Belgrade, and funded by the Innovation Fund from the Republic of Serbia (Project ID 50314). Further developed through EU-funded projects: <Link href="https://www.ultraviolet.rs/projects/confidential6g/" target="_blank" className="text-primary hover:underline font-mono">CONFIDENTIAL6G</Link>, <Link href="https://www.ultraviolet.rs/projects/titan/" target="_blank" className="text-primary hover:underline font-mono">TITAN</Link>, and <Link href="https://www.ultraviolet.rs/projects/elastic/" target="_blank" className="text-primary hover:underline font-mono">ELASTIC</Link>.
                             </p>

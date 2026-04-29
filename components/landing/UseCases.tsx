@@ -57,7 +57,7 @@ export function UseCases() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-background border-b border-border" id="usecases">
             <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                 <div className="max-w-3xl mb-12">
-                    <p className="eyebrow mb-4">// Use Cases</p>
+                    <p className="eyebrow mb-4">{'// '}Use Cases</p>
                     <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground mb-4">
                         Real-world workloads, hardware-isolated
                     </h2>

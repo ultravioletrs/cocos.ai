@@ -53,7 +53,7 @@ export default function SolutionPage() {
                     <div className="absolute inset-0 grid-bg grid-bg-fade pointer-events-none opacity-50" />
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl py-16 md:py-24 lg:py-32">
                         <div className="max-w-4xl">
-                            <p className="eyebrow-accent mb-6">// Solution</p>
+                            <p className="eyebrow-accent mb-6">{'// '}Solution</p>
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl/[1.05] font-display font-medium tracking-[-0.02em] text-foreground mb-6">
                                 The Cocos AI solution.
                             </h1>
@@ -70,7 +70,7 @@ export default function SolutionPage() {
                     <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
                             <div className="space-y-6">
-                                <p className="eyebrow">// Secure Multi-Party Computation</p>
+                                <p className="eyebrow">{'// '}Secure Multi-Party Computation</p>
                                 <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight">
                                     Compute together, reveal nothing
                                 </h2>
@@ -113,7 +113,7 @@ export default function SolutionPage() {
                     <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center lg:grid-flow-col-dense">
                             <div className="lg:col-start-2 space-y-6">
-                                <p className="eyebrow">// Trusted Execution Environments</p>
+                                <p className="eyebrow">{'// '}Trusted Execution Environments</p>
                                 <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight">
                                     Hardware-rooted isolation
                                 </h2>
@@ -144,7 +144,7 @@ export default function SolutionPage() {
                     <div className="absolute inset-0 grid-bg grid-bg-fade pointer-events-none opacity-40" />
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-12">
-                            <p className="eyebrow mb-4">// System Architecture</p>
+                            <p className="eyebrow mb-4">{'// '}System Architecture</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight">
                                 Multiple TEEs, one orchestrator
                             </h2>
@@ -186,7 +186,7 @@ export default function SolutionPage() {
                 <section className="w-full py-16 md:py-24 lg:py-32 bg-secondary/40 border-b border-border">
                     <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-12">
-                            <p className="eyebrow mb-4">// Platform Features</p>
+                            <p className="eyebrow mb-4">{'// '}Platform Features</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight">
                                 Comprehensive capabilities for secure AI workloads
                             </h2>
@@ -207,7 +207,7 @@ export default function SolutionPage() {
                     <div className="absolute inset-0 grid-bg grid-bg-fade pointer-events-none opacity-40" />
                     <div className="relative container mx-auto px-4 md:px-6 max-w-6xl">
                         <div className="max-w-3xl mb-10">
-                            <p className="eyebrow-accent mb-4">// Get Started</p>
+                            <p className="eyebrow-accent mb-4">{'// '}Get Started</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight mb-4">
                                 Ready to deploy confidential AI?
                             </h2>

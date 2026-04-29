@@ -29,7 +29,7 @@ export function Navbar() {
                         className="h-7 w-auto dark:invert"
                     />
                     <span className="hidden sm:inline-block font-mono text-[0.65rem] tracking-[0.15em] uppercase text-muted-foreground border border-border px-1.5 py-0.5 rounded-sm">
-                        v0.5
+                        v0.9.0
                     </span>
                 </Link>
 

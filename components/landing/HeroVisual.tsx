@@ -14,12 +14,12 @@ export function HeroVisual() {
         <div className="relative w-full max-w-[600px] mx-auto">
             {/* Top corner label */}
             <div className="absolute -top-3 left-3 z-10 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground bg-background px-2">
-                // Architecture
+                {'// Architecture'}
             </div>
 
             {/* Bottom corner label */}
             <div className="absolute -bottom-3 right-3 z-10 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground bg-background px-2">
-                v0.5 · APACHE-2.0
+                v0.9.0 · APACHE-2.0
             </div>
 
             <div className="relative w-full aspect-square rounded-sm overflow-hidden border border-border bg-card">
@@ -75,7 +75,7 @@ export function HeroVisual() {
                     {/* ASCII schematic */}
                     <div className="border border-border rounded-sm p-4 bg-background/40">
                         <div className="text-[0.6rem] uppercase tracking-[0.2em] text-muted-foreground mb-3">
-                            // Trust Boundary
+                            {'// Trust Boundary'}
                         </div>
                         <div className="grid grid-cols-3 gap-2 text-[0.7rem] sm:text-xs">
                             <Node label="DATA" />

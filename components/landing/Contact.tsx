@@ -7,7 +7,7 @@ export function Contact() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-background border-b border-border" id="contact">
             <div className="container mx-auto px-4 md:px-6 max-w-6xl">
                 <div className="max-w-3xl mb-12">
-                    <p className="eyebrow mb-4">// Contact</p>
+                    <p className="eyebrow mb-4">{'// '}Contact</p>
                     <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground mb-4">
                         Talk to the team
                     </h2>
@@ -19,7 +19,7 @@ export function Contact() {
                 <div className="grid lg:grid-cols-[1fr_1.5fr] gap-3">
                     {/* Address card */}
                     <div className="border border-border rounded-sm p-8 bg-card flex flex-col gap-6">
-                        <p className="eyebrow-accent">// Headquarters</p>
+                        <p className="eyebrow-accent">{'// '}Headquarters</p>
 
                         <div className="relative h-14 w-48">
                             <Image

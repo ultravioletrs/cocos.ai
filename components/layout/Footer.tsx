@@ -11,7 +11,7 @@ export function Footer() {
             {/* Schematic top bar */}
             <div className="border-b border-border">
                 <div className="container mx-auto px-4 md:px-6 max-w-6xl py-3 flex items-center justify-between gap-4 font-mono text-[0.65rem] tracking-[0.2em] uppercase text-muted-foreground">
-                    <span>// COCOS.AI</span>
+                    <span>{'// '}COCOS.AI</span>
                     <span className="hidden sm:inline-block flex-1 border-t border-dashed border-border" />
                     <span>CONFIDENTIAL_COMPUTING.SYSTEM</span>
                 </div>
@@ -56,7 +56,7 @@ export function Footer() {
                     </div>
 
                     <div className="md:col-span-4 border border-border rounded-sm p-6 bg-secondary/40">
-                        <h3 className="eyebrow-accent mb-3">// Newsletter</h3>
+                        <h3 className="eyebrow-accent mb-3">{'// '}Newsletter</h3>
                         <p className="text-muted-foreground mb-4">
                             Releases, attestation research, and confidential computing news.
                         </p>
