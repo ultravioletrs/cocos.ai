@@ -18,9 +18,16 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
 
-  --font-serif: var(--font-serif), serif;
-  --font-sans: var(--font-sans), sans-serif;
+  --color-accent-bright: hsl(152 88% 50%);
+
+  /* All three font tokens resolve to JetBrains Mono — the site uses one mono family
+     everywhere, with size/weight/tracking carrying the hierarchy. */
+  --font-sans: var(--font-mono), 'SF Mono', Menlo, Consolas, monospace;
+  --font-display: var(--font-mono), 'SF Mono', Menlo, Consolas, monospace;
+  --font-mono: var(--font-mono), 'SF Mono', Menlo, Consolas, monospace;
 
   --animate-ticker-left: ticker-left linear infinite;
   --animate-ticker-right: ticker-right linear infinite;
@@ -53,86 +60,82 @@
 
   html {
     scroll-behavior: smooth;
-    font-size: 17px;
+    font-size: 16px;
   }
 
   @media (min-width: 768px) {
     html {
-      font-size: 18px;
+      font-size: 17px;
     }
   }
 
   :root {
-    --background: 40 33% 96%;
-    /* #F6F5F2 off-white */
-    --foreground: 0 0% 12%;
-    /* #1F1F1F */
+    --background: 0 0% 100%;
+    --foreground: 180 10% 8%;
 
-    --card: 40 33% 98%;
-    /* #FAFAF8 slightly lighter */
-    --card-foreground: 0 0% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 180 10% 8%;
 
-    --popover: 40 33% 98%;
-    --popover-foreground: 0 0% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 180 10% 8%;
 
-    /* Muted Terra / Rust / Charcoal as primary instead of neon indigo */
-    --primary: 0 0% 15%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 152 78% 30%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 20% 90%;
-    /* #EAE7E1 warm muted */
-    --secondary-foreground: 0 0% 15%;
+    --secondary: 180 8% 96%;
+    --secondary-foreground: 180 10% 8%;
 
-    --muted: 40 15% 92%;
-    /* #EDECE7 */
-    --muted-foreground: 24 5% 42%;
+    --muted: 180 8% 96%;
+    --muted-foreground: 180 6% 38%;
 
-    --accent: 40 20% 90%;
-    --accent-foreground: 0 0% 12%;
+    --accent: 152 78% 30%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 40 15% 85%;
-    --input: 40 15% 85%;
-    --ring: 0 0% 15%;
+    --border: 180 6% 88%;
+    --input: 180 6% 88%;
+    --ring: 152 78% 30%;
 
-    --radius: 0.75rem;
+    --radius: 0.25rem;
+
+    --grid-line: 180 6% 88%;
   }
 
   .dark {
-    --background: 30 5% 10%;
-    /* #1C1B1A warm dark */
-    --foreground: 40 15% 90%;
-    /* #EAE7E1 off-white text */
+    --background: 180 6% 6%;
+    --foreground: 160 8% 92%;
 
-    --card: 30 5% 12%;
-    --card-foreground: 40 15% 90%;
+    --card: 180 6% 8%;
+    --card-foreground: 160 8% 92%;
 
-    --popover: 30 5% 12%;
-    --popover-foreground: 40 15% 90%;
+    --popover: 180 6% 8%;
+    --popover-foreground: 160 8% 92%;
 
-    --primary: 40 15% 95%;
-    --primary-foreground: 0 0% 10%;
+    --primary: 152 88% 50%;
+    --primary-foreground: 180 10% 6%;
 
-    --secondary: 30 5% 16%;
-    --secondary-foreground: 40 15% 90%;
+    --secondary: 180 6% 12%;
+    --secondary-foreground: 160 8% 92%;
 
-    --muted: 30 5% 15%;
-    --muted-foreground: 40 5% 65%;
+    --muted: 180 5% 14%;
+    --muted-foreground: 170 6% 60%;
 
-    --accent: 30 5% 16%;
-    --accent-foreground: 40 15% 90%;
+    --accent: 152 88% 50%;
+    --accent-foreground: 180 10% 6%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 30 5% 18%;
-    --input: 30 5% 18%;
-    --ring: 40 15% 95%;
+    --border: 180 5% 18%;
+    --input: 180 5% 18%;
+    --ring: 152 88% 50%;
+
+    --grid-line: 180 5% 18%;
   }
 
-  /* Fix for code block overflow */
+  /* Code block overflow */
   pre {
     max-width: 100%;
     overflow-x: auto;
@@ -140,10 +143,77 @@
     word-wrap: normal;
   }
 
-  /* Ensure the content area doesn't get pushed out by pre tags */
   .prose pre,
   [data-rehype-pretty-code-fragment] pre {
     max-width: 100%;
     overflow-x: auto;
+  }
+}
+
+@layer components {
+  /* Mono uppercase eyebrow label, used for section kickers / tags */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .eyebrow-accent {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsl(var(--primary));
+  }
+
+  /* Schematic grid background — used behind hero/architecture sections */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, hsl(var(--grid-line) / 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line) / 0.6) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .grid-bg-fade {
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  /* Terminal-style code block container */
+  .terminal {
+    position: relative;
+    background-color: hsl(var(--secondary));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    padding: 2.25rem 1rem 1rem;
+  }
+
+  .terminal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1.5rem;
+    background-color: hsl(var(--background));
+    border-bottom: 1px solid hsl(var(--border));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .terminal::after {
+    content: '● ● ●';
+    position: absolute;
+    top: 0.35rem;
+    left: 0.6rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    color: hsl(var(--muted-foreground));
   }
 }
