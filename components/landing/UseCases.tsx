@@ -5,83 +5,96 @@ const useCases = [
         title: "Medical / Pharma",
         icon: Activity,
         items: [
-            "Medical trials-encrypted patient data exchange for identifying new treatments and drugs",
-            "Drug distribution, serialization, and tracking"
-        ]
+            "Encrypted patient data exchange for medical trials and drug discovery",
+            "Drug distribution, serialization, and tracking",
+        ],
     },
     {
         title: "Public / Government",
         icon: Building2,
         items: [
-            "Analytics on citizen data, or AI/ML on top of confidential data coming from different agencies"
-        ]
+            "Cross-agency analytics and AI/ML over confidential citizen data",
+        ],
     },
     {
         title: "Banking / Finance",
         icon: Banknote,
         items: [
-            "Private client payment data exchange for payment fraud detection and anti-money-laundering",
-            "Credit approval process handling in a secure manner",
-            "Transaction handling between two parties"
-        ]
+            "Private payment data exchange for fraud detection and AML",
+            "Secure credit approval workflows",
+            "Trustless transaction handling between parties",
+        ],
     },
     {
         title: "Transportation / Logistics",
         icon: Truck,
         items: [
-            "Support for autonomous driving (routing, AI/ML…)",
-            "Logistics Data Analytics"
-        ]
+            "Autonomous driving routing and AI/ML",
+            "Logistics data analytics across operators",
+        ],
     },
     {
         title: "Industry",
         icon: Factory,
         items: [
-            "Multi-party computation on data from competing and/or cooperating companies",
-            "AI/ML for predictive maintenance",
-            "Quality Assurance and Data exchange",
-            "Production Data Exchange (Industry 4.0)"
-        ]
+            "Multi-party computation across competing companies",
+            "Predictive maintenance via shared models",
+            "Quality assurance and Industry 4.0 data exchange",
+        ],
     },
     {
         title: "Software Development",
         icon: Code2,
         items: [
-            "Intellectual property protection (algorithms protected from cloud provider)",
-            "Insider threats (employees within a company)"
-        ]
-    }
+            "IP protection — algorithms shielded from cloud providers",
+            "Mitigation of insider threats inside organizations",
+        ],
+    },
 ];
 
 export function UseCases() {
     return (
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-background border-b border-border/40 relative overflow-hidden" id="usecases">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-secondary/40 via-transparent to-transparent pointer-events-none" />
-            <div className="container mx-auto px-4 md:px-6 relative">
-                <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                    <div className="space-y-4">
-                        <h2 className="text-3xl font-serif font-medium tracking-tight md:text-4xl text-foreground">Use Cases</h2>
-                        <p className="max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed font-light">
-                            Real-world applications of Cocos AI&apos;s confidential computing capabilities.
-                        </p>
-                    </div>
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-background border-b border-border" id="usecases">
+            <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+                <div className="max-w-3xl mb-12">
+                    <p className="eyebrow mb-4">{'// '}Use Cases</p>
+                    <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground mb-4">
+                        Real-world workloads, hardware-isolated
+                    </h2>
+                    <p className="text-muted-foreground md:text-lg font-light leading-relaxed">
+                        Where data sensitivity meets compute demand — Cocos AI keeps both sides honest.
+                    </p>
                 </div>
-                <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
-                    {useCases.map((useCase, i) => (
-                        <div key={i} className="flex flex-col space-y-4 border border-border/50 p-6 rounded-2xl bg-secondary/5 backdrop-blur-sm hover:shadow-md transition-all duration-300 hover:border-border group">
-                            <div className="flex items-center space-x-4">
-                                <div className="p-3 bg-secondary/50 rounded-xl group-hover:bg-primary/5 transition-colors border border-border/40">
-                                    <useCase.icon className="h-6 w-6 text-foreground/80" />
+
+                <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+                    {useCases.map((useCase, i) => {
+                        const Icon = useCase.icon;
+                        const number = String(i + 1).padStart(2, '0');
+                        return (
+                            <div
+                                key={i}
+                                className="flex flex-col space-y-5 border border-border rounded-sm p-6 bg-card hover:border-primary transition-colors group"
+                            >
+                                <div className="flex items-center justify-between">
+                                    <span className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                                        {number} · {useCase.title}
+                                    </span>
+                                    <Icon className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                                 </div>
-                                <h3 className="text-xl font-serif font-medium group-hover:text-primary transition-colors">{useCase.title}</h3>
+                                <h3 className="text-xl md:text-2xl font-display font-medium tracking-tight text-foreground">
+                                    {useCase.title}
+                                </h3>
+                                <ul className="space-y-2 text-sm text-muted-foreground">
+                                    {useCase.items.map((item, j) => (
+                                        <li key={j} className="flex gap-2">
+                                            <span className="font-mono text-primary shrink-0 mt-0.5">›</span>
+                                            <span>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-                            <ul className="list-disc list-inside space-y-2 text-muted-foreground text-sm">
-                                {useCase.items.map((item, j) => (
-                                    <li key={j}>{item}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

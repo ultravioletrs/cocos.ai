@@ -1,10 +1,13 @@
 import './globals.css';
 import 'katex/dist/katex.css';
-import { Inter, Lora } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const lora = Lora({ subsets: ['latin'], variable: '--font-serif' });
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ['latin'],
+    variable: '--font-mono',
+    display: 'swap',
+});
 
 import { createMetadata } from '@/lib/metadata';
 
@@ -25,7 +28,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${inter.variable} ${lora.variable} ${inter.className} font-sans`} suppressHydrationWarning>
+        <html
+            lang="en"
+            className={`${jetbrainsMono.variable} ${jetbrainsMono.className}`}
+            suppressHydrationWarning
+        >
             <body className="antialiased min-h-screen">
                 <RootProvider>{children}</RootProvider>
             </body>

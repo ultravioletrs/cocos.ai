@@ -31,7 +31,6 @@ function TickerStrip({
     speed?: number;
     direction?: 'left' | 'right';
 }) {
-    // Duplicate items to create a seamless infinite loop
     const doubled = [...items, ...items];
     const animationClass = direction === 'right' ? 'animate-ticker-right' : 'animate-ticker-left';
 
@@ -44,20 +43,18 @@ function TickerStrip({
             }}
         >
             <div
-                className={`flex gap-3 w-max ${animationClass}`}
+                className={`flex gap-2 w-max ${animationClass}`}
                 style={{ animationDuration: `${speed}s` }}
             >
                 {doubled.map((item, i) => (
                     <div
                         key={`${item.name}-${i}`}
                         className="
-                            flex items-center gap-3 px-5 py-3 rounded-full
-                            border border-border/40
-                            bg-background/80 backdrop-blur-sm
-                            transition-all duration-300 cursor-default select-none
-                            hover:border-border hover:bg-accent/50
-                            dark:bg-white/[0.04] dark:border-white/10
-                            dark:hover:bg-white/[0.08] dark:hover:border-white/20
+                            flex items-center gap-3 px-4 py-3 rounded-sm
+                            border border-border
+                            bg-card
+                            transition-colors duration-200 cursor-default select-none
+                            hover:border-primary
                             shrink-0
                         "
                     >
@@ -69,7 +66,7 @@ function TickerStrip({
                                 className="object-contain dark:brightness-[1.2] dark:contrast-[1.05]"
                             />
                         </div>
-                        <span className="text-sm font-medium text-foreground/70 whitespace-nowrap">
+                        <span className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground whitespace-nowrap">
                             {item.name}
                         </span>
                     </div>
@@ -81,56 +78,43 @@ function TickerStrip({
 
 export function Partners() {
     return (
-        <section className="relative border-b border-border/40 bg-secondary/10 overflow-hidden">
-            {/* Subtle background texture */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/20 to-transparent pointer-events-none" />
-
-            {/* Partners */}
-            <div className="py-16 border-b border-border/40 relative">
-                <div className="container mx-auto px-4 md:px-6 mb-10 max-w-6xl">
-                    <div className="flex flex-col items-center text-center">
-                        <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
-                            Trusted Partners
-                        </p>
-                        <h2 className="text-3xl font-serif font-medium tracking-tight text-foreground md:text-4xl">
+        <section className="relative border-b border-border bg-background overflow-hidden">
+            {/* Partners ticker */}
+            <div className="py-16 border-b border-border">
+                <div className="container mx-auto px-4 md:px-6 max-w-6xl mb-10">
+                    <div className="max-w-3xl">
+                        <p className="eyebrow mb-4">{'// '}Trusted Partners</p>
+                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-foreground">
                             Collaborating with leading organizations
                         </h2>
-                        <p className="text-muted-foreground mt-3 font-light max-w-[800px] md:text-lg">
+                        <p className="text-muted-foreground mt-3 font-light">
                             in confidential computing and secure AI.
                         </p>
                     </div>
                 </div>
 
-                <div className="container mx-auto px-4 md:px-6 max-w-6xl">
-                    <div className="flex flex-col gap-4">
-                        <TickerStrip items={partners} speed={40} direction="left" />
-                    </div>
-                </div>
+                <TickerStrip items={partners} speed={40} direction="left" />
             </div>
 
-            {/* Memberships — static centered since there are only 2 */}
-            <div className="py-16 relative">
+            {/* Memberships */}
+            <div className="py-16">
                 <div className="container mx-auto px-4 md:px-6 max-w-6xl">
-                    <div className="text-center mb-10">
-                        <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground mb-3">
-                            Memberships
-                        </p>
-                        <h2 className="text-3xl font-serif font-medium tracking-tight text-foreground">
-                            Proud members of key industry consortia
+                    <div className="max-w-3xl mb-10">
+                        <p className="eyebrow mb-4">{'// '}Memberships</p>
+                        <h2 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-foreground">
+                            Members of key industry consortia
                         </h2>
                     </div>
 
-                    <div className="flex flex-wrap justify-center items-center gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {memberships.map((member) => (
                             <div
                                 key={member.name}
                                 className="
-                                    flex items-center gap-4 px-6 py-4 rounded-full
-                                    border border-border/40 bg-background/80 backdrop-blur-sm
-                                    transition-all duration-300 cursor-default
-                                    hover:border-border hover:bg-accent/50
-                                    dark:bg-white/[0.04] dark:border-white/10
-                                    dark:hover:bg-white/[0.08] dark:hover:border-white/20
+                                    flex items-center gap-4 px-6 py-5 rounded-sm
+                                    border border-border bg-card
+                                    transition-colors duration-200
+                                    hover:border-primary
                                 "
                             >
                                 <div className="relative h-9 w-24 shrink-0">
@@ -141,7 +125,7 @@ export function Partners() {
                                         className="object-contain dark:brightness-[1.2] dark:contrast-[1.05]"
                                     />
                                 </div>
-                                <span className="text-sm font-medium text-foreground/70 whitespace-nowrap">
+                                <span className="font-mono text-xs uppercase tracking-[0.1em] text-muted-foreground">
                                     {member.name}
                                 </span>
                             </div>
