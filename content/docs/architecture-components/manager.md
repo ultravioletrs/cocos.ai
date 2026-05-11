@@ -6,6 +6,8 @@ title: Manager
 
 The Manager is a critical component of the Cocos system that runs on TEE-capable hosts (AMD SEV-SNP or Intel TDX) and serves as the orchestrator for Trusted Execution Environment (TEE) deployments. It acts as the bridge between the Computation Management service and the actual TEE instances, providing secure virtualized environments for confidential computing workloads.
 
+The Manager supports both the original RAM-only EOS boot path and the newer disk-backed HAL workflow. In disk mode, the Manager boots from an attached disk image instead of passing a kernel and initramfs directly to QEMU.
+
 ### Architecture Position
 
 The Manager sits between the Computation Management service and the TEE instances, exposing a gRPC-based API for control operations and maintaining TLS-encrypted connections with upstream services.
@@ -14,7 +16,7 @@ The Manager sits between the Computation Management service and the TEE instance
 
 ## Manager Responsibilities
 
-The Manager has two primary operational roles:
+The Manager has three primary operational roles:
 
 ### 1. TEE Deployment and Configuration
 
@@ -25,6 +27,8 @@ The Manager has two primary operational roles:
   - Runtime parameters
   - Environment variables
 - **Resource Allocation**: Manages CPU, memory, and storage resources for each TEE instance
+- **Boot Mode Selection**: Launches either the traditional in-memory EOS or a
+  disk-backed HAL flow, depending on the configured artifacts and disk settings
 
 ### 2. TEE Monitoring and Lifecycle Management
 
@@ -32,6 +36,19 @@ The Manager has two primary operational roles:
 - **Logging**: Provides remote logs and status updates for observability
 - **Lifecycle Management**: Handles TEE startup, runtime management, and shutdown procedures
 - **Attestation**: Performs vTPM-based attestation and IGVM validation for security assurance
+
+### 3. Disk-Backed VM Provisioning
+
+- **Per-VM Disk Creation**: When disk support is enabled, the Manager creates a
+  unique qcow2 disk for each CVM
+- **Disk Sizing**: Uses a reference qcow2 image to determine the runtime disk
+  size and adds extra capacity
+- **Device Attachment**: Attaches the disk to QEMU through a virtio-scsi
+  controller
+- **Boot Source Selection**: In disk mode, QEMU boots from the attached disk
+  instead of using `-kernel` and `-initrd`
+- **Runtime Cleanup**: Removes the per-VM disk and temporary firmware state
+  after the CVM stops
 
 ### Security Features
 
@@ -49,6 +66,22 @@ The Manager has two primary operational roles:
 - Ensures CVM initial state aligns with security expectations
 - Prevents unauthorized modifications and ensures secure boot
 
+#### Disk-Backed Boot Flow
+
+In the disk-backed workflow, the Manager participates in the boot chain as
+follows:
+
+1. A bootable disk image is prepared ahead of time with the HAL workflow under
+   `cocos/hal/disk`.
+2. When disk support is enabled, the Manager creates a runtime qcow2 disk from
+   a reference image and attaches it to the VM.
+3. QEMU boots from that attached disk through firmware rather than through
+   direct `-kernel` and `-initrd` arguments.
+4. The guest initramfs mounts the real root filesystem read-only, provisions the
+   encrypted `/cocos` partition, and switches into the installed system.
+5. When the VM is removed, the Manager cleans up the runtime disk it created for
+   that CVM.
+
 ## Prerequisites and Setup
 
 ### System Requirements
@@ -57,7 +90,7 @@ Before deploying the Manager, ensure the following components are installed:
 
 #### Required Software
 
-- **Go**: Version 1.24 or later ([Installation Guide](https://go.dev/doc/install))
+- **Go**: Version 1.26 or later ([Installation Guide](https://go.dev/doc/install))
 - **QEMU-KVM**: Virtualization platform for running CVMs
 - **Hardware**: AMD SEV-SNP or Intel TDX capable processor
 
@@ -85,10 +118,18 @@ wget https://github.com/ultravioletrs/cocos/releases/download/v0.6.0/bzImage -P 
 wget https://github.com/ultravioletrs/cocos/releases/download/v0.6.0/rootfs.cpio.gz -P cocos/cmd/manager/img
 ```
 
-Required files:
+Required files for direct kernel boot:
 
 - `rootfs.cpio.gz`: Initial RAM filesystem (initramfs) for the CVM
 - `bzImage`: Linux kernel image
+
+The runtime image comes from the HAL workflow under `cocos/hal/disk`, and QEMU boots from that disk artifact through firmware.
+
+Optional disk-mode artifact:
+
+- `uvc_os.qcow2`: reference qcow2 image used per-CVM runtime disk
+  when disk support is enabled
+- `uvc_os.qcow2` image can be any image as long as the kernel supports AMD SEV-SNP and Intel TDX. Using the Cocos Buildroot disk image, the user gets an encrypted working directory and support for vTPM on SEV-SNP and TDX.
 
 ### OVMF Configuration
 
@@ -222,10 +263,20 @@ The Manager's behavior is controlled through environment variables. Below is a c
 
 #### Disk and Storage Configuration
 
-| Variable                            | Description                     | Default Value      |
-|------------------------------------ |---------------------------------|--------------------|
-| `MANAGER_QEMU_DISK_IMG_KERNEL_FILE` | Kernel image file path          | img/bzImage        |
-| `MANAGER_QEMU_DISK_IMG_ROOTFS_FILE` | Root filesystem image file path | img/rootfs.cpio.gz |
+| Variable                            | Description                                                                                                         | Default Value      |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------|
+| `MANAGER_QEMU_DISK_IMG_KERNEL_FILE` | Kernel image file path used for direct kernel boot                                                                  | img/bzImage        |
+| `MANAGER_QEMU_DISK_IMG_ROOTFS_FILE` | Initramfs image file path used for direct kernel boot                                                               | img/rootfs.cpio.gz |
+| `MANAGER_QEMU_KERNEL_CMDLINE`       | Kernel command line used for direct kernel boot                                                                     | quiet console=null |
+| `MANAGER_QEMU_ENABLE_DISK`          | Enable disk boot and attach a per-VM qcow2 disk                                                                     | false              |
+| `MANAGER_QEMU_SRC_DISK_FILE`        | Reference qcow2 image whose virtual size is used when sizing the runtime disk                                       | img/uvc_os.qcow2   |
+| `MANAGER_QEMU_DST_DISK_FILE`        | Runtime path for the per-VM disk image                                                                              | (empty)            |
+| `MANAGER_QEMU_DISK_ID`              | QEMU drive identifier for the attached disk                                                                         | disk0              |
+| `MANAGER_QEMU_DISK_FORMAT`          | Disk image format for the runtime disk                                                                              | qcow2              |
+| `MANAGER_QEMU_DISK_SCSI_ID`         | virtio-scsi controller identifier used for the attached disk                                                        | scsi0              |
+
+`MANAGER_QEMU_DST_DISK_FILE` is usually left unset. The Manager fills it with a
+unique `/tmp/cvmDisk-<uuid>.qcow2` path at runtime.
 
 #### File System Mounts
 
@@ -312,6 +363,16 @@ export MANAGER_GRPC_CLIENT_KEY=/path/to/client.key
 export MANAGER_GRPC_SERVER_CA_CERTS=/path/to/ca.crt
 ```
 
+#### Disk-Backed Setup
+
+```bash
+export MANAGER_GRPC_HOST=<HOST_IP>
+export MANAGER_GRPC_PORT=7001
+export MANAGER_LOG_LEVEL=info
+export MANAGER_QEMU_ENABLE_DISK=true
+export MANAGER_QEMU_SRC_DISK_FILE=/path/to/uvc_os.qcow2
+```
+
 ## QEMU Configuration and Management
 
 The Manager dynamically constructs QEMU command-line arguments based on environment variables and host capabilities.
@@ -332,9 +393,17 @@ The Manager dynamically constructs QEMU command-line arguments based on environm
 
 #### Storage and Boot
 
-- **Kernel Loading**: Direct kernel loading with bzImage
-- **InitRD**: Root filesystem loading via initramfs
+- **Kernel Loading**: Direct kernel loading with bzImage when disk mode is
+  disabled
+- **InitRD**: Root filesystem loading via initramfs when disk mode is disabled
 - **OVMF Integration**: UEFI firmware support for secure boot
+- **Optional Disk Boot**: Can attach a per-VM qcow2 disk through virtio-scsi
+  and boot from it
+- **Disk-Backed Early Boot**: In disk mode, the guest initramfs mounts the real
+  root filesystem read-only, provisions encrypted `/cocos`, and then continues
+  into the installed system
+- **Runtime-Specific Sizing**: The Manager sizes each runtime disk from a
+  reference image and adds extra space
 
 #### Networking
 
@@ -351,6 +420,10 @@ The Manager dynamically constructs QEMU command-line arguments based on environm
 ### File System Mounts (9P)
 
 The Manager uses Plan 9 Filesystem (9P) to securely transfer data between host and CVM:
+
+9P is used for configuration handoff such as certificates and environment
+files. It is separate from the disk-backed storage path, where the runtime disk
+is attached as a block device instead of being shared through 9P.
 
 #### Certificate Sharing
 
@@ -468,6 +541,36 @@ MANAGER_QEMU_OVMF_FILE=/path/to/tdx/OVMF.fd \
 ./build/cocos-manager
 ```
 
+#### Disk-Backed Deployment
+
+```bash
+MANAGER_GRPC_HOST=localhost \
+MANAGER_GRPC_PORT=7002 \
+MANAGER_LOG_LEVEL=debug \
+MANAGER_QEMU_ENABLE_DISK=true \
+MANAGER_QEMU_SRC_DISK_FILE=/path/to/uvc_os.qcow2 \
+./build/cocos-manager
+```
+
+This disk-backed example can be combined with either SEV-SNP or TDX settings.
+The Manager is responsible for provisioning the runtime disk, while the guest
+boot chain handles EFI boot, early initramfs setup, and `/cocos` provisioning.
+
+For example:
+
+```bash
+MANAGER_GRPC_HOST=localhost \
+MANAGER_GRPC_PORT=7002 \
+MANAGER_LOG_LEVEL=debug \
+MANAGER_QEMU_ENABLE_DISK=true \
+MANAGER_QEMU_SRC_DISK_FILE=/path/to/uvc_os.qcow2 \
+MANAGER_QEMU_ENABLE_SEV_SNP=true \
+MANAGER_QEMU_SEV_SNP_CBITPOS=51 \
+MANAGER_QEMU_BIN_PATH=/usr/bin/qemu-system-x86_64 \
+MANAGER_QEMU_IGVM_FILE=/path/to/igvm/file.igvm \
+./build/cocos-manager
+```
+
 #### SystemD Service Deployment
 
 ```bash
@@ -569,11 +672,18 @@ export MANAGER_QEMU_MEMORY_SLOTS=8
 
 #### Storage Configuration
 
-Ensure HAL components are accessible
+For direct kernel boot:
 
 ```bash
 export MANAGER_QEMU_DISK_IMG_KERNEL_FILE=img/bzImage
 export MANAGER_QEMU_DISK_IMG_ROOTFS_FILE=img/rootfs.cpio.gz
+```
+
+For disk-backed boot:
+
+```bash
+export MANAGER_QEMU_ENABLE_DISK=true
+export MANAGER_QEMU_SRC_DISK_FILE=img/uvc_os.qcow2
 ```
 
 ### Network Management
