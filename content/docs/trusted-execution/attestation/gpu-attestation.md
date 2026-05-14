@@ -48,6 +48,7 @@ GPU evidence is collected for these root platform types:
 - `SNP-vTPM`
 - `TDX`
 - `Azure`
+- `GCP`
 
 GPU evidence is not collected for vTPM-only or non-confidential sample platforms.
 
