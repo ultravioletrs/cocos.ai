@@ -2,7 +2,7 @@
 title: GPU attestation
 ---
 
-# Introduction 
+# Introduction
 
 COCOS AI can attach NVIDIA GPU attestation evidence to the attestation token returned by the `attestation-service`. This allows a relying party to verify that a confidential workload is not only running in an attested CPU TEE, but is also using a supported NVIDIA GPU whose firmware, driver, and security state satisfy policy.
 
@@ -61,14 +61,18 @@ GPU evidence is stored as a COCOS EAT extension and as an EAT submodule:
     "vendor": "nvidia",
     "evidence_format": "nvat-json",
     "nonce": "<binary GPU nonce>",
-    "evidence_json": "<NVIDIA evidence JSON>"
+    "evidence_json": {
+      "<NVIDIA evidence JSON object>"
+    }
   },
   "submods": {
     "gpu": {
       "vendor": "nvidia",
       "evidence_format": "nvat-json",
       "nonce": "<binary GPU nonce>",
-      "evidence_json": "<NVIDIA evidence JSON>"
+      "evidence_json": {
+        "<NVIDIA evidence JSON object>"
+      }
     }
   }
 }
@@ -149,7 +153,7 @@ Optionally match GPU identity against CoRIM reference values
 
 COCOS performs two nonce checks before accepting GPU evidence:
 
-- The EAT `x-cocos-gpu.nonce` must equal `SHA-256(eat_nonce || ":gpu")`.
+- The EAT `x-cocos-gpu.nonce` must equal `SHA-256(session_nonce || ":gpu")`.
 - The inner NVIDIA evidence JSON nonce must match the same derived nonce in hex.
 
 These checks prevent replaying a stale GPU evidence blob into a fresh root attestation token.
