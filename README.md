@@ -1,3 +1,6 @@
+# ⚠️ ARCHIVED / MOVED ⚠️ 
+ All the content from this repo has been moved to the company website.
+ 
 # CoCos.ai
 
 A comprehensive product documentation and information site for CoCos (Confidential Computing).
