@@ -1,12 +1,12 @@
 import { Check } from 'lucide-react';
 
 const attestationLines = [
-    { label: '$ cocos attest verify', tone: 'cmd' as const },
-    { label: 'fetching measurement...', tone: 'muted' as const },
-    { label: 'TEE: AMD SEV-SNP', tone: 'ok' as const },
-    { label: 'image hash: 0x9f4a...e8b1', tone: 'ok' as const },
-    { label: 'chain of trust: verified', tone: 'ok' as const },
-    { label: 'launching workload...', tone: 'accent' as const },
+    { label: '$ ./build/cocos-cli create-vm --server-url $HOST:7001', tone: 'cmd' as const },
+    { label: 'Creating a new virtual machine', tone: 'muted' as const },
+    { label: 'Virtual machine created successfully', tone: 'ok' as const },
+    { label: 'id e71cdcf5... · port 6100', tone: 'muted' as const },
+    { label: '$ ./build/cocos-cli attestation get snp-vtpm', tone: 'cmd' as const },
+    { label: 'Attestation retrieved and saved successfully', tone: 'accent' as const },
 ];
 
 export function HeroVisual() {

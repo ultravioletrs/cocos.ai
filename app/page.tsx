@@ -40,17 +40,17 @@ const howItWorks = [
 ];
 
 const traditionalDrawbacks = [
-    'Plaintext data exposed to the cloud provider',
-    'Implicit trust in the hypervisor and host OS',
-    'No cryptographic proof of execution integrity',
-    'Compliance burden falls on the data owner',
+    'Data decrypted in memory during compute — readable by the host',
+    'Implicit trust in the hypervisor, host OS, and cloud operator',
+    'No cryptographic proof that the expected code ran on real hardware',
+    'Algorithm and inputs share a trust domain with the operator',
 ];
 
 const cocosBenefits = [
-    'Hardware-isolated TEEs (AMD SEV-SNP, Intel TDX)',
-    'Cryptographic remote attestation, end-to-end',
-    'Encrypted in-use data — invisible to the host',
-    'Open-source. Apache 2.0. Self-hostable.',
+    'Data stays encrypted in-use; CPU-enforced isolation via SEV-SNP / TDX',
+    'Hardware root of trust — host OS and hypervisor see only ciphertext',
+    'Remote attestation: vTPM + SEV-SNP / TDX reports against IGVM measurements',
+    'Algorithm + data delivered into the enclave over aTLS-protected gRPC',
 ];
 
 const features = [
@@ -103,10 +103,16 @@ export default function Home() {
                                 </div>
 
                                 {/* terminal snippet */}
-                                <div className="terminal max-w-md mt-4 hidden md:block">
-                                    <span className="text-muted-foreground">$</span>{' '}
-                                    <span className="text-foreground">go install</span>{' '}
-                                    <span className="text-primary">github.com/ultravioletrs/cocos@latest</span>
+                                <div className="terminal max-w-md mt-4 hidden md:block space-y-1">
+                                    <div>
+                                        <span className="text-muted-foreground">$</span>{' '}
+                                        <span className="text-foreground">git clone</span>{' '}
+                                        <span className="text-primary">github.com/ultravioletrs/cocos</span>
+                                    </div>
+                                    <div>
+                                        <span className="text-muted-foreground">$</span>{' '}
+                                        <span className="text-foreground">cd cocos && make</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -167,10 +173,10 @@ export default function Home() {
                         <div className="max-w-3xl mb-12">
                             <p className="eyebrow mb-4">{'// '}Why Cocos</p>
                             <h2 className="text-3xl md:text-5xl font-display font-medium tracking-tight text-foreground">
-                                For decades, AI on sensitive data forced a compromise
+                                AI on sensitive data has always required trusting someone
                             </h2>
                             <p className="mt-4 text-muted-foreground md:text-lg font-light leading-relaxed">
-                                Either you trust the cloud — or you build everything from scratch. Cocos AI removes that tradeoff.
+                                The cloud provider, the model owner, or a counterparty in a joint computation. Cocos AI removes the trust requirement with hardware-enforced enclaves and remote attestation.
                             </p>
                         </div>
 

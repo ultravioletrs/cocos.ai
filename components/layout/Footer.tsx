@@ -60,16 +60,16 @@ export function Footer() {
                         <p className="text-muted-foreground mb-4">
                             Releases, attestation research, and confidential computing news.
                         </p>
-                        <form className="flex flex-col sm:flex-row gap-2" onSubmit={(e) => e.preventDefault()}>
+                        <form className="flex flex-col gap-2 w-full" onSubmit={(e) => e.preventDefault()}>
                             <input
                                 type="email"
                                 placeholder="you@domain.com"
-                                className="bg-background border border-border rounded-sm px-3 py-2 flex-1 font-mono text-xs focus:outline-none focus:ring-1 focus:ring-primary text-foreground"
+                                className="w-full min-w-0 bg-background border border-border rounded-sm px-3 py-2 font-mono text-xs focus:outline-none focus:ring-1 focus:ring-primary text-foreground"
                                 required
                             />
                             <button
                                 type="submit"
-                                className="bg-primary text-primary-foreground rounded-sm px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.15em] hover:opacity-90 transition-opacity whitespace-nowrap"
+                                className="w-full sm:w-fit bg-primary text-primary-foreground rounded-sm px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.15em] hover:opacity-90 transition-opacity whitespace-nowrap"
                             >
                                 Subscribe
                             </button>
